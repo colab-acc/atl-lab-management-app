@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ATL Lab Management</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script type="text/javascript">
+      function select(img) {
+        if (img.id == "admin_im"){
+            document.getElementById("admin_im").style.borderColor = "#b299e6";
+            document.getElementById("admin_im").style.borderRadius = "15px";
+            document.getElementById("adm").style.display = "block";
+            document.getElementById("student_im").style.borderColor = "#d8bfd8";
+            document.getElementById("student_im").style.borderRadius = "0px";
+            document.getElementById("stu").style.display = "none"
+        } else{
+            document.getElementById("student_im").style.borderColor = "#b299e6";
+            document.getElementById("student_im").style.borderRadius = "15px";
+            document.getElementById("stu").style.display = "block";
+            document.getElementById("admin_im").style.borderColor = "#d8bfd8";
+            document.getElementById("admin_im").style.borderRadius = "0px";
+            document.getElementById("adm").style.display = "none";
+        }
+
+}
+
+</script>
+<style>
+
+*{
+  margin-top: 4px;
+  margin-left: 3px;
+  margin-right: 3px;
+  /* border: 3px solid yellow; */
+
+}
+ body {
+  background: #648880;
+  background-image: linear-gradient(to right, skyblue ,royalblue ,skyblue);
+}
+
+  .Centre_box{
+    background: #ffefd5;
+    position: fixed;
+    height: 70%;
+    width: 65%;
+    margin-left: 17%;
+    margin-top: 1.5%;
+    box-shadow: 0 10px 20px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 10px;
+  }
+
+  .image{
+    margin-left: 7%;
+    margin-top: 7%;
+    padding-right: 1px;
+    width: 80%;
+    height: 80%;
+
+    /* cursor:pointer; */
+   }
+
+   .imbox{
+     width: 40%;
+     height: 40%;
+     align-items: center;
+     /* border: 3px solid #d8bfd8; */
+     border-radius: 6px;
+     cursor: pointer;
+   }
+
+  .im2{
+    padding: 7px;
+    height: 85%;
+    width: 85%;
+    border: 3px solid #d8bfd8;
+
+  }
+
+  /* .imbox:hover .im2{
+    /* background-color: rgba(0, 0, 0, 0.05); */
+    /* width: 87%;
+    border-radius: 8px; */
+  /* } */
+
+  .cont{
+    margin-top: 2.5%;
+    width: 46%;
+    height: 90%;
+    border-right: 3px solid white;
+    align-items: center;
+    float: left;
+  }
+  .cont2{
+    width: 50%;
+    height: 90%;
+    padding: 5px;
+    float: right;
+
+  }
+  .button {
+    position: absolute;
+    top: 85%;
+    left: 77%;
+    border-radius: 15px 2px 15px 2px;
+    background-image: linear-gradient(to right, skyblue ,royalblue, indigo);
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 18px;
+    padding: 8px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    width: 20%;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+  }
+
+  .button span {
+    cursor: pointer;
+    position: relative;
+    transition: 0.5s;
+  }
+
+  .button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+  }
+
+  .button:hover span {
+    padding-right: 25px;
+  }
+
+  .button:hover span:after {
+    opacity: 1;
+    right: 0;
+  }
+}
+</style>
+
+</head>
+
+<body>
+
+  <div style="padding: 5px; background-color: rgba(0, 0, 0, 0.5); border: 1px solid #b0b0b0; border-radius: 7px; margin-bottom: 2%">
+    <h1 style="margin-bottom: 5px; text-align:center; font-family: times, serif; font-size: 40px;  color: #e8e8e8"><b>Atal Tinkering Lab, AFSH</b></h1>
+  </div>
+  <div class = "Centre_box">
+      <!-- <img src="escort.jpg" alt="Welcome Back!" class="esc_image"> -->
+      <div class = "cont">
+        <img src="identify.png" alt="idetify yourself!" class="image">
+        <br><br><br><br><br><br><br><br><br><br>
+      </div>
+      <div class = "cont2">
+        <h1 style="text-align:center; font-family:  verdana; font-size: 22px; margin-top: 20px; color:#696969;"><u>Choose Login Type</u></h1>
+        <br><br>
+        <h5 style="font-size: 14px ; text-align: left; margin-top: 10px; font-family: verdana, arial; color:#696969;">Help us navigate you to the right page by identifying yourself.</h5>
+        <div style="margin-left: 15%; margin-right: 15%; text-align:center; ">
+            <div class="imbox" style="float: left">
+              <img src="student.png" id="student_im" alt="student"  class="im2" onclick="select(this)" role="button" tabIndex="0">
+              <i class='fa fa-check-circle' id="stu" style='font-size:30px;color:#b299e6;position:absolute;top:64%;left:68%; display:none'></i>
+              <h4 style="color: #483d8b" style="float: left;"><b>Student</b></h4>
+            </div>
+            <div class="imbox" style="float: right">
+              <img src="admin.png" id="admin_im" alt="administrator" class="im2" onclick="select(this)" role="button" tabIndex="0">
+              <i class='fa fa-check-circle' id="adm" style='font-size:30px;color:#b299e6;position:absolute;top:64%;left:88.3%; display:none'></i>
+              <h4 style="color: #483d8b" style="float: right;"><b>Admin</b></h4>
+            </div>
+        <button class="button"><span style="font-family: monospace"><b> Continue </b></span></button>
+
+        </div>
+        <br><br><br><br><br><br><br><br><br><br>
+      </div>
+    </div>
+
+
+
+</body>
+</html>
