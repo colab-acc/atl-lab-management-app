@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+	<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<title>ATL AFSH</title>
+	<script>
+      window.onload = function(){
+      var check = document.getElementById('avail');
+       for (let i = 0; i < check.rows.length; i++) {
+         if (check.rows[i].cells[2].innerHTML > 0){
+          check.rows[i].cells[2].innerHTML = "<i class='fa fa-check' style='background:transparent; box-shadow:none; color:green; font-size:25px; text-shadow: 2px 2px 4px #000000;'></i>";
+         }else{
+           check.rows[i].cells[2].innerHTML = "<i class='fa fa-close' style='background:transparent; box-shadow:none; color:red; font-size:25px; text-shadow: 2px 2px 4px #000000;'></i>";
+         }
+       }
+  }
+  </script>
+
+<style>
+	body{
+		background: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url("https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/rm222-mind-22_1_2.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=3d5d85909cafb6e0f0de9905cf40ec01");
+		
+		background-size: cover;
+  		align-items: center;
+  		overflow: hidden;
+
+	}	
+	.tooltiptext {
+		  visibility: hidden;
+		  width: 80px;
+		  background-color: rgba(0, 0, 0, 0.5);
+		  color: #f2f2f2;
+		  text-align: center;
+		  border-radius: 6px;
+		  padding: 5px 0;
+		  position: absolute;
+		  z-index: 10;
+		  top: 16%;
+		  left: 18%;
+		  margin-left: -60px;
+		}
+
+		.tooltiptext::after {
+		  content: "";
+		  position: absolute;
+		  bottom: 100%;
+		  right: 40%;
+		  margin-left: 20px;
+		  border-width: 5px;
+		  border-style: solid;
+		  border-color: transparent transparent black transparent;
+		}
+
+		#home:hover .tooltiptext {
+		  visibility: visible;
+		}
+		#myInput{
+		  border: 2px solid transparent;
+		  outline: none;
+		  width:  84.5%;
+		  border-radius: 12px 12px 12px 12px;
+		  background: rgba(255, 255, 255, 0.5);
+		  /*background: #ffe6e6;*/
+		  box-sizing: border-box;
+		  background-position: 14px 12px;
+		  background-repeat: no-repeat;
+		  font-size: 16px;
+		  padding: 8px 20px 8px 45px;
+		}
+
+		#myInput:focus{
+		    border: 2px solid #8080ff;
+		  }
+
+		 #table tr td{
+		 	/*border-top: 2px solid #f2f2f2;*/
+		 	text-align: center;
+		 	padding: 7px;
+		 	font-family: consolas;
+		 	background-color: rgba(255, 255, 255, 0.7);
+
+		 }
+
+		 #table tr th{
+		 	padding: 10px;
+		 	font-size: 18px;
+		 	font-family: consolas;
+		 	background-color: rgba(255, 255, 255, 0.7);
+		 }
+
+		 /*#table tr:nth-child(even) {background-color: #cce6ff;}*/
+		 /*#table tr:nth-child(even) {background-color: rgba(255, 255, 255, 0.7);}*/
+
+		 #table i{
+		 	padding: 5px 7px;
+		 	border-radius: 4px 4px 4px 4px;
+		 	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+		 	/*box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;*/
+		 	font-size: 18px;
+		 	background: #8080ff;
+		 	color: white;
+		 	cursor: pointer;
+		 }
+
+		 #table i small{
+		 	font-family: consolas;
+		 	font-weight: bolder;
+		 }
+
+		.menu2{
+			background: rgba(255, 255, 255, 0.2);
+		}
+
+		#imclass{
+			 /*background: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url("https://www.usmicroscrew.com/wp-content/uploads/tinyscrews.jpg");*/
+			 /*background-size: contain;*/
+  			 /*background-position: center;*/
+  			 /*background-repeat: no-repeat;*/
+		}
+
+		.form-container2 {
+			  height: 60vh;
+			  max-width: 750px;
+			  padding: 30px;
+			  background: rgba(255, 255, 255, 0.8);
+			  transform: translate(13%, 8%);
+
+		}
+		p{
+			margin-left: 40px;
+		}
+
+
+		.button {
+		    position: absolute;
+		    left: 600px;
+		    top: 320px;
+		    margin-top: 40px;
+		    border-radius: 5px 5px 5px 5px;
+		    background-color: #8080ff;
+		    box-shadow: 0 5px 5px 0 #4d4dff;
+		    border: none;
+		    color: #FFFFFF;
+		    text-align: center;
+		    font-size: 18px;
+		    font-family: times new roman;
+		    padding-top: 10px;
+		    padding-bottom: 10px;
+		    width: 20%;
+		    min-width: 140px;
+		    transition: all 0.5s;
+		    cursor: pointer;
+		    border: 2px solid rgba(0, 0, 0, 0.1);
+		  }
+
+		.button2{
+		    position: absolute;
+		    left: 550px;
+		    top: 330px;
+		    margin-top: 40px;
+		    border-radius: 5px 5px 5px 5px;
+		    background-color: #8080ff;
+		    box-shadow: 0 5px 5px 0 #4d4dff;
+		    border: none;
+		    color: #FFFFFF;
+		    text-align: center;
+		    font-size: 18px;
+		    font-family: times new roman;
+		    padding-top: 10px;
+		    padding-bottom: 10px;
+		    width: 15%;
+		    min-width: 100px;
+		    transition: all 0.5s;
+		    cursor: pointer;
+		    border: 2px solid rgba(0, 0, 0, 0.1);
+		  }
+
+		  /* Add styles to the form container */
+		.form-container {
+		  	height: 60vh;
+			max-width: 750px;
+		    padding: 30px;
+	   	    background: rgba(255, 255, 255, 0.8);
+		    transform: translate(13%, 8%);
+
+		}
+
+		.form-container label{
+		    font-family: arial;
+		    padding-right: 10px;
+		}
+
+		/* Full-width input fields */
+		.form-container input[type=text], .form-container input[type=date], .form-container input[type=time]{
+		  font-family: consolas;
+		  padding: 6px;
+		  margin: 5px 0px 10px 0;
+		  border: none;
+		  background: #f1f1f1;
+		}
+
+		/* When the inputs get focus, do something */
+		.form-container input[type=text]:focus, {
+		  background-color: #ddd;
+		  outline: none;
+		}
+
+		.form-container input[readonly=readonly]{
+			background: transparent;
+		}
+
+		.form-container input[readonly=readonly]:focus{
+			outline: none;
+		}
+
+
+</style>
+</head>
+<body>
+	<div style="width: 860px; margin-left: 21%; padding: 0px; background-color: rgba(255, 255, 255, 0.6); box-shadow: 0 10px 20px 0px rgba(0,0,0,0.4); border-radius: 7px; margin-bottom: 0.4%; margin-top: 1.5%; ">
+		<a id="home" href="{{url_for('home_page')}}" style="text-decoration: none; color: #f2f2f2; text-shadow: 2px 2px 4px #000000;"><i class="fa fa-home" style="position: absolute; left: 190px; font-size: 35px; padding: 16px; background: rgba(255, 255, 255, 0.6); box-shadow: 0 10px 20px 0px rgba(0,0,0,0.4); border-radius: 7px; cursor: pointer;"></i><span class="tooltiptext">Home</span></a>
+        <h1 style="margin-bottom: 5px; text-align:center; font-family: times, serif; font-size: 40px; padding-top: 10px; padding-bottom: 10px; color: #f2f2f2; text-shadow: 2px 2px 4px #000000;"><b>Equipments</b></h1>
+    </div>
+    <div style="position: absolute; top: 16.5%; left: 12%;border: 1;height: 80%; width: 78%; background: red; display: none; background: rgba(0, 0, 0, 0.7); box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px; z-index: 10000000000000;" id="division">
+    <div id="myForm" class="form-container2" style="text-align:center;">
+    	<h2 id="vname" style="font-family: Trebuchet MS; margin-top: -10px;"></h2>
+        <div style="display: inline-block; transform: translate(-80%, 18%);">
+        	<div  style="width: 240px;height: 240px;">
+        		<img id="imclass" src="https://askleo.askleomedia.com/wp-content/uploads/2004/06/no_image-300x245.jpg" alt="image unavaialable" width=100% style="border: 2px solid black">
+        	</div>
+        </div>
+        <div style="display: inline-block; transform: translate(-35%, 10%) ;text-align: left; position: fixed; width: 65vh; font-family: Trebuchet MS;">
+        	<h3><i class="far fa-hand-point-right" style="margin-right: 15px;"></i>Specifications:-</h3>
+        	<p id="vspecification"></p>
+        	<h3><i class="far fa-hand-point-right" style="margin-right: 15px;"></i>Availability:</h3>
+        	<p id="vavailability"></p>
+        	<h3><i class="far fa-hand-point-right" style="margin-right: 15px;"></i>More:-</h3>
+        	<p id="vmore"></p>
+        </div>
+        <button style="font-size: 18px; font-family: consolas;" class="button2" onclick="closeForm()">Okay</button>
+    </div>
+
+    </div>
+    <div style="position: absolute; top: 16.5%; left: 12%;border: 1;height: 80%; width: 78%; background: red; display: none; background: rgba(0, 0, 0, 0.7); box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px; z-index: 10000000000000;" id="division2">
+    <div class="form-popup" id="myForm2">
+        <form action="{{url_for('place_request')}}" method="POST" class="form-container" id="theform">
+            <h2 style="text-align:center; margin-top: 10px; color:#2E2E2E; font-family: times new roman; font-size: 24px"><u>Request item</u></h2>
+            <h4 style="text-align:left; margin-top: 5px; color:#2E2E2E; font-family: times new roman; font-size: 20px; font-family: helvetica">Place a request for the item</h4>
+
+            <label for="item_code"><b>Item Code:</b></label>
+            <input type="text" value='' name="item_code" required style="width: 77%; margin-left: 30px;" readonly="readonly">
+
+            <!-- <label for="date" style="display: inline-block;"><b>Date:</b></label>
+            <label for="start" style="margin-left: 55px;">Start:</label>
+            <input type="date" value='' name="startd" required style="width: 25%;"> -->
+
+            <label for="item_name"><b>Item Name:</b></label>
+            <input type="text" value='' name="item_name" required style="width: 76.5%; margin-left: 27px;" readonly="readonly">
+
+            <label for="email_id"><b>Email Id:</b></label>
+            <input type="text" placeholder='Enter the school email_id here' name="email_id" required style="width: 78%; margin-left: 50px;">
+
+            <label for="today_date"><b>Request Date:</b></label>
+            <input type="date" value='' name="today_date" style="width: 81.5%;" readonly="readonly">
+
+    
+            <input type="submit" class="button" value="Place Request" style="font-size: 18px; font-family: consolas">
+            <i type="button" class="fa fa-close" onclick="closeForm()" style="position: relative; top: -320px; left: 820px; border-radius: 24px; cursor: pointer; background: rgba(0, 0, 0, 0.5); color: #f2f2f2; padding: 10px 12px;"></i>
+        </form>
+    </div>
+    
+    </div>
+
+
+    <div style="position: relative; margin-top: 20px; margin-left: 14%;"><i class="fa fa-search" style="position: absolute; left:15px; top:10px;"></i><input type="text" placeholder="Search.." id="myInput" onkeyup="filterList()" ></div>
+    <div style="height: 72vh; overflow-y: auto; /*background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));*/ margin-top: 15px;overscroll-behavior: contain; margin-left: 14%; margin-right: 13%;">
+		<table  width="99%" style="margin-top: 0px; /*border-collapse: collapse;*/ border-radius: 12px 12px 12px 12px;" id="table">
+			<thead>
+				<tr style="border-radius: 12px 12px 0px 0px; background: transparent;">
+					<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">S.No</th>
+					<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Item</th>
+					<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Availability</th>
+					<th style="width: 80px; background: transparent;"></th>
+					<th style="width: 90px; background: transparent;"></th>
+				</tr>
+			</thead>
+			<tbody id="avail">
+				{% for row in data %} 
+					<td>{{loop.index}}</td>
+					<td style="text-align: left;">{{row[1] |capitalize}}</td>
+					<td>{{row[2] |capitalize}}</td>
+					<td style="background: transparent; border-top: 2px solid transparent;"><button style='padding: 0; border: none; background: transparent;' onclick="openForm('{{row[1] | upper}}','{{row[2]}}','{{row[4]}}','{{row[5]}}','{{row[6]}}')"><i class="fa fa-eye"><small> View</small></i></button></td>
+					{% if row[2] != 0 %}
+					<td style="background: transparent; border-top: 2px solid transparent; "><button style="background: transparent; border: transparent; font-family: consolas; font-size: 15px; color: white; font-weight: bolder; padding:0px; cursor: pointer;" onclick="openForm2('{{row[0]}}','{{row[1]|upper}}')"><i class="fa fa-envelope"> Request</i></button>
+          				</td>
+          			{% endif %}
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<script>
+
+document.getElementById('myInput').addEventListener('keyup', filterList);
+function filterList() {
+    var srch = document.getElementById('myInput');
+    var val = srch.value.toLowerCase();
+    var valArr = val.split(' ');
+    var tbl = document.getElementById('table');
+    var tblLength = tbl.rows.length;
+    if (tblLength != 0) {
+        for (var i = 1; i < tblLength; i++) {
+            tbl.rows[i].style.display = 'table-row';
+            for (var j = 0; j < valArr.length; j++) {
+                if (tbl.rows[i].textContent.toLowerCase().indexOf(valArr[j]) === -1) {
+                    tbl.rows[i].style.display = 'none';
+                }
+            }
+        }
+    }
+}
+
+function openForm(arg1, arg2, arg3, arg4, arg5) {
+      document.getElementById("myForm").style.display = "block";
+      document.getElementById("division").style.display = "block";
+      document.getElementById('vname').innerHTML = arg1;
+      document.getElementById('vspecification').innerHTML = arg4;
+      document.getElementById('vmore').innerHTML = arg5;
+      document.getElementById('vavailability').innerHTML = arg2;
+      document.getElementById('imclass').src = arg3;
+
+    }
+
+    function openForm2(arg1, arg2) {
+        document.getElementById("myForm2").style.display = "block";
+        document.getElementById("division2").style.display = "block";
+        document.getElementById("theform").elements['item_code'].value = arg1;
+        document.getElementById("theform").elements['item_name'].value = arg2;
+        var today = new Date();
+		var dd = String(today.getDate()).padStart(2, '0');
+		var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+		var yyyy = today.getFullYear();
+		today = yyyy + '-' + mm + '-' + dd;
+		document.getElementById("theform").elements['today_date'].value = today;
+
+
+	}
+
+    function closeForm() {
+      document.getElementById("myForm").style.display = "none";
+      document.getElementById("division").style.display = "none";
+      document.getElementById("myForm2").style.display = "none";
+      document.getElementById("division2").style.display = "none";
+     }
+
+</script>
+</body>
+</html>
