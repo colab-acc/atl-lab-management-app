@@ -440,10 +440,10 @@ def update_req(id, email, sr):
         message = ''
         try:
             msg = EmailMessage()
-            msg.set_content("The body of the email is here")
-            msg["Subject"] = "An Email Alert"
+            msg.set_content(f'Hey!\nYour Request for item: "{item_name}" has been approved by incharge: "{issuer_name}"\nYou are informed to collect the item anytime between {startt}hrs and {endt}hrs, during school days.\nVenue: "{loc}"\nAdditional Comments by the incharge-\n{additional}')
+            msg["Subject"] = "ATL Request Update"
             msg["From"] = "testmailflaskapp@gmail.com"
-            msg["To"] = "raianurag552@gmail.com"
+            msg["To"] = email_id
 
             context = ssl.create_default_context()
 
@@ -485,52 +485,52 @@ def place_request():
     return redirect(url_for('equipments'))
 
 
-@app.route('/download/report/pdf')
-def download_report():
-    conn = None
-    cursor = None
-    try:
-        conn = mysql.connect()
-        cursor = conn.cursor(pymysql.cursors.DictCursor)
-
-        cursor.execute("SELECT emp_id, emp_first_name, emp_last_name, emp_designation FROM employee")
-        result = cursor.fetchall()
-
-        pdf = FPDF()
-        pdf.add_page()
-
-        page_width = pdf.w - 2 * pdf.l_margin
-
-        pdf.set_font('Times', 'B', 14.0)
-        pdf.cell(page_width, 0.0, 'Employee Data', align='C')
-        pdf.ln(10)
-
-        pdf.set_font('Courier', '', 12)
-
-        col_width = page_width / 4
-
-        pdf.ln(1)
-
-        th = pdf.font_size
-
-        for row in result:
-            pdf.cell(col_width, th, str(row['emp_id']), border=1)
-            pdf.cell(col_width, th, row['emp_first_name'], border=1)
-            pdf.cell(col_width, th, row['emp_last_name'], border=1)
-            pdf.cell(col_width, th, row['emp_designation'], border=1)
-            pdf.ln(th)
-
-        pdf.ln(10)
-
-        pdf.set_font('Times', '', 10.0)
-        pdf.cell(page_width, 0.0, '- end of report -', align='C')
-
-        return Response(pdf.output(dest='S').encode('latin-1'), mimetype='application/pdf',
-                        headers={'Content-Disposition': 'attachment;filename=employee_report.pdf'})
-    except Exception as e:
-        print(e)
-    finally:
-        cursor.close()
+# @app.route('/download/report/pdf')
+# def download_report():
+#     conn = None
+#     cursor = None
+#     try:
+#         conn = mysql.connect()
+#         cursor = conn.cursor(pymysql.cursors.DictCursor)
+#
+#         cursor.execute("SELECT emp_id, emp_first_name, emp_last_name, emp_designation FROM employee")
+#         result = cursor.fetchall()
+#
+#         pdf = FPDF()
+#         pdf.add_page()
+#
+#         page_width = pdf.w - 2 * pdf.l_margin
+#
+#         pdf.set_font('Times', 'B', 14.0)
+#         pdf.cell(page_width, 0.0, 'Employee Data', align='C')
+#         pdf.ln(10)
+#
+#         pdf.set_font('Courier', '', 12)
+#
+#         col_width = page_width / 4
+#
+#         pdf.ln(1)
+#
+#         th = pdf.font_size
+#
+#         for row in result:
+#             pdf.cell(col_width, th, str(row['emp_id']), border=1)
+#             pdf.cell(col_width, th, row['emp_first_name'], border=1)
+#             pdf.cell(col_width, th, row['emp_last_name'], border=1)
+#             pdf.cell(col_width, th, row['emp_designation'], border=1)
+#             pdf.ln(th)
+#
+#         pdf.ln(10)
+#
+#         pdf.set_font('Times', '', 10.0)
+#         pdf.cell(page_width, 0.0, '- end of report -', align='C')
+#
+#         return Response(pdf.output(dest='S').encode('latin-1'), mimetype='application/pdf',
+#                         headers={'Content-Disposition': 'attachment;filename=employee_report.pdf'})
+#     except Exception as e:
+#         print(e)
+#     finally:
+#         cursor.close()
 
 @app.route('/gmeet', methods=['get','post'])
 def gmeet():
