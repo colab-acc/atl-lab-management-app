@@ -84,37 +84,33 @@
   </script>
 
 
-<style>
+  <style>
 
-*{
-  margin-top: 4px;
-  margin-left: 3px;
-  margin-right: 3px;
-  /*border: 1px solid rosybrown; */
+    *{
+      margin-top: 4px;
+      margin-left: 3px;
+      margin-right: 3px;
+    }
 
-}
- body {
-  background: #648880;
-  /*background-image: linear-gradient(to right, skyblue ,royalblue ,skyblue);*/
-  background: url({{'static/'+ "background.png"}});
-  background-size: cover;
-  align-items: center;
+    body {
+      background: #648880;
+      background: url('{{"static/"+ "background.png"}}');
+      background-size: cover;
+      align-items: center;
 
-}
+    }
 
-  .Centre_box{
-    /*background: #81F7D8;*/
-    /*background: transparent;*/
-    background-color: rgba(0, 0, 0, 0.4);
-    position: fixed;
-    height: 440px;
-    width: 860px;
-    margin-left: 17%;
-    margin-top: 0.4%;
-    box-shadow: 5px 10px 20px 5px rgba(0,0,0,0.3);
-    transition: 0.3s;
-    border-radius: 10px;
-  }
+    .Centre_box{
+      background-color: rgba(0, 0, 0, 0.4);
+      position: fixed;
+      height: 440px;
+      width: 860px;
+      margin-left: 17%;
+      margin-top: 0.4%;
+      box-shadow: 5px 10px 20px 5px rgba(0,0,0,0.3);
+      transition: 0.s3s;
+      border-radius: 10px;
+    }
 
   .image{
     margin-left: 7px;
@@ -206,186 +202,186 @@
     margin-bottom: 15px
 }
 
-.login-space .group .input{
-    width: 80%;
-    font-size: 16px;
-    font-family: "fontello";
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
-  
-    letter-spacing: 2px;
-    display: block
-}
+    .login-space .group .input{
+        width: 80%;
+        font-size: 16px;
+        font-family: "fontello";
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+      
+        letter-spacing: 2px;
+        display: block
+    }
 
-.login-space .group .input{
-    border: none;
-    outline: none;
-    margin-left: 45px;
-    padding: 10px 15px;
-    border-radius: 2px 2px 2px 2px;
-    border: 2px solid transparent;
-    transition: 0.25s;
-    color: #212f3d;
-    background: rgba(255, 255, 255, .3);
+    .login-space .group .input{
+        border: none;
+        outline: none;
+        margin-left: 45px;
+        padding: 10px 15px;
+        border-radius: 2px 2px 2px 2px;
+        border: 2px solid transparent;
+        transition: 0.25s;
+        color: #212f3d;
+        background: rgba(255, 255, 255, .3);
 
-}
+    }
 
-.login-space .group input[data-type="password"] {
-    font-family: "fontello";
-    font-style: normal;
-    font-weight: normal;
-    speak: none;
-    font-size: 16px;
+    .login-space .group input[data-type="password"] {
+        font-family: "fontello";
+        font-style: normal;
+        font-weight: normal;
+        speak: none;
+        font-size: 16px;
 
-    /* For safety - reset parent styles, that can break glyph codes*/
-    font-variant: normal;
-    text-transform: none;
-  
-    letter-spacing: 2px;
+        /* For safety - reset parent styles, that can break glyph codes*/
+        font-variant: normal;
+        text-transform: none;
+      
+        letter-spacing: 2px;
 
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    /* Uncomment for 3D effect */
-    text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.5); 
-}
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        /* Uncomment for 3D effect */
+        text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.5); 
+    }
 
-.login-space .group .label {
-    font-weight: bold;
-    color: #8080ff;
-    font-size: 12px
-}
+    .login-space .group .label {
+        font-weight: bold;
+        color: #8080ff;
+        font-size: 12px
+    }
 
-.login-space .group .input:focus{
-    border-top: 2px solid #8080ff;
-    border-left: 2px solid #8080ff;
-    border-bottom: 2px solid #8080ff;
-    border-right: 2px solid #8080ff;
-  }
+    .login-space .group .input:focus{
+        border-top: 2px solid #8080ff;
+        border-left: 2px solid #8080ff;
+        border-bottom: 2px solid #8080ff;
+        border-right: 2px solid #8080ff;
+      }
 
-.login-space .group .input:focus+#pass-status{
-    opacity: 1;
-    width: 40px;
+    .login-space .group .input:focus+#pass-status{
+        opacity: 1;
+        width: 40px;
 
-}
+    }
 
-#pass-status{
-    position: relative;
-    left: 395px;
-    bottom: 46px;
-    width: 0px;
-    opacity: 0;
-    background: rgba(255, 255, 255, 0.3);
-    padding: 11px 10px;
-    border-radius: 2px 25px 25px 2px;
-    border-top: 2px solid #8080ff;
-    border-right: 2px solid #8080ff;
-    border-bottom: 2px solid #8080ff;
-    border-left: 2px solid #8080ff;
-    transition: 0.5s;
-  }
+    #pass-status{
+        position: relative;
+        left: 395px;
+        bottom: 46px;
+        width: 0px;
+        opacity: 0;
+        background: rgba(255, 255, 255, 0.3);
+        padding: 11px 10px;
+        border-radius: 2px 25px 25px 2px;
+        border-top: 2px solid #8080ff;
+        border-right: 2px solid #8080ff;
+        border-bottom: 2px solid #8080ff;
+        border-left: 2px solid #8080ff;
+        transition: 0.5s;
+      }
 
- #user_icon{
-    position: relative;
-    left: -75px;
-    bottom: -42px;
-    padding: 9px 10px;
-    border-radius: 24px 24px 24px 24px;
-    background: rgba(255, 255, 255, 0.3);
- }
+     #user_icon{
+        position: relative;
+        left: -75px;
+        bottom: -42px;
+        padding: 9px 10px;
+        border-radius: 24px 24px 24px 24px;
+        background: rgba(255, 255, 255, 0.3);
+     }
 
- #user_icon2{
-    position: relative;
-    left: -75px;
-    bottom: -42px;
-    padding: 9px 12px;
-    border-radius: 24px 24px 24px 24px;
-    background: rgba(255, 255, 255, 0.3);
- }
+     #user_icon2{
+        position: relative;
+        left: -75px;
+        bottom: -42px;
+        padding: 9px 12px;
+        border-radius: 24px 24px 24px 24px;
+        background: rgba(255, 255, 255, 0.3);
+     }
 
-/*Keep me signed in section*/
-.lab {
-    font-size: 15px;
-    position: relative;
-    bottom: 45px;
-    cursor: pointer;
-}
-.login-space .group .check {
-    display: none;
-}
-.login-space .group label .icon {
-    width: 16px;
-    height: 16px;
-    border-radius: 2px;
-    position: relative;
-    display: inline-block;
-    background: rgba(255, 255, 255, .3)
-}
+    /*Keep me signed in section*/
+    .lab {
+        font-size: 15px;
+        position: relative;
+        bottom: 45px;
+        cursor: pointer;
+    }
+    .login-space .group .check {
+        display: none;
+    }
+    .login-space .group label .icon {
+        width: 16px;
+        height: 16px;
+        border-radius: 2px;
+        position: relative;
+        display: inline-block;
+        background: rgba(255, 255, 255, .3)
+    }
 
-.login-space .group label .icon:before,
-.login-space .group label .icon:after {
-    content: '';
-    width: 10px;
-    height: 2px;
-    background: #fff;
-    position: absolute;
-    transition: all .2s ease-in-out 0s
-}
+    .login-space .group label .icon:before,
+    .login-space .group label .icon:after {
+        content: '';
+        width: 10px;
+        height: 2px;
+        background: #fff;
+        position: absolute;
+        transition: all .2s ease-in-out 0s
+    }
 
-.login-space .group label .icon:before {
-    left: 3px;
-    width: 5px;
-    bottom: 6px;
-    transform: scale(0) rotate(0)
-}
+    .login-space .group label .icon:before {
+        left: 3px;
+        width: 5px;
+        bottom: 6px;
+        transform: scale(0) rotate(0)
+    }
 
-.login-space .group label .icon:after {
-    top: 6px;
-    right: 0;
-    transform: scale(0) rotate(0)
-}
+    .login-space .group label .icon:after {
+        top: 6px;
+        right: 0;
+        transform: scale(0) rotate(0)
+    }
 
-.login-space .group .check:checked+label {
-    color: #fff
-}
+    .login-space .group .check:checked+label {
+        color: #fff
+    }
 
-.login-space .group .check:checked+label .icon {
-    background: #8080ff
-}
+    .login-space .group .check:checked+label .icon {
+        background: #8080ff
+    }
 
-.login-space .group .check:checked+label .icon:before {
-    transform: scale(1) rotate(45deg)
-}
+    .login-space .group .check:checked+label .icon:before {
+        transform: scale(1) rotate(45deg)
+    }
 
-.login-space .group .check:checked+label .icon:after {
-    transform: scale(1) rotate(-45deg)
-}
+    .login-space .group .check:checked+label .icon:after {
+        transform: scale(1) rotate(-45deg)
+    }
 
-/*closed*/
+    /*closed*/
 
 
-*,
-:after,
-:before {
-    box-sizing: border-box
-}
+    *,
+    :after,
+    :before {
+        box-sizing: border-box
+    }
 
-.clearfix:after,
-.clearfix:before {
-    content: '';
-    display: table
-}
+    .clearfix:after,
+    .clearfix:before {
+        content: '';
+        display: table
+    }
 
-.clearfix:after {
-    clear: both;
-    display: block
-}
+    .clearfix:after {
+        clear: both;
+        display: block
+    }
 
-a {
-    color: inherit;
-    text-decoration: none
-}
+    a {
+        color: inherit;
+        text-decoration: none
+    }
 
 
   .button {

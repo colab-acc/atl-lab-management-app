@@ -48,7 +48,6 @@
  	padding: 5px 7px;
  	border-radius: 4px 4px 4px 4px;
  	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
- 	/*box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;*/
  	font-size: 18px;
  	background: #8080ff;
  	color: white;
@@ -60,7 +59,6 @@
  	font-weight: bolder;
  }
 
- /* Style the tab */
 .tab {
   overflow: hidden;
   /*border: 2px solid #ccc;*/
@@ -68,7 +66,6 @@
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-/* Style the buttons inside the tab */
 .tab button {
   background-color: inherit;
   float: right;
@@ -80,18 +77,15 @@
   font-size: 17px;
 }
 
-/* Change background color of buttons on hover */
 .tab button:hover {
   background-color: #ddd;
 }
 
-/* Create an active/current tablink class */
 .tab button.active {
   background-color: #8080ff;
   color:  #fcfcfc;
 }
 
-/* Style the tab content */
 .tabcontent {
   display: none;
   padding: 6px 12px;
@@ -108,269 +102,290 @@ select{
 	border: none;
 }
 
+p{
+	margin-left: 40px;
+}
+
+
+.button {
+    position: absolute;
+    left: 600px;
+    top: 320px;
+    margin-top: 40px;
+    border-radius: 5px 5px 5px 5px;
+    background-color: #8080ff;
+    box-shadow: 0 5px 5px 0 #4d4dff;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 18px;
+    font-family: times new roman;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 20%;
+    min-width: 140px;
+    transition: all 0.5s;
+    cursor: pointer;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+  }
+
+.button2{
+    position: absolute;
+    left: 550px;
+    top: 330px;
+    margin-top: 40px;
+    border-radius: 5px 5px 5px 5px;
+    background-color: #8080ff;
+    box-shadow: 0 5px 5px 0 #4d4dff;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 18px;
+    font-family: times new roman;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 15%;
+    min-width: 100px;
+    transition: all 0.5s;
+    cursor: pointer;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+  }
+
+  /* Add styles to the form container */
+.form-container {
+  	height: 63vh;
+		max-width: 750px;
+    padding: 30px;
+ 	  background: rgba(255, 255, 255, 0.8);
+    transform: translate(13%, 8%);
+
+}
+
+.form-container label{
+    font-family: arial;
+    padding-right: 10px;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=date], .form-container input[type=time]{
+  font-family: consolas;
+  padding: 2px;
+  margin: 5px 0px 10px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=date], .form-container input[type=time] {
+  background-color: #fcfcfc;
+  outline: none;
+}
+
+.form-container input[readonly=readonly]{
+	background: transparent;
+}
+
+.form-container input[readonly=readonly]:focus{
+	outline: none;
+}
+
+textarea{
+	border: none;
+}
+textarea:focus{
+	outline: none;
+	border: none;
+}
+
 
 /*needs updating*/
 .form-container2 {
-			  height: 60vh;
-			  max-width: 750px;
-			  padding: 30px;
-			  background: rgba(255, 255, 255, 0.8);
-			  transform: translate(13%, 8%);
+		  height: 60vh;
+		  max-width: 750px;
+		  padding: 30px;
+		  background: rgba(255, 255, 255, 0.8);
+		  transform: translate(13%, 8%);
 
-		}
-		p{
-			margin-left: 40px;
-		}
-
-
-		.button {
-		    position: absolute;
-		    left: 600px;
-		    top: 320px;
-		    margin-top: 40px;
-		    border-radius: 5px 5px 5px 5px;
-		    background-color: #8080ff;
-		    box-shadow: 0 5px 5px 0 #4d4dff;
-		    border: none;
-		    color: #FFFFFF;
-		    text-align: center;
-		    font-size: 18px;
-		    font-family: times new roman;
-		    padding-top: 10px;
-		    padding-bottom: 10px;
-		    width: 20%;
-		    min-width: 140px;
-		    transition: all 0.5s;
-		    cursor: pointer;
-		    border: 2px solid rgba(0, 0, 0, 0.1);
-		  }
-
-		.button2{
-		    position: absolute;
-		    left: 550px;
-		    top: 330px;
-		    margin-top: 40px;
-		    border-radius: 5px 5px 5px 5px;
-		    background-color: #8080ff;
-		    box-shadow: 0 5px 5px 0 #4d4dff;
-		    border: none;
-		    color: #FFFFFF;
-		    text-align: center;
-		    font-size: 18px;
-		    font-family: times new roman;
-		    padding-top: 10px;
-		    padding-bottom: 10px;
-		    width: 15%;
-		    min-width: 100px;
-		    transition: all 0.5s;
-		    cursor: pointer;
-		    border: 2px solid rgba(0, 0, 0, 0.1);
-		  }
-
-		  /* Add styles to the form container */
-		.form-container {
-		  	height: 63vh;
-				max-width: 750px;
-		    padding: 30px;
-	   	  background: rgba(255, 255, 255, 0.8);
-		    transform: translate(13%, 8%);
-
-		}
-
-		.form-container label{
-		    font-family: arial;
-		    padding-right: 10px;
-		}
-
-		/* Full-width input fields */
-		.form-container input[type=text], .form-container input[type=date], .form-container input[type=time]{
-		  font-family: consolas;
-		  padding: 2px;
-		  margin: 5px 0px 10px 0;
-		  border: none;
-		  background: #f1f1f1;
-		}
-
-		/* When the inputs get focus, do something */
-		.form-container input[type=text]:focus, .form-container input[type=date], .form-container input[type=time] {
-		  background-color: #fcfcfc;
-		  outline: none;
-		}
-
-		.form-container input[readonly=readonly]{
-			background: transparent;
-		}
-
-		.form-container input[readonly=readonly]:focus{
-			outline: none;
-		}
-
-		textarea{
-			border: none;
-		}
-		textarea:focus{
-			outline: none;
-			border: none;
-		}
+}		
 </style>
+
 {% endblock %}
 
 
 {% block content %}
-<div style="margin-top:20px">
-	<!-- <h5 style="text-align: center ;padding-left: 10px ;margin-top: 20px; font-size: 25px ;color:#2E2E2E; font-family: consolas; color: white;
-  text-shadow: 2px 2px 4px #000000;"><u>REQUESTS</u></h5> -->
-</div>
-<div style="background: #8080ff;">
-	<div class="tab">
-	  <button class="tablinks" onclick="openCity(event, 'Tokyo')">Requests-Denied</button>
-	  <button class="tablinks" onclick="openCity(event, 'Paris')">Requests-Approved</button>
-	  <button class="tablinks" onclick="openCity(event, 'London')" id="defaultOpen">Pending Requests</button>
-	</div>
 
-	<div id="London" class="tabcontent">
+<div style="background: #8080ff; margin-top:20px">
 
-	<div style="position: relative; margin-top: 10px; margin-left: 10px;"><i class="fa fa-search" style="position: absolute; left:15px; top:10px;"></i><input type="text" placeholder="Search.." id="myInput" onkeyup="filterList()" ></div>
+		<div class="tab">
+		  <button class="tablinks" onclick="openCity(event, 'Denied')">Requests-Denied</button>
+		  <button class="tablinks" onclick="openCity(event, 'Approved')">Requests-Approved</button>
+		  <button class="tablinks" onclick="openCity(event, 'Pending')" id="defaultOpen">Pending Requests</button>
+		</div>
+
+		<div id="Pending" class="tabcontent">
+
+				<div style="position: relative; margin-top: 10px; margin-left: 10px;"><i class="fa fa-search" style="position: absolute; left:15px; top:10px;"></i><input type="text" placeholder="Search.." id="myInput" onkeyup="filterList()" >
+				</div>
 
 
-	<div style="height: 67vh; overflow-y: auto; /*background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));*/ margin-top: 15px;overscroll-behavior: contain;">
-		<table width="99%" style="margin-top: 0px; /*border-collapse: collapse;*/ border-radius: 12px 12px 12px 12px;" id="table">
-			<thead>
-				<tr style="border-radius: 12px 12px 0px 0px; background: transparent;">
-					<th style="width: 80px; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Item Code</th>
-					<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Item Name</th>
-					<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Email Id</th>
-					<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Request Date</th>
-					<th style="width: 120px; background: transparent; color: #fcfcfc;">Action</th>
-				</tr>
-			</thead>
-			<tbody >
-				{% for row in data %} 
-				{% if row[4]|lower =='pending' %}
-				<tr>
-					<td>{{row[0] |capitalize}}</td>
-					<td style="text-align: left;">{{row[1] |capitalize}}</td>
-					<td style="text-align: left;">{{row[2] |lower}}</td>
-					<td style="text-align: left;">{{row[3] |capitalize}}</td>
-					<td style="background: transparent"><form action="{{url_for('update_req', id=row[0], email=row[2], sr='denyf')}}" method="post"><select name="status" id="mySelect" onchange="changfun()">
-								<option value="choose" selected>Choose</option>
-						    <option value="Approved">Approve</option>
-						    <option value="Denied">Deny</option>
-						  </select></form>
-		      </td>      
-				</tr>
-				{% endif %}
-				{% endfor %}
-			</tbody>
-		</table>
-	</div>
-	</div>
+				<div style="height: 64vh; overflow-y: auto; margin-top: 15px;overscroll-behavior: contain;">
+					
+						<table width="99%" style="margin-top: 0px; /*border-collapse: collapse;*/ border-radius: 12px 12px 12px 12px;" id="table">
+								<thead>
+										<tr style="border-radius: 12px 12px 0px 0px; background: transparent;">
+												<th style="width: 80px; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Item Code</th>
+												<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Item Name</th>
+												<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Email Id</th>
+												<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Request Date</th>
+												<th style="width: 120px; background: transparent; color: #fcfcfc;">Action</th>
+										</tr>
+								</thead>
 
-	<div id="Paris" class="tabcontent">
+								<tbody >
+										{% for row in data %} 
+											{% if row[4]|lower =='pending' %}
+												<tr>
+														<td>{{row[0] |capitalize}}</td>
+														<td style="text-align: left;">{{row[1] |capitalize}}</td>
+														<td style="text-align: left;">{{row[2] |lower}}</td>
+														<td style="text-align: left;">{{row[3] |capitalize}}</td>
+														<td style="background: transparent"><form action="{{url_for('update_req', id=row[0], email=row[2], sr='denyf')}}" method="post"><select name="status" id="mySelect" onchange="changfun()">
+																	<option value="choose" selected>Choose</option>
+															    <option value="Approved">Approve</option>
+															    <option value="Denied">Deny</option>
+															  </select></form>
+											      </td>      
+												</tr>
+											{% endif %}
+										{% endfor %}
+								</tbody>
+						</table>
+						{% if pen == [] %}
+									<img src="{{'static/'+ 'nothing.gif'}}" width="20%" style="transform: translate(195%, 0%);">
+									<h4 style="font-family: gothic; text-align: center; margin-top: 0px;">We verified! No new requests</h4>
+						{% endif %}
+						
+				</div>
+		</div>
 
-	<div style="height: 67vh; overflow-y: auto; /*background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));*/ margin-top: 15px;overscroll-behavior: contain;">
-		<table width="99%" style="margin-top: 0px; /*border-collapse: collapse;*/ border-radius: 12px 12px 12px 12px;" id="table1">
-			<thead>
-				<tr style="border-radius: 12px 12px 0px 0px; background: transparent;">
-					<th style="width: 80px; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Item Code</th>
-					<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Item Name</th>
-					<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Email Id</th>
-					<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Request Date</th>
-				</tr>
-			</thead>
-			<tbody >
-				{% for row in data %} 
-				{% if row[4]|lower =='approved' %}
-				<tr>
-					<td>{{row[0] |capitalize}}</td>
-					<td style="text-align: left;">{{row[1] |capitalize}}</td>
-					<td style="text-align: left;">{{row[2] |lower}}</td>
-					<td style="text-align: left;">{{row[3] |capitalize}}</td>
-				</tr>
-				{% endif %}
-				{% endfor %}
-			</tbody>
-		</table>
-	</div>
-	</div>
+		<div id="Approved" class="tabcontent">
 
-<div id="Tokyo" class="tabcontent">
- <div style="height: 67vh; overflow-y: auto; /*background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));*/ margin-top: 15px;overscroll-behavior: contain;">
-		<table width="99%" style="margin-top: 0px; /*border-collapse: collapse;*/ border-radius: 12px 12px 12px 12px;" id="table1">
-			<thead>
-				<tr style="border-radius: 12px 12px 0px 0px; background: transparent;">
-					<th style="width: 80px; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Item Code</th>
-					<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Item Name</th>
-					<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Email Id</th>
-					<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Request Date</th>
-				</tr>
-			</thead>
-			<tbody >
-				{% for row in data %} 
-				{% if row[4]|lower =='denied' %}
-				<tr>
-					<td>{{row[0] |capitalize}}</td>
-					<td style="text-align: left;">{{row[1] |capitalize}}</td>
-					<td style="text-align: left;">{{row[2] |lower}}</td>
-					<td style="text-align: left;">{{row[3] |capitalize}}</td>  
-				</tr>
-				{% endif %}
-				{% endfor %}
-			</tbody>
-		</table>
-	</div>
-	</div>
+				<div style="height: 71.6vh; overflow-y: auto; /*background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));*/ margin-top: 15px;overscroll-behavior: contain;">
 
-	<div style="position: absolute; top: 14%; left: 20%;border: 1;height: 85%; width: 79%; background: red; display: none; background: rgba(0, 0, 0, 0.7); box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px; z-index: 10000000000000;" id="division">
-    <div class="form-popup" id="myForm">
-        <form action="{{url_for('update_req', id='buzz', email='suzz', sr='appf')}}" method="post" class="form-container" id="theform">
-            <h2 style="text-align:center; margin-top: 0px; color:#2E2E2E; font-family: times new roman; font-size: 24px"><u>Approve Request</u></h2>
+						<table width="99%" style="margin-top: 0px; /*border-collapse: collapse;*/ border-radius: 12px 12px 12px 12px;" id="table1">
+								<thead>
+										<tr style="border-radius: 12px 12px 0px 0px; background: transparent;">
+											<th style="width: 80px; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Item Code</th>
+											<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Item Name</th>
+											<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Email Id</th>
+											<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Request Date</th>
+										</tr>
+									</thead>
+								<tbody >
+										{% for row in data %} 
+											{% if row[4]|lower =='approved' %}
+													<tr>
+														<td>{{row[0] |capitalize}}</td>
+														<td style="text-align: left;">{{row[1] |capitalize}}</td>
+														<td style="text-align: left;">{{row[2] |lower}}</td>
+														<td style="text-align: left;">{{row[3] |capitalize}}</td>
+													</tr>
+											{% endif %}
+										{% endfor %}
+								</tbody>
+						</table>
+						{% if apr == [] %}
+									<img src="https://angry.ventures/assets/404-v3/nothing-here6.gif" width="30%" style="transform: translate(115%, 0%);">
+									<h4 style="font-family: gothic; text-align: center; margin-top: -30px;">We searched everywhere! No records found</h4>
+						{% endif %}
+				</div>
+		</div>
 
-            <label for="item_code"><b>Item Code:</b></label>
-            <input type="text" value='' name="item_code" required style="width: 10%; margin-left: 5px;" readonly="readonly">
+		<div id="Denied" class="tabcontent">
+		 
+				 <div style="height: 71.6vh; overflow-y: auto; /*background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));*/ margin-top: 15px;overscroll-behavior: contain;">
+							<table width="99%" style="margin-top: 0px; /*border-collapse: collapse;*/ border-radius: 12px 12px 12px 12px;" id="table1">
+									<thead>
+											<tr style="border-radius: 12px 12px 0px 0px; background: transparent;">
+												<th style="width: 80px; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Item Code</th>
+												<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Item Name</th>
+												<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Email Id</th>
+												<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Request Date</th>
+											</tr>
+									</thead>
+									<tbody >
+											{% for row in data %} 
+												{% if row[4]|lower =='denied' %}
+														<tr>
+															<td>{{row[0] |capitalize}}</td>
+															<td style="text-align: left;">{{row[1] |capitalize}}</td>
+															<td style="text-align: left;">{{row[2] |lower}}</td>
+															<td style="text-align: left;">{{row[3] |capitalize}}</td>  
+														</tr>
+												{% endif %}
+											{% endfor %}
 
-            <label for="item_name"><b>Item Name:</b></label>
-            <input type="text" value='' name="item_name" required style="width: 21%; margin-left: 5px;" readonly="readonly">
+									</tbody>
+							</table>
+							{% if den == [] %}
+									<img src="https://angry.ventures/assets/404-v3/nothing-here6.gif" width="30%" style="transform: translate(115%, 0%);">
+									<h4 style="font-family: gothic; text-align: center; margin-top: -30px;">We searched everywhere! No records found</h4>
+							{% endif %}
+											
+					</div>
+			</div>
 
-            <label for="issue_date"><b>Issue Date:</b></label>
-            <input type="date" name="issue_date" required style="width: 20%; margin-left: 5px;" readonly="readonly">
+		<div style="position: absolute; top: 14%; left: 20%;border: 1;height: 85%; width: 79%; background: red; display: none; background: rgba(0, 0, 0, 0.7); box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px; z-index: 10000000000000;" id="division">
+	    
+		    <div class="form-popup" id="myForm">
+		        <form action="{{url_for('update_req', id='buzz', email='suzz', sr='appf')}}" method="post" class="form-container" id="theform">
+		            <h2 style="text-align:center; margin-top: 0px; color:#2E2E2E; font-family: times new roman; font-size: 24px"><u>Approve Request</u></h2>
 
-            <label for="email_id"><b>Requested by:</b></label>
-            <input type="text" name="email_id" required style="width: 70%; margin-left: 45px;" readonly="readonly">
+		            <label for="item_code"><b>Item Code:</b></label>
+		            <input type="text" value='' name="item_code" required style="width: 10%; margin-left: 5px;" readonly="readonly">
 
-            <label for="issuer_name"><b>Issuer Name:</b></label>
-            <input type="text" name="issuer_name" required style="width: 75%; margin-left: 45px;">
+		            <label for="item_name"><b>Item Name:</b></label>
+		            <input type="text" value='' name="item_name" required style="width: 21%; margin-left: 5px;" readonly="readonly">
 
-            <hr size="3">
+		            <label for="issue_date"><b>Issue Date:</b></label>
+		            <input type="date" name="issue_date" required style="width: 20%; margin-left: 5px;" readonly="readonly">
 
-            <h2 style="text-align:center; margin-top: 0px; color:#2E2E2E; font-family: times new roman; font-size: 24px"><u>Particulars of Item Collection [EMAIL]</u></h2>
+		            <label for="email_id"><b>Requested by:</b></label>
+		            <input type="text" name="email_id" required style="width: 70%; margin-left: 45px;" readonly="readonly">
 
-            <label for="time" style="display: inline-block;"><b>Preferred Time:</b></label>
-            <label for="startt" style="margin-left: 52px;">Start:</label>
-            <input type="time" value='' name="startt" required style="width: 25%;">
+		            <label for="issuer_name"><b>Issuer Name:</b></label>
+		            <input type="text" name="issuer_name" required style="width: 75%; margin-left: 45px;">
 
-            <label for="endt" style="margin-left:50px">End:</label>
-            <input type="time" value='' name="endt" required style="width: 25%">
+		            <hr size="3">
 
-            <label for="loc"><b>Location for pickup:</b></label>
-            <input type="text" autocomplete="off" name="loc" list="exampleList" style="margin-left:15px; width: 31%;" required>
-                <datalist id="exampleList">
-                  <option value="ATL Lab">  
-                  <option value="Computer Lab">
-                </datalist>
+		            <h2 style="text-align:center; margin-top: 0px; color:#2E2E2E; font-family: times new roman; font-size: 24px"><u>Particulars of Item Collection [EMAIL]</u></h2>
 
-            <br>
-            <h2 style="text-align:left; margin-top: 5px; color:black; font-size: 18px;">Additional Comments(if any):-</h2>
-            <textarea rows = "4" cols = "60" name = "additional" placeholder="Additional Comments here..." style="margin-top: -5px"></textarea>
+		            <label for="time" style="display: inline-block;"><b>Preferred Time:</b></label>
+		            <label for="startt" style="margin-left: 52px;">Start:</label>
+		            <input type="time" value='' name="startt" required style="width: 25%;">
 
-    
-            <input type="submit" class="button" value="Confirm" style="font-size: 18px; font-family: consolas">
-            <i type="button" class="fa fa-close" onclick="closeForm()" style="position: relative; top: -410px; left: 380px; border-radius: 24px; cursor: pointer; background: rgba(0, 0, 0, 0.5); color: #f2f2f2; padding: 10px 12px;"></i>
-        </form>
-    </div>
-    
-    </div>
+		            <label for="endt" style="margin-left:50px">End:</label>
+		            <input type="time" value='' name="endt" required style="width: 25%">
 
+		            <label for="loc"><b>Location for pickup:</b></label>
+		            <input type="text" autocomplete="off" name="loc" list="exampleList" style="margin-left:15px; width: 31%;" required>
+		                <datalist id="exampleList">
+		                  <option value="ATL Lab">  
+		                  <option value="Computer Lab">
+		                </datalist>
+
+		            <br>
+		            <h2 style="text-align:left; margin-top: 5px; color:black; font-size: 18px;">Additional Comments(if any):-</h2>
+		            <textarea rows = "4" cols = "60" name = "additional" placeholder="Additional Comments here..." style="margin-top: -5px"></textarea>
+
+		    
+		            <input type="submit" class="button" value="Confirm" style="font-size: 18px; font-family: consolas">
+		            <i type="button" class="fa fa-close" onclick="closeForm()" style="position: relative; top: -410px; left: 380px; border-radius: 24px; cursor: pointer; background: rgba(0, 0, 0, 0.5); color: #f2f2f2; padding: 10px 12px;"></i>
+		        </form>
+
+		    </div>
+	    
+	  </div>
 </div>
 
 

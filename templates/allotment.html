@@ -48,7 +48,6 @@
  	padding: 5px 7px;
  	border-radius: 4px 4px 4px 4px;
  	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
- 	/*box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;*/
  	font-size: 18px;
  	background: #8080ff;
  	color: white;
@@ -60,7 +59,6 @@
  	font-weight: bolder;
  }
 
- /* Style the tab */
 .tab {
   overflow: hidden;
   /*border: 2px solid #ccc;*/
@@ -68,7 +66,6 @@
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-/* Style the buttons inside the tab */
 .tab button {
   background-color: inherit;
   float: right;
@@ -80,7 +77,6 @@
   font-size: 17px;
 }
 
-/* Change background color of buttons on hover */
 .tab button:hover {
   background-color: #ddd;
 }
@@ -91,7 +87,6 @@
   color:  #fcfcfc;
 }
 
-/* Style the tab content */
 .tabcontent {
   display: none;
   padding: 6px 12px;
@@ -114,139 +109,148 @@ select{
 
 
 {% block content %}
-<div style="margin-top:20px">
-	<!-- <h5 style="text-align: center ;padding-left: 10px ;margin-top: 20px; font-size: 25px ;color:#2E2E2E; font-family: consolas; color: white;
-  text-shadow: 2px 2px 4px #000000;"><u>ALLOTMENT INFORMATION</u></h5> -->
-</div>
-<div style="background: #8080ff;">
+
+<div style="background: #8080ff; margin-top: 20px;">
 	<div class="tab">
-	  <button class="tablinks" onclick="openCity(event, 'Tokyo')">Allotments-consumed</button>
-	  <button class="tablinks" onclick="openCity(event, 'Paris')">Allotments-active</button>
-	  <button class="tablinks" onclick="openCity(event, 'London')" id="defaultOpen">All Allotments</button>
+	  <button class="tablinks" onclick="openCity(event, 'Consumed')">Allotments-consumed</button>
+	  <button class="tablinks" onclick="openCity(event, 'Active')">Allotments-active</button>
+	  <button class="tablinks" onclick="openCity(event, 'All')" id="defaultOpen">All Allotments</button>
 	</div>
 
-	<div id="London" class="tabcontent">
+	<div id="All" class="tabcontent">
 
-	<div style="position: relative; margin-top: 10px; margin-left: 10px;"><i class="fa fa-search" style="position: absolute; left:15px; top:10px;"></i><input type="text" placeholder="Search.." id="myInput" onkeyup="filterList()" ></div>
+			<div style="position: relative; margin-top: 10px; margin-left: 10px;"><i class="fa fa-search" style="position: absolute; left:15px; top:10px;"></i><input type="text" placeholder="Search.." id="myInput" onkeyup="filterList()" ></div>
 
 
-	<div style="height: 67vh; overflow-y: auto; /*background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));*/ margin-top: 15px;overscroll-behavior: contain;">
-		<table width="99%" style="margin-top: 0px; /*border-collapse: collapse;*/ border-radius: 12px 12px 12px 12px;" id="table">
-			<thead>
-				<tr style="border-radius: 12px 12px 0px 0px; background: transparent;">
-					<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Code</th>
-					<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Item Name</th>
-					<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Receiver Id</th>
-					<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Issuer</th>
-					<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Issue Date</th>
-					<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Renew Date</th>
-					<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Renewed by</th>
-					<th style="width: 80px; background: transparent; color: #fcfcfc;">Status</th>
-				</tr>
-			</thead>
-			<tbody >
-				{% for row in data %} 
-				<tr>
-					<td>{{row[0] |capitalize}}</td>
-					<td style="text-align: left;">{{row[7] |capitalize}}</td>
-					<td style="text-align: left;">{{row[1] |lower}}</td>
-					<td>{{row[2] |capitalize}}</td>
-					<td style="text-align: left;">{{row[3] |capitalize}}</td>
-					<td style="text-align: left;">{{row[5]}}</td>
-					<td style="text-align: left;">{{row[6] |capitalize}}</td>
-					{% if row[4]|lower =='pending' %}
-					<td style="background: transparent"><form action="{{url_for('update_status', id=row[0], per=row[1], dat=row[3])}}" method="post"><select name="status" id="mySelect" onchange="changfun()">
-								<option value="choose" selected>Choose</option>
-						    <option value="Consumed">Consumed</option>
-						    <option value="Active">Active</option>
-						  </select></form>
-		            </td>
-		            {% elif row[4]|lower =='active' %}
-		            <td style="background: transparent;"><form action="{{url_for('update_status', id=row[0], per=row[1], dat=row[3])}}" method="post"><select name="status" id="mySelect" onchange="changfun()">
-						    <option value="Consumed">Consumed</option>
-						    <option value="Active" selected>Active</option>
-						  </select></form>
-		            </td>
-		            {% elif row[4]|lower =='consumed' %}
-		            <td style="background: transparent;"><form action="{{url_for('update_status', id=row[0], per=row[1], dat=row[3])}}" method="post"><select name="status" id="mySelect" onchange="changfun()">
-						    <option value="Consumed" selected>Consumed</option>
-						    <option value="Active">Active</option>
-						  </select></form>
-		            </td>
-		            {% endif %}
-					
-				</tr>
-				{% endfor %}
-			</tbody>
-		</table>
-	</div>
-	</div>
-
-	<div id="Paris" class="tabcontent">
-
-	<div style="height: 67vh; overflow-y: auto; /*background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));*/ margin-top: 15px;overscroll-behavior: contain;">
-		<table width="99%" style="margin-top: 0px; /*border-collapse: collapse;*/ border-radius: 12px 12px 12px 12px;" id="table1">
-			<thead>
-				<tr style="border-radius: 12px 12px 0px 0px; background: transparent;">
-					<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Code</th>
-					<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Item Name</th>
-					<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Receiver Id</th>
-					<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Issuer</th>
-					<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Issue Date</th>
-					<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Renew Date</th>
-					<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Renewed by</th>
-				</tr>
-			</thead>
-			<tbody >
-				{% for row in data %} 
-				{% if row[4]|lower == 'active' %}
-				<tr>
-					<td>{{row[0] |capitalize}}</td>
-					<td style="text-align: left;">{{row[7] |capitalize}}</td>
-					<td style="text-align: left;">{{row[1] |lower}}</td>
-					<td>{{row[2] |capitalize}}</td>
-					<td style="text-align: left;">{{row[3] |capitalize}}</td>
-					<td style="text-align: left;">{{row[5]}}</td>
-					<td style="text-align: left;">{{row[6] |capitalize}}</td>
-				</tr>
+			<div style="height: 64vh; overflow-y: auto; /*background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));*/ margin-top: 15px;overscroll-behavior: contain;">
+				<table width="99%" style="margin-top: 0px; /*border-collapse: collapse;*/ border-radius: 12px 12px 12px 12px;" id="table">
+					<thead>
+						<tr style="border-radius: 12px 12px 0px 0px; background: transparent;">
+							<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Code</th>
+							<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Item Name</th>
+							<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Receiver Id</th>
+							<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Issuer</th>
+							<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Issue Date</th>
+							<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Renew Date</th>
+							<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Renewed by</th>
+							<th style="width: 80px; background: transparent; color: #fcfcfc;">Status</th>
+						</tr>
+					</thead>
+					<tbody >
+						{% for row in data %} 
+						<tr>
+							<td>{{row[0] |capitalize}}</td>
+							<td style="text-align: left;">{{row[7] |capitalize}}</td>
+							<td style="text-align: left;">{{row[1] |lower}}</td>
+							<td>{{row[2] |capitalize}}</td>
+							<td style="text-align: left;">{{row[3] |capitalize}}</td>
+							<td style="text-align: left;">{{row[5]}}</td>
+							<td style="text-align: left;">{{row[6] |capitalize}}</td>
+							{% if row[4]|lower =='pending' %}
+							<td style="background: transparent"><form action="{{url_for('update_status', id=row[0], per=row[1], dat=row[3])}}" method="post"><select name="status" id="mySelect" onchange="changfun()">
+										<option value="choose" selected>Choose</option>
+								    <option value="Consumed">Consumed</option>
+								    <option value="Active">Active</option>
+								  </select></form>
+				            </td>
+				            {% elif row[4]|lower =='active' %}
+				            <td style="background: transparent;"><form action="{{url_for('update_status', id=row[0], per=row[1], dat=row[3])}}" method="post"><select name="status" id="mySelect" onchange="changfun()">
+								    <option value="Consumed">Consumed</option>
+								    <option value="Active" selected>Active</option>
+								  </select></form>
+				            </td>
+				            {% elif row[4]|lower =='consumed' %}
+				            <td style="background: transparent;"><form action="{{url_for('update_status', id=row[0], per=row[1], dat=row[3])}}" method="post"><select name="status" id="mySelect" onchange="changfun()">
+								    <option value="Consumed" selected>Consumed</option>
+								    <option value="Active">Active</option>
+								  </select></form>
+				            </td>
+				            {% endif %}
+							
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				{% if pen == [] and act == [] and con == [] %}
+									<img src="{{'static/'+ 'nothing.gif'}}" width="20%" style="transform: translate(195%, 0%);">
+									<h4 style="font-family: gothic; text-align: center; margin-top: 0px;">No allotments yet</h4>
 				{% endif %}
-				{% endfor %}
-			</tbody>
-		</table>
-	</div>
+			</div>
 	</div>
 
-<div id="Tokyo" class="tabcontent">
- <div style="height: 67vh; overflow-y: auto; /*background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));*/ margin-top: 15px;overscroll-behavior: contain;">
-		<table width="99%" style="margin-top: 0px; /*border-collapse: collapse;*/ border-radius: 12px 12px 12px 12px;" id="table1">
-			<thead>
-				<tr style="border-radius: 12px 12px 0px 0px; background: transparent;">
-					<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Code</th>
-					<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Item Name</th>
-					<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Receiver Id</th>
-					<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Issuer</th>
-					<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Issue Date</th>
-					<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Renew Date</th>
-					<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Renewed by</th>
-				</tr>
-			</thead>
-			<tbody >
-				{% for row in data %} 
-				{% if row[4]|lower == 'consumed' %}
-				<tr>
-					<td>{{row[0] |capitalize}}</td>
-					<td style="text-align: left;">{{row[7] |capitalize}}</td>
-					<td style="text-align: left;">{{row[1] |lower}}</td>
-					<td>{{row[2] |capitalize}}</td>
-					<td style="text-align: left;">{{row[3] |capitalize}}</td>
-					<td style="text-align: left;">{{row[5]}}</td>
-					<td style="text-align: left;">{{row[6] |capitalize}}</td>
-				</tr>
+	<div id="Active" class="tabcontent">
+
+			<div style="height: 71.6vh; overflow-y: auto; /*background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));*/ margin-top: 15px;overscroll-behavior: contain;">
+				<table width="99%" style="margin-top: 0px; /*border-collapse: collapse;*/ border-radius: 12px 12px 12px 12px;" id="table1">
+					<thead>
+						<tr style="border-radius: 12px 12px 0px 0px; background: transparent;">
+							<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Code</th>
+							<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Item Name</th>
+							<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Receiver Id</th>
+							<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Issuer</th>
+							<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Issue Date</th>
+							<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Renew Date</th>
+							<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Renewed by</th>
+						</tr>
+					</thead>
+					<tbody >
+						{% for row in data %} 
+						{% if row[4]|lower == 'active' %}
+						<tr>
+							<td>{{row[0] |capitalize}}</td>
+							<td style="text-align: left;">{{row[7] |capitalize}}</td>
+							<td style="text-align: left;">{{row[1] |lower}}</td>
+							<td>{{row[2] |capitalize}}</td>
+							<td style="text-align: left;">{{row[3] |capitalize}}</td>
+							<td style="text-align: left;">{{row[5]}}</td>
+							<td style="text-align: left;">{{row[6] |capitalize}}</td>
+						</tr>
+						{% endif %}
+						{% endfor %}
+					</tbody>
+				</table>
+				{% if act == [] %}
+						<img src="https://angry.ventures/assets/404-v3/nothing-here6.gif" width="30%" style="transform: translate(115%, 0%);">
+						<h4 style="font-family: gothic; text-align: center; margin-top: -30px;">We searched everywhere! No records found</h4>
 				{% endif %}
-				{% endfor %}
-			</tbody>
-		</table>
+			</div>
 	</div>
+
+<div id="Consumed" class="tabcontent">
+	 <div style="height: 71.6vh; overflow-y: auto; /*background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));*/ margin-top: 15px;overscroll-behavior: contain;">
+			<table width="99%" style="margin-top: 0px; /*border-collapse: collapse;*/ border-radius: 12px 12px 12px 12px;" id="table1">
+				<thead>
+					<tr style="border-radius: 12px 12px 0px 0px; background: transparent;">
+						<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Code</th>
+						<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Item Name</th>
+						<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Receiver Id</th>
+						<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Issuer</th>
+						<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Issue Date</th>
+						<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Renew Date</th>
+						<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Renewed by</th>
+					</tr>
+				</thead>
+				<tbody >
+					{% for row in data %} 
+					{% if row[4]|lower == 'consumed' %}
+					<tr>
+						<td>{{row[0] |capitalize}}</td>
+						<td style="text-align: left;">{{row[7] |capitalize}}</td>
+						<td style="text-align: left;">{{row[1] |lower}}</td>
+						<td>{{row[2] |capitalize}}</td>
+						<td style="text-align: left;">{{row[3] |capitalize}}</td>
+						<td style="text-align: left;">{{row[5]}}</td>
+						<td style="text-align: left;">{{row[6] |capitalize}}</td>
+					</tr>
+					{% endif %}
+					{% endfor %}
+				</tbody>
+			</table>
+			{% if con == [] %}
+						<img src="https://angry.ventures/assets/404-v3/nothing-here6.gif" width="30%" style="transform: translate(115%, 0%);">
+						<h4 style="font-family: gothic; text-align: center; margin-top: -30px;">We searched everywhere! No records found</h4>
+			{% endif %}
+		</div>
 	</div>
 </div>
 
