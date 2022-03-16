@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+
+{% block style %}
+<style>
+  .menu1{
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .form-container label{
+        font-family: consolas;
+        padding-right: 1s0px;
+    }
+
+    /* Full-width input fields */
+    .form-container input[type=text]{
+      font-family: consolas;
+      padding: 2px;
+      margin: 5px 0px 0px 0;
+      border: none;
+      background: rgba(255, 255, 255, 0.7);
+    }
+
+    /* When the inputs get focus, do something */
+    .form-container input[type=text]:focus{
+      background-color: #fcfcfc;
+      outline: none;
+    }
+
+    select{
+      font-family: arial;
+      padding: 1px;
+      background-color: rgba(255, 255, 255, 0.7);
+      margin: 0;
+      font-size: 14px;
+      border: none;
+    }
+
+    select:focus{
+      border: none;
+      outline: none;
+    }
+
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+    <div>
+        <h5 style="padding-left: 10px ;margin-top: 20px; font-size: 25px ;color:#2E2E2E; font-family: consolas;">Welcome {{session['username'] | capitalize}}</h5>
+          
+        <h5 style=" margin-top: -40px;padding-left: 10px ;font-size: 16px ;color:#2E2E2E; font-family: courier;">All systems are running smoothly.</h5>      
+    </div>
+
+    <div style="width: 100%;">
+        <div class="timecon">
+            <div style="float:right; width: 220px;">
+                <div style="float:right; font-family: consolas; padding-right: 15px; padding-top:25px; font-weight: bold; font-size:20px;">Bengaluru<br><small>India</small>
+                </div>
+                <span><i class="fa fa-cloud" style="display: inline-block; padding-right: 10px; font-size: 20px; color:#2e2e2e"></i><h1 id="degcel" style="display: inline-block;font-family: consolas ;padding-right: 10px;">N/A</h1></span>
+            </div>
+        </div>
+        <div style="width:570px; display:inline-block; position: fixed; ">
+
+            <div style="position: absolute; top: -10px; left: 0px ;background-color: #b380ff;width: 35%; height: 250px; border-radius: 12px 12px 12px 12px; margin-left: 10px; margin-top: 10px;">
+                <h2 style="color:white;border-radius: 12px 12px 0 0 ;margin-top: 0px;text-align: center; padding-top:0px; font-family:consolas; font-size: 20px; background: rgba(0, 0, 0, 0.2); line-height: 50px;">Pending Requests</h2>
+                <hr size=3 color="#d9d9d9" style="margin-top:-20px">
+                <span style="background: rgba(0, 0, 0, 0.1) ;position: absolute; padding: 10px 42px; margin-top: 30px;margin-left: 50px; border-radius: 50%; box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3);"><h1 style="text-align: center; font-family: consolas; color: #fcfcfc">{{data[0][0]}}</h1></span>
+            </div>
+
+            <div style="position: absolute; top: -10px; left: 37%; background-color: #80aaff; width: 30%; height: 250px; border-radius: 12px 12px 12px 12px; margin-left: 10px; margin-top: 10px;">
+                <h2 style="color: white;border-radius: 12px 12px 0 0 ;margin-top: 0px;text-align: center; padding-top:0px; font-family:consolas; font-size: 20px; background: rgba(0, 0, 0, 0.2); line-height: 50px;">ATL Events</h2>
+                <hr size=3 color="#d9d9d9" style="margin-top:-20px">
+                <div style="height:175px; width:92%; background: rgba(255, 255, 255, 0.5); margin-left: 7px; border-radius: 0px 0px 10px 10px;">
+                    <table style="margin:5px; font-family: consolas; font-size: 16px">
+                      <tr><td style="padding:5px"><u>Today</u></td><td style="padding:5px">: {{data[1][0]}}</td></tr>
+                      <tr><td style="padding:5px"><u>This week</u></td><td style="padding:5px">: {{data[3][0]}}</td></tr>
+                      <tr><td style="padding:5px"><u>This month</u></td><td style="padding:5px">: {{data[2][0]}}</td></tr>
+                    </table>
+                </div>
+            </div>
+
+          <div style="position: absolute; top: -10px; left: 69%; background-color: #ffcc99;width: 45%; height: 250px; border-radius: 12px 12px 12px 12px; margin-left: 10px; margin-top: 10px;">
+              <h2 style="color: white; border-radius: 12px 12px 0 0 ;margin-top: 0px;text-align: center; padding-top:0px; font-family:consolas; font-size: 20px; background: rgba(0, 0, 0, 0.2); line-height: 50px;">Equipments low on Q(N)</h2>
+              <hr size=3 color="#d9d9d9" style="margin-top:-20px">
+              <div style="overflow-y: auto; height:175px; width:100%;">
+                  {% if data[4]|length > 0 %}
+                    <table style="margin:5px; /*background: rgba(255, 255, 255, 0.7);*/ font-family:consolas;">
+                      <tr>
+                          <th  style="margin: 2px; background: rgba(255, 255, 255, 0.5); padding-left: 4px; padding-right: 4px;">Code</th>
+                          <th  style="margin: 2px; background: rgba(255, 255, 255, 0.5); padding-left: 4px; padding-right: 4px;">Name</th>
+                          <th  style="margin: 2px; background: rgba(255, 255, 255, 0.5); padding-left: 4px; padding-right: 4px;">Q(N)</th>
+                      </tr>
+                      {% for stuff in data[4] %}
+                          <tr style="font-size: 14px;">
+                              <td style="margin: 2px; background: rgba(255, 255, 255, 0.4); padding-left: 4px; padding-right: 4px;">{{stuff[0]}}</td>
+                              <td style="margin: 2px; background: rgba(255, 255, 255, 0.5); padding-left: 4px; padding-right: 4px;">{{stuff[1]}}</td>
+                              <td style="text-align: center; margin: 2px; background: rgba(255, 255, 255, 0.5); padding-left: 4px; padding-right: 4px;">{{stuff[2]}}</td>
+                          </tr>
+                      {% endfor %}
+                    </table>
+                  {% endif %}
+                </div>
+            </div>
+      </div>
+      <hr size=3 color="#aeaeae" style="margin-top:20px; padding-right: 20px;">
+
+    </div>
+
+    <div style="background-color: #f2f2f2; position: relative;">
+        <div style="position: absolute; top: 0px; left: 0px ;background-color: #ff9999;width: 50%; height: 150px; border-radius: 12px 12px 12px 12px; margin-left: 10px; margin-top: 10px;">
+          
+            <h2 style="color: white;border-radius: 12px 12px 0 0 ;margin-top: 0px;text-align: center; padding-top:0px; font-family:consolas; font-size: 20px; background: rgba(0, 0, 0, 0.2); line-height: 50px;">Meeting Set-Up</h2>
+            
+            <hr size=3 color="#d9d9d9" style="margin-top:-20px">
+            
+            {% if data[6] == 'notset' %}
+              <form action="{{url_for('gmeet')}}" method="post" style="margin: 7px; background: rgba(255, 255, 255, 0.5); border-radius: 2px 2px 12px 12px;padding: 7px;" class="form-container">
+
+                  <label for="evename"><b>For Event:</b></label>
+                  <select name="evename" style="margin-left: 15px;">
+                    {% for event in data[5] %}
+                      <option value="{{event[0]}}">{{event[0]}}</option>
+                    {% endfor %}
+                  </select>
+                  <br>
+                  <label for="meetlink" style="position: relative;top:10px"><b>Meet link:</b></label>
+                  <input type="text" name="meetlink" required style="width: 75%; margin-left: 15px; position: relative;top:10px">
+
+                  <a style="position: relative; top:-100px; left:430px;"><input type="submit" value="Set" style="font-size: 14px; font-family: consolas; font-weight: bolder; cursor: pointer; padding-left:5px; padding-right: 25px; padding-top: 3px; padding-bottom: 3px; border: 1 px solid seagreen; background-color: rgba(255, 255, 255, 0.7); border-radius: 6px 6px 6px 6px;"><i class="fa fa-thumbs-o-up" style="position: relative; left:-20px; z-index: 0; font-size: 12px"></i>
+                  </a>
+
+              </form>
+              {% elif data[6] == 'set' %}
+                  <h3 style="text-align:center; font-family: gothic; color: #fcfcfc; margin-top:-5px">A meeting link has already been set</h3>
+
+                  <h4 style="text-align:center; font-family: gothic; color: #fcfcfc; margin-top: -15px;">Remove previous meeting?</h4>
+
+                  <form action="{{url_for('remove_gmeet')}}" method="post" >
+                    <a style="position: relative; top:-10px; left:230px;"><input type="submit" value="Remove" style="font-size: 14px; font-family: consolas; font-weight: bolder; cursor: pointer; padding-left:5px; padding-right: 25px; padding-top: 2px; padding-bottom: 2px; border: 1 px solid seagreen; background-color: rgba(255, 255, 255, 0.7); border-radius: 6px 6px 6px 6px"><i class="fa fa-remove" style="position: relative; left:-20px"></i></a>
+                  </form>
+              {% endif %}
+        </div>
+
+    </div>
+        
+{% endblock%}
