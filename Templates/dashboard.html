@@ -8,13 +8,13 @@
 
   .form-container label{
         font-family: consolas;
-        padding-right: 1s0px;
+        padding-right: 10px;
     }
 
     /* Full-width input fields */
     .form-container input[type=text]{
       font-family: consolas;
-      padding: 2px;
+      padding: 5px;
       margin: 5px 0px 0px 0;
       border: none;
       background: rgba(255, 255, 255, 0.7);
@@ -28,9 +28,9 @@
 
     select{
       font-family: arial;
-      padding: 1px;
+      padding: 5px;
       background-color: rgba(255, 255, 255, 0.7);
-      margin: 0;
+      margin-top: 10px;
       font-size: 14px;
       border: none;
     }
@@ -99,6 +99,9 @@
                           </tr>
                       {% endfor %}
                     </table>
+                  {% else %}
+                      <img src="{{'static/'+ 'nothing2.gif'}}" width="60%" style="transform: translate(30%, 0%);">
+                      <h4 style="font-family: consolas; text-align: center; margin-top: 0px;">Everything in stock!</h4>
                   {% endif %}
                 </div>
             </div>
@@ -108,14 +111,14 @@
     </div>
 
     <div style="background-color: #f2f2f2; position: relative;">
-        <div style="position: absolute; top: 0px; left: 0px ;background-color: #ff9999;width: 50%; height: 150px; border-radius: 12px 12px 12px 12px; margin-left: 10px; margin-top: 10px;">
+        <div style="position: absolute; top: 0px; left: 0px ;background-color: #ff9999;width: 46%; height: 200px; border-radius: 12px 12px 12px 12px; margin-left: 10px; margin-top: 10px;">
           
             <h2 style="color: white;border-radius: 12px 12px 0 0 ;margin-top: 0px;text-align: center; padding-top:0px; font-family:consolas; font-size: 20px; background: rgba(0, 0, 0, 0.2); line-height: 50px;">Meeting Set-Up</h2>
             
             <hr size=3 color="#d9d9d9" style="margin-top:-20px">
             
             {% if data[6] == 'notset' %}
-              <form action="{{url_for('gmeet')}}" method="post" style="margin: 7px; background: rgba(255, 255, 255, 0.5); border-radius: 2px 2px 12px 12px;padding: 7px;" class="form-container">
+              <form action="{{url_for('gmeet')}}" method="post" style="margin: 16px; background: rgba(255, 255, 255, 0.5); border-radius: 2px 2px 12px 12px;padding: 7px;" class="form-container">
 
                   <label for="evename"><b>For Event:</b></label>
                   <select name="evename" style="margin-left: 15px;">
@@ -127,19 +130,43 @@
                   <label for="meetlink" style="position: relative;top:10px"><b>Meet link:</b></label>
                   <input type="text" name="meetlink" required style="width: 75%; margin-left: 15px; position: relative;top:10px">
 
-                  <a style="position: relative; top:-100px; left:430px;"><input type="submit" value="Set" style="font-size: 14px; font-family: consolas; font-weight: bolder; cursor: pointer; padding-left:5px; padding-right: 25px; padding-top: 3px; padding-bottom: 3px; border: 1 px solid seagreen; background-color: rgba(255, 255, 255, 0.7); border-radius: 6px 6px 6px 6px;"><i class="fa fa-thumbs-o-up" style="position: relative; left:-20px; z-index: 0; font-size: 12px"></i>
+                  <a style="position: relative; top:-130px; left:530px;"><input type="submit" value="Set" style="font-size: 14px; font-family: consolas; font-weight: bolder; cursor: pointer; padding-left:5px; padding-right: 25px; padding-top: 3px; padding-bottom: 3px; border: 1 px solid seagreen; background-color: rgba(255, 255, 255, 0.7); border-radius: 6px 6px 6px 6px;"><i class="fa fa-thumbs-o-up" style="position: relative; left:-20px; z-index: 0; font-size: 12px"></i>
                   </a>
 
               </form>
               {% elif data[6] == 'set' %}
-                  <h3 style="text-align:center; font-family: gothic; color: #fcfcfc; margin-top:-5px">A meeting link has already been set</h3>
+                  <h3 style="text-align:center; font-family: gothic; color: #fcfcfc; margin-top:15px">A meeting link has already been set</h3>
 
-                  <h4 style="text-align:center; font-family: gothic; color: #fcfcfc; margin-top: -15px;">Remove previous meeting?</h4>
+                  <h4 style="text-align:center; font-family: gothic; color: #fcfcfc; margin-top: -10px;">Remove previous meeting?</h4>
 
                   <form action="{{url_for('remove_gmeet')}}" method="post" >
-                    <a style="position: relative; top:-10px; left:230px;"><input type="submit" value="Remove" style="font-size: 14px; font-family: consolas; font-weight: bolder; cursor: pointer; padding-left:5px; padding-right: 25px; padding-top: 2px; padding-bottom: 2px; border: 1 px solid seagreen; background-color: rgba(255, 255, 255, 0.7); border-radius: 6px 6px 6px 6px"><i class="fa fa-remove" style="position: relative; left:-20px"></i></a>
+                    <a style="position: relative; top:-10px; left:270px;"><input type="submit" value="Remove" style="font-size: 15px; font-family: consolas; font-weight: bolder; cursor: pointer; padding-left:5px; padding-right: 25px; padding-top: 2px; padding-bottom: 2px; border: 1 px solid seagreen; background-color: rgba(255, 255, 255, 0.7); border-radius: 6px 6px 6px 6px"><i class="fa fa-remove" style="position: relative; left:-20px"></i></a>
                   </form>
               {% endif %}
+        </div>
+        <div style="position: absolute; top: 0px; left: 47.5%;background-color: #11faa5; width: 40%; height: 200px; border-radius: 12px 12px 12px 12px; margin-left: 10px; margin-top: 10px;">
+          
+            <h2 style="color: white;border-radius: 12px 12px 0 0 ;margin-top: 0px;text-align: center; padding-top:0px; font-family:consolas; font-size: 20px; background: rgba(0, 0, 0, 0.2); line-height: 50px;">Report Download Section</h2>
+            
+            <hr size=3 color="#d9d9d9" style="margin-top:-20px">
+            
+            
+              <form action="{{url_for('report')}}" method="post" style="margin: 7px; background: rgba(255, 255, 255, 0.5); border-radius: 2px 2px 12px 12px;padding: 7px;" class="form-container">
+
+                  <h2 style="color: white;border-radius: 12px 12px 0 0; text-align: center; font-family:consolas; font-size: 18px;">Choose from the available reports</h2>
+
+                  <label for="tabname" style="margin-left: 20px"><b>Report of:</b></label>
+                  <select name="tabname" style="margin-left: 0px;">
+                    {% for event in data[7] %}
+                      <option value="{{event}}">{{event}}</option>
+                    {% endfor %}
+                  </select>
+                  <br>
+
+                  <a style="position: relative; top:-25px; left:300px;"><input type="submit" value="Download" style="font-size: 14px; font-family: consolas; font-weight: bolder; cursor: pointer; padding-left:5px; padding-right: 25px; padding-bottom: 2px; border: 1 px solid seagreen; background-color: rgba(255, 255, 255, 0.7); border-radius: 6px 6px 6px 6px"><i class="fa fa-download" style="position: relative; left:-20px"></i></a>
+
+              </form>
+              
         </div>
 
     </div>

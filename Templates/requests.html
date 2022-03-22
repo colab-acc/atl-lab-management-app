@@ -111,7 +111,7 @@ p{
     position: absolute;
     left: 600px;
     top: 320px;
-    margin-top: 40px;
+    margin-top: 100px;
     border-radius: 5px 5px 5px 5px;
     background-color: #8080ff;
     box-shadow: 0 5px 5px 0 #4d4dff;
@@ -157,7 +157,7 @@ p{
 		max-width: 750px;
     padding: 30px;
  	  background: rgba(255, 255, 255, 0.8);
-    transform: translate(13%, 8%);
+    transform: translate(24%, 8%);
 
 }
 
@@ -169,7 +169,7 @@ p{
 /* Full-width input fields */
 .form-container input[type=text], .form-container input[type=date], .form-container input[type=time]{
   font-family: consolas;
-  padding: 2px;
+  padding: 5px;
   margin: 5px 0px 10px 0;
   border: none;
   background: #f1f1f1;
@@ -228,7 +228,7 @@ textarea:focus{
 				</div>
 
 
-				<div style="height: 64vh; overflow-y: auto; margin-top: 15px;overscroll-behavior: contain;">
+				<div style="height: 68.2vh; overflow-y: auto; margin-top: 15px;overscroll-behavior: contain;">
 					
 						<table width="99%" style="margin-top: 0px; /*border-collapse: collapse;*/ border-radius: 12px 12px 12px 12px;" id="table">
 								<thead>
@@ -270,7 +270,7 @@ textarea:focus{
 
 		<div id="Approved" class="tabcontent">
 
-				<div style="height: 71.6vh; overflow-y: auto; /*background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));*/ margin-top: 15px;overscroll-behavior: contain;">
+				<div style="height: 75vh; overflow-y: auto; /*background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));*/ margin-top: 15px;overscroll-behavior: contain;">
 
 						<table width="99%" style="margin-top: 0px; /*border-collapse: collapse;*/ border-radius: 12px 12px 12px 12px;" id="table1">
 								<thead>
@@ -303,7 +303,7 @@ textarea:focus{
 
 		<div id="Denied" class="tabcontent">
 		 
-				 <div style="height: 71.6vh; overflow-y: auto; /*background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));*/ margin-top: 15px;overscroll-behavior: contain;">
+				 <div style="height: 75vh; overflow-y: auto; /*background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));*/ margin-top: 15px;overscroll-behavior: contain;">
 							<table width="99%" style="margin-top: 0px; /*border-collapse: collapse;*/ border-radius: 12px 12px 12px 12px;" id="table1">
 									<thead>
 											<tr style="border-radius: 12px 12px 0px 0px; background: transparent;">
@@ -335,7 +335,7 @@ textarea:focus{
 					</div>
 			</div>
 
-		<div style="position: absolute; top: 14%; left: 20%;border: 1;height: 85%; width: 79%; background: red; display: none; background: rgba(0, 0, 0, 0.7); box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px; z-index: 10000000000000;" id="division">
+		<div style="position: absolute; top: 11.5%; left: 17%;border: 1;height: 87%; width: 82%; background: red; display: none; background: rgba(0, 0, 0, 0.7); box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px; z-index: 10000000000000;" id="division">
 	    
 		    <div class="form-popup" id="myForm">
 		        <form action="{{url_for('update_req', id='buzz', email='suzz', sr='appf')}}" method="post" class="form-container" id="theform">
@@ -351,7 +351,7 @@ textarea:focus{
 		            <input type="date" name="issue_date" required style="width: 20%; margin-left: 5px;" readonly="readonly">
 
 		            <label for="email_id"><b>Requested by:</b></label>
-		            <input type="text" name="email_id" required style="width: 70%; margin-left: 45px;" readonly="readonly">
+		            <input type="text" name="email_id" required style="width: 72%; margin-left: 45px;" readonly="readonly">
 
 		            <label for="issuer_name"><b>Issuer Name:</b></label>
 		            <input type="text" name="issuer_name" required style="width: 75%; margin-left: 45px;">
@@ -375,12 +375,12 @@ textarea:focus{
 		                </datalist>
 
 		            <br>
-		            <h2 style="text-align:left; margin-top: 5px; color:black; font-size: 18px;">Additional Comments(if any):-</h2>
-		            <textarea rows = "4" cols = "60" name = "additional" placeholder="Additional Comments here..." style="margin-top: -5px"></textarea>
+		            <h2 style="text-align:left; margin-top: 10px; color:black; font-size: 18px;">Additional Comments(if any):-</h2>
+		            <textarea rows = "4" cols = "60" name = "additional" placeholder="Additional Comments here..." style="margin-top: -0px"></textarea>
 
 		    
 		            <input type="submit" class="button" value="Confirm" style="font-size: 18px; font-family: consolas">
-		            <i type="button" class="fa fa-close" onclick="closeForm()" style="position: relative; top: -410px; left: 380px; border-radius: 24px; cursor: pointer; background: rgba(0, 0, 0, 0.5); color: #f2f2f2; padding: 10px 12px;"></i>
+		            <i type="button" class="fa fa-close" onclick="closeForm()" style="position: relative; top: -440px; left: 380px; border-radius: 24px; cursor: pointer; background: rgba(0, 0, 0, 0.5); color: #f2f2f2; padding: 10px 12px;"></i>
 		        </form>
 
 		    </div>

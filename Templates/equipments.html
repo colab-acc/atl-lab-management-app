@@ -126,10 +126,10 @@
 
 	.form-container2 {
 		  height: 60vh;
-		  max-width: 750px;
+		  max-width: 780px;
 		  padding: 30px;
 		  background: rgba(255, 255, 255, 0.8);
-		  transform: translate(13%, 8%);
+		  transform: translate(20%, 8%);
 
 	}
 	p{
@@ -161,7 +161,7 @@
 
 	.button2{
 	    position: absolute;
-	    left: 550px;
+	    left: 650px;
 	    top: 330px;
 	    margin-top: 40px;
 	    border-radius: 5px 5px 5px 5px;
@@ -187,7 +187,7 @@
 		max-width: 750px;
 	    padding: 30px;
    	    background: rgba(255, 255, 255, 0.8);
-	    transform: translate(13%, 8%);
+	    transform: translate(22%, 8%);
 
 	}
 
@@ -223,14 +223,14 @@
 </style>
 </head>
 <body>
-	<div style="width: 860px; margin-left: 21%; padding: 0px; background-color: rgba(255, 255, 255, 0.6); box-shadow: 0 10px 20px 0px rgba(0,0,0,0.4); border-radius: 7px; margin-bottom: 0.4%; margin-top: 1.5%; ">
+	<div style="width: 1000px; margin-left: 21%; padding: 0px; background-color: rgba(255, 255, 255, 0.6); box-shadow: 0 10px 20px 0px rgba(0,0,0,0.4); border-radius: 7px; margin-bottom: 0.4%; margin-top: 1.5%; ">
 
-		<a id="home" href="{{url_for('home_page')}}" style="text-decoration: none; color: #f2f2f2; text-shadow: 2px 2px 4px #000000;"><i class="fa fa-home" style="position: absolute; left: 190px; font-size: 35px; padding: 16px; background: rgba(255, 255, 255, 0.6); box-shadow: 0 10px 20px 0px rgba(0,0,0,0.4); border-radius: 7px; cursor: pointer;"></i><span class="tooltiptext">Home</span></a>
+		<a id="home" href="{{url_for('home_page')}}" style="text-decoration: none; color: #f2f2f2; text-shadow: 2px 2px 4px #000000;"><i class="fa fa-home" style="position: absolute; left: 220px; font-size: 35px; padding: 16px; background: rgba(255, 255, 255, 0.6); box-shadow: 0 10px 20px 0px rgba(0,0,0,0.4); border-radius: 7px; cursor: pointer;"></i><span class="tooltiptext">Home</span></a>
 
         <h1 style="margin-bottom: 5px; text-align:center; font-family: times, serif; font-size: 40px; padding-top: 10px; padding-bottom: 10px; color: #f2f2f2; text-shadow: 2px 2px 4px #000000;"><b>Equipments</b></h1>
     </div>
 
-    <div style="position: absolute; top: 16.5%; left: 12%;border: 1;height: 80%; width: 78%; background: red; display: none; background: rgba(0, 0, 0, 0.7); box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px; z-index: 10000000000000;" id="division">
+    <div style="position: absolute; top: 16.5%; left: 12%;border: 1;height: 80%; width: 78%; background: red; display: none; background: rgba(0, 0, 0, 0.7); box-shadow: rgba(0, 0, 0, 0.12) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px; z-index: 10000000000000;" id="division">
 
 		    <div id="myForm" class="form-container2" style="text-align:center;">
 		    	<h2 id="vname" style="font-family: Trebuchet MS; margin-top: -10px;"></h2>
@@ -252,7 +252,7 @@
 
     </div>
 
-    <div style="position: absolute; top: 16.5%; left: 12%;border: 1;height: 80%; width: 78%; background: red; display: none; background: rgba(0, 0, 0, 0.7); box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px; z-index: 10000000000000;" id="division2">
+    <div style="position: absolute; top: 16.5%; left: 12%;border: 1;height: 80%; width: 78%; background: red; display: none; background: rgba(0, 0, 0, 0.7); box-shadow: rgba(0, 0, 0, 0.12) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px; z-index: 10000000000000;" id="division2">
 		    <div class="form-popup" id="myForm2">
 		        <form action="{{url_for('place_request')}}" method="POST" class="form-container" id="theform">
 		            <h2 style="text-align:center; margin-top: 10px; color:#2E2E2E; font-family: times new roman; font-size: 24px"><u>Request item</u></h2>

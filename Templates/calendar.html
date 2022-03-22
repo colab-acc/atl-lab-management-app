@@ -78,8 +78,8 @@
 
 .button {
     position: absolute;
-    left: 440px;
-    top: 355px;
+    left: 500px;
+    top: 370px;
     margin-top: 40px;
     border-radius: 5px 5px 5px 5px;
     background-color: #8080ff;
@@ -100,8 +100,8 @@
 
 .button2{
     position: absolute;
-    left: 285px;
-    top: 355px;
+    left: 320px;
+    top: 368px;
     margin-top: 40px;
     border-radius: 5px 5px 5px 5px;
     background-color: #8080ff;
@@ -128,99 +128,99 @@
     
     <button style="z-index: 50;position: absolute; right: 15px; bottom: 15px; padding: 10px 15px; font-family: consolas; font-size: 18px; font-weight: bolder; border: 2px solid #8080ff; border-radius: 6px; cursor: pointer; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;" onclick="openForm()"><i class="fa fa-plus" style="padding-right: 5px;" ></i>Add Event</button>
     <div style="font-family:consolas /*'Roboto', sans-serif*/;">
-        <div id="calendar" style="width: 95%; height: 80vh; margin-top: 30px;"></div>
+        <div id="calendar" style="width: 95%; height: 83vh; margin-top: 30px;"></div>
     </div>
-    <div style="position: absolute; top: 14%; border: 1;height: 83%; width: 78%; background: red; display: none; background: rgba(0, 0, 0, 0.5); box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px; z-index: 10000000000000;" id="division">
+    <div style="position: absolute; top: 12%; border: 1;height: 85%; width: 82%; background: red; display: none; background: rgba(0, 0, 0, 0.5); box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px; z-index: 10000000000000;" id="division">
     <div class="form-popup" id="myForm" >
         <form action="{{url_for('add_event')}}" method="POST" class="form-container">
             <h2 style="text-align:center; margin-top: 10px; color:#2E2E2E; font-family: times new roman; font-size: 24px"><u>Add Event</u></h2>
 
             <label for="event_name"><b>Event Name:</b></label>
-            <input type="text" value='' name="event_name" required style="width: 76.5%;">
+            <input type="text" value='' name="event_name" required style="width: 77.5%;">
 
             <label for="time" style="display: inline-block;"><b>Time:</b></label>
             <label for="startt" style="margin-left: 52px;">Start:</label>
-            <input type="time" value='' name="startt" required style="width: 25%;">
+            <input type="time" value='' name="startt" required style="width: 27%;">
 
             <label for="endt" style="margin-left:50px">End:</label>
-            <input type="time" value='' name="endt" required style="width: 25%">
+            <input type="time" value='' name="endt" required style="width: 27%">
 
             <label for="date" style="display: inline-block;"><b>Date:</b></label>
             <label for="startd" style="margin-left: 55px;">Start:</label>
-            <input type="date" value='' name="startd" required style="width: 25%;">
+            <input type="date" value='' name="startd" required style="width: 27%;">
 
             <label for="endd" style="margin-left:50px">End:</label>
-            <input type="date" value='' name="endd" required style="width: 25%">
+            <input type="date" value='' name="endd" required style="width: 27%">
 
             <label for="description"><b>Description:</b></label>
-            <input type="text" value='' name="description" required style="width: 77.5%;">
+            <input type="text" value='' name="description" required style="width: 78%;">
 
             <label for="incharge"><b>Incharge:</b></label>
-            <input type="text" value='' name="incharge" required style="width: 31%; margin-left: 20px;">
+            <input type="text" value='' name="incharge" required style="width: 32%; margin-left: 20px;">
 
             <label for="mentor" style="margin-left:20px"><b>Mentor:</b></label>
             <input type="text" value='' name="mentor" required style="width: 31%;">
 
             <label for="mode"><b>Mode:</b></label>
-            <input type="text" autocomplete="off" name="mode" list="exampleList" style="margin-left:45px; width: 31%;" required>
+            <input type="text" autocomplete="off" name="mode" list="exampleList" style="margin-left:45px; width: 32%;" required>
                 <datalist id="exampleList">
                   <option value="Online">  
                   <option value="Offline">
                 </datalist>
 
             <label for="venue" style="margin-left:20px"><b>Venue:</b></label>
-            <input type="text" value='' name="venue" required style="width: 31%;">
+            <input type="text" value='' name="venue" required style="width: 32%;">
 
 
             <input type="submit" class="button" value="Add Event" style="font-size: 18px; font-family: consolas">
-            <i type="button" class="fa fa-close" onclick="closeForm()" style="position: relative; top: -390px; left: 700px; border-radius: 24px; cursor: pointer; background: rgba(0, 0, 0, 0.5); color: #f2f2f2; padding: 10px 12px;"></i>
+            <i type="button" class="fa fa-close" onclick="closeForm()" style="position: relative; top: -390px; left: 750px; border-radius: 24px; cursor: pointer; background: rgba(0, 0, 0, 0.5); color: #f2f2f2; padding: 10px 12px;"></i>
         </form>
     </div>
     </div>
-    <div style="position: absolute; top: 14%; border: 1;height: 83%; width: 78%; background: red; display: none; background: rgba(0, 0, 0, 0.5); box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px; z-index: 10000000000000;" id="division2">
+    <div style="position: absolute; top: 12%; border: 1;height: 85%; width: 82%; background: red; display: none; background: rgba(0, 0, 0, 0.5); box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px; z-index: 10000000000000;" id="division2">
     <div class="form-popup" id="myForm2">
         <form action="{{url_for('update_event')}}" method="POST" class="form-container">
             <h2 style="text-align:center; margin-top: 10px; color:#2E2E2E; font-family: times new roman; font-size: 24px"><u>Edit Event</u></h2>
 
             <label for="event_name"><b>Event Name:</b></label>
-            <input type="text" value='' name="event_name" required style="width: 76.5%;" readonly="readonly">
+            <input type="text" value='' name="event_name" required style="width: 77.5%;" readonly="readonly">
 
             <label for="time" style="display: inline-block;"><b>Time:</b></label>
             <label for="start" style="margin-left: 52px;">Start:</label>
-            <input type="time" value='' name="startt" required style="width: 25%;">
+            <input type="time" value='' name="startt" required style="width: 27%;">
 
             <label for="end" style="margin-left:50px">End:</label>
-            <input type="time" value='' name="endt" required style="width: 25%">
+            <input type="time" value='' name="endt" required style="width: 27%">
 
             <label for="date" style="display: inline-block;"><b>Date:</b></label>
             <label for="start" style="margin-left: 55px;">Start:</label>
-            <input type="date" value='' name="startd" required style="width: 25%;">
+            <input type="date" value='' name="startd" required style="width: 27%;">
 
             <label for="end" style="margin-left:50px">End:</label>
-            <input type="date" value='' name="endd" required style="width: 25%">
+            <input type="date" value='' name="endd" required style="width: 27%">
 
             <label for="description"><b>Description:</b></label>
-            <input type="text" value='' name="description" required style="width: 77.5%;">
+            <input type="text" value='' name="description" required style="width: 78%;">
 
             <label for="incharge"><b>Incharge:</b></label>
-            <input type="text" value='' name="incharge" required style="width: 31%; margin-left: 20px;">
+            <input type="text" value='' name="incharge" required style="width: 32%; margin-left: 20px;">
 
             <label for="mentor" style="margin-left:20px"><b>Mentor:</b></label>
             <input type="text" value='' name="mentor" required style="width: 31%;">
 
             <label for="mode"><b>Mode:</b></label>
-            <input type="text" autocomplete="off" name="mode" list="exampleList" style="margin-left:45px; width: 31%;" required>
+            <input type="text" autocomplete="off" name="mode" list="exampleList" style="margin-left:45px; width: 32%;" required>
                 <datalist id="exampleList">
                   <option value="Online">  
                   <option value="Offline">
                 </datalist>
 
             <label for="venue" style="margin-left:20px"><b>Venue:</b></label>
-            <input type="text" value='' name="venue" required style="width: 31%;">
+            <input type="text" value='' name="venue" required style="width: 32%;">
 
             <input type="submit" class="button" value="Update Event" style="font-size: 18px; font-family: consolas">
             <button style="font-size: 18px; font-family: consolas;" class="button2" id="mybutton">Delete Event</button>
-            <i type="button" class="fa fa-close" onclick="closeForm()" style="position: relative; top: -390px; left: 700px; border-radius: 24px; cursor: pointer; background: rgba(0, 0, 0, 0.5); color: #f2f2f2; padding: 10px 12px;"></i>
+            <i type="button" class="fa fa-close" onclick="closeForm()" style="position: relative; top: -390px; left: 750px; border-radius: 24px; cursor: pointer; background: rgba(0, 0, 0, 0.5); color: #f2f2f2; padding: 10px 12px;"></i>
         </form>
     </div>
     
