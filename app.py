@@ -13,7 +13,7 @@ app = Flask('Lab Manangement System')
 
 
 # Configuring database
-db = yaml.load(open('db.yami'))
+db = yaml.load(open('db.yaml'))
 app.config["MYSQL_HOST"] = db['mysql_host']
 app.config['MYSQL_USER'] = db['mysql_user']
 app.config['MYSQL_PASSWORD'] = db['mysql_password']
@@ -72,6 +72,10 @@ def dashboard():
     cur.execute("select event_name from calendar")
     ceves = cur.fetchall()
 
+    cur.execute("show tables;")
+    tab = cur.fetchall()
+    tab = [i[0] for i in tab if i[0] not in ['gmeet', 'users']]
+
     cur.execute("select * from gmeet")
     valr = cur.fetchall()
     if len(valr)>0:
@@ -79,7 +83,7 @@ def dashboard():
     else:
         valp = 'notset'
 
-    return render_template("dashboard.html", data=[pen, teve, meve, weve, var, ceves, valp])
+    return render_template("dashboard.html", data=[pen, teve, meve, weve, var, ceves, valp, tab])
 
 @app.route("/home")
 def home_page():
@@ -287,7 +291,7 @@ def add_event():
         endt = Details['endt']
         description = Details['description']
         incharge = Details['incharge']
-        guest = Details['guest']
+        guest = Details['mentor']
         mode = Details['mode']
         venue = Details['venue']
 
@@ -497,55 +501,73 @@ def remove_gmeet():
     return redirect(url_for('dashboard'))
 
 
+# _____________future add on______________
+@app.route('/report',  methods=['get','post'])
+def report():
+    data = request.form
+    table_name = data['tabname']
+    try:
+        cur = mysql.connection.cursor()
+        cur.execute(f"SELECT * from {table_name}")
+        result = cur.fetchall()
+
+        cur.execute(f'desc {table_name}')
+        res = cur.fetchall()
+        res = [i[0] for i in res]
+
+        pdf = FPDF()
+        pdf.add_page()
+        page_width = pdf.w - 2 * pdf.l_margin
+        pdf.l_margin = pdf.l_margin*2.8
+        pdf.r_margin = pdf.r_margin*2.8
+
+
+        pdf.set_font('Times', 'B', 20.0)
+        pdf.image('.//static//background2.jpg', 0, 0, pdf.w, pdf.h, 'JPG')
+        pdf.image(
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQw0PGEgmhWcshuU9JhjfwzeBZSug995UzAGjdIKh3WKgEOL6aFxhpAUxmlKux5SZYHat4&usqp=CAU',
+            page_width / 5, 5, 10, 10, 'PNG')
+
+        pdf.cell(page_width, 0.0, 'LAB MANAGEMENT SYSTEM', align='C')
+        pdf.ln(15)
+        page_width = pdf.w - 2 * pdf.l_margin
+        pdf.set_font('Courier', 'B', 18.0)
+        pdf.cell(page_width, 0.0, f'{table_name}'.upper()+' REPORT', align='C')
+        pdf.ln(15)
+
+        pdf.set_font('Courier', '', 12)
+        col_width = page_width/0.9
+        pdf.ln(1)
+        th = pdf.font_size
+
+        page_lis = [1]
+        i = 1
+        for row in result:
+            pdf.cell(page_width, 0.0, 'Record ' + str(i), align='C')
+            pdf.ln(th)
+            for column in range(len(row)):
+                if pdf.page_no() not in page_lis:
+                    pdf.image('.//static//background2.jpg', 0, 0, pdf.w, pdf.h, 'JPG')
+                    page_lis.append(pdf.page_no())
+                    pdf.ln(15)
+                pdf.set_font('Courier', 'B', 12)
+                pdf.cell(col_width/4, th, '  '+str(res[column]).title() + ' : ', border=1) #align='C'
+                pdf.set_font('Courier', '', 12)
+                pdf.multi_cell(col_width/1.5, th, '  '+str(row[column]), border=1)
+                # pdf.ln(th)
+            pdf.ln(15)
+            i += 1
+
+
+        pdf.set_font('Times', '', 14.0)
+        pdf.cell(page_width, 0.0, '-: End Of Report :-', align='C')
+
+        return Response(pdf.output(dest='S').encode('latin-1'), mimetype='application/pdf',
+                        headers={'Content-Disposition': f'attachment;filename={table_name+"_report"}.pdf'})
+    except Exception as e:
+        print(e)
+
+
 if __name__ == "__main__":
     app.run(debug=True, port=8000)
 
-
-# _____________future add on______________
-
-# @app.route('/download/report/pdf')
-# def download_report():
-#     conn = None
-#     cursor = None
-#     try:
-#         conn = mysql.connect()
-#         cursor = conn.cursor(pymysql.cursors.DictCursor)
-#
-#         cursor.execute("SELECT emp_id, emp_first_name, emp_last_name, emp_designation FROM employee")
-#         result = cursor.fetchall()
-#
-#         pdf = FPDF()
-#         pdf.add_page()
-#
-#         page_width = pdf.w - 2 * pdf.l_margin
-#
-#         pdf.set_font('Times', 'B', 14.0)
-#         pdf.cell(page_width, 0.0, 'Employee Data', align='C')
-#         pdf.ln(10)
-#
-#         pdf.set_font('Courier', '', 12)
-#
-#         col_width = page_width / 4
-#
-#         pdf.ln(1)
-#
-#         th = pdf.font_size
-#
-#         for row in result:
-#             pdf.cell(col_width, th, str(row['emp_id']), border=1)
-#             pdf.cell(col_width, th, row['emp_first_name'], border=1)
-#             pdf.cell(col_width, th, row['emp_last_name'], border=1)
-#             pdf.cell(col_width, th, row['emp_designation'], border=1)
-#             pdf.ln(th)
-#
-#         pdf.ln(10)
-#
-#         pdf.set_font('Times', '', 10.0)
-#         pdf.cell(page_width, 0.0, '- end of report -', align='C')
-#
-#         return Response(pdf.output(dest='S').encode('latin-1'), mimetype='application/pdf',
-#                         headers={'Content-Disposition': 'attachment;filename=employee_report.pdf'})
-#     except Exception as e:
-#         print(e)
-#     finally:
-#         cursor.close()
