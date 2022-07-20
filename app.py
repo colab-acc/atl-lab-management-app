@@ -501,7 +501,7 @@ def remove_gmeet():
     return redirect(url_for('dashboard'))
 
 
-# _____________future add on______________
+# Downloading report section-
 @app.route('/report',  methods=['get','post'])
 def report():
     data = request.form
@@ -523,7 +523,7 @@ def report():
 
 
         pdf.set_font('Times', 'B', 20.0)
-        pdf.image('.//static//background2.jpg', 0, 0, pdf.w, pdf.h, 'JPG')
+        # pdf.image('.//static//background2.jpg', 0, 0, pdf.w, pdf.h, 'JPG')
         pdf.image(
             'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQw0PGEgmhWcshuU9JhjfwzeBZSug995UzAGjdIKh3WKgEOL6aFxhpAUxmlKux5SZYHat4&usqp=CAU',
             page_width / 5, 5, 10, 10, 'PNG')
@@ -547,7 +547,7 @@ def report():
             pdf.ln(th)
             for column in range(len(row)):
                 if pdf.page_no() not in page_lis:
-                    pdf.image('.//static//background2.jpg', 0, 0, pdf.w, pdf.h, 'JPG')
+                    # pdf.image('.//static//background2.jpg', 0, 0, pdf.w, pdf.h, 'JPG')
                     page_lis.append(pdf.page_no())
                     pdf.ln(15)
                 pdf.set_font('Courier', 'B', 12)
