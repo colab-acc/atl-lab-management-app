@@ -16,13 +16,13 @@ app = Flask('Lab Manangement System')
 app.config['SECRET_KEY'] = "bahahahahah"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-ENV = 'deploy'
+ENV = 'dev'
 if ENV == 'dev':
     app.debug = True
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:anuragrai123@localhost/test_database'
 else:
     app.debug = False
-    app.config['SQLALCHEMY_DATABASE_URI'] = ''
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://psmgpdolnookgz:4816740729d6d898692fc41e611cb8ebc9ae75c78070e4bf94bf28023a0f67b3@ec2-34-235-198-25.compute-1.amazonaws.com:5432/dec5e4m23jr5dt'
 
 
 # Configuring database
