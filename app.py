@@ -350,7 +350,7 @@ def add_inv():
         if db.session.query(Equipments).filter(Equipments.item_code == code).count() > 0:
             show = f'Item with code {code} already present!'
         else:
-            row = Equipments(code, item_name, quantity, location, paddress, specification, extras)
+            row = Equipments(code, item_name, int(quantity), location, paddress, specification, extras)
             db.session.add(row)
             db.session.commit()
 
