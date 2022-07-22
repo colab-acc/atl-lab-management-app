@@ -16,6 +16,8 @@ app = Flask('Lab Manangement System')
 app.config['SECRET_KEY'] = "bahahahahah"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+
+# Setting database types: Local/Remote
 ENV = 'prod'
 if ENV == 'dev':
     app.debug = True
@@ -24,7 +26,7 @@ else:
     app.debug = False
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://psmgpdolnookgz:4816740729d6d898692fc41e611cb8ebc9ae75c78070e4bf94bf28023a0f67b3@ec2-34-235-198-25.compute-1.amazonaws.com:5432/dec5e4m23jr5dt'
 
-# Configuring database
+# Creating database object
 db = SQLAlchemy(app)
 
 # Creating db Model
@@ -80,7 +82,7 @@ class Equipments(db.Model):
     name = db.Column(db.String(100))
     quantity = db.Column(db.Integer)
     location = db.Column(db.String(500))
-    paddress = db.Column(db.String(1000))
+    paddress = db.Column(db.String(5000))
     specifications = db.Column(db.String(100))
     extras = db.Column(db.String(50))
 
