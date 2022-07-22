@@ -29,9 +29,9 @@
 }
 
 .form-container {
-  height: 72vh;
-  max-width: 100vh;
+  max-width: 110vh;
   padding: 30px;
+  padding-bottom: 12vh;
   background-color: white;
 
 }
@@ -77,10 +77,9 @@
 
 
 .button {
-    position: absolute;
-    left: 500px;
-    top: 370px;
-    margin-top: 40px;
+    position: fixed;
+    bottom: 20px;
+    right: 60px;
     border-radius: 5px 5px 5px 5px;
     background-color: #8080ff;
     box-shadow: 0 5px 5px 0 #4d4dff;
@@ -99,10 +98,9 @@
 }
 
 .button2{
-    position: absolute;
-    left: 320px;
-    top: 368px;
-    margin-top: 40px;
+    position: fixed;
+    bottom: 20px;
+    right: 210px;
     border-radius: 5px 5px 5px 5px;
     background-color: #8080ff;
     box-shadow: 0 5px 5px 0 #4d4dff;
@@ -130,7 +128,7 @@
     <div style="font-family:consolas /*'Roboto', sans-serif*/;">
         <div id="calendar" style="width: 95%; height: 83vh; margin-top: 30px;"></div>
     </div>
-    <div style="position: absolute; top: 12%; border: 1;height: 85%; width: 82%; background: red; display: none; background: rgba(0, 0, 0, 0.5); box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px; z-index: 10000000000000;" id="division">
+    <div style="position: absolute; top: 13%; border: 1;height: 86%; width: 79%; display: none; background: rgba(0, 0, 0, 0.5); box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px; z-index: 10000000000000;" id="division">
     <div class="form-popup" id="myForm" >
         <form action="{{url_for('add_event')}}" method="POST" class="form-container">
             <h2 style="text-align:center; margin-top: 10px; color:#2E2E2E; font-family: times new roman; font-size: 24px"><u>Add Event</u></h2>
@@ -173,7 +171,7 @@
 
 
             <input type="submit" class="button" value="Add Event" style="font-size: 18px; font-family: consolas">
-            <i type="button" class="fa fa-close" onclick="closeForm()" style="position: relative; top: -390px; left: 750px; border-radius: 24px; cursor: pointer; background: rgba(0, 0, 0, 0.5); color: #f2f2f2; padding: 10px 12px;"></i>
+            <i type="button" class="fa fa-close" onclick="closeForm()" style="position: fixed; top: 15px; right: 15px; border-radius: 24px; cursor: pointer; background: rgba(0, 0, 0, 0.5); color: #f2f2f2; padding: 10px 12px;"></i>
         </form>
     </div>
     </div>
@@ -220,7 +218,7 @@
 
             <input type="submit" class="button" value="Update Event" style="font-size: 18px; font-family: consolas">
             <button style="font-size: 18px; font-family: consolas;" class="button2" id="mybutton">Delete Event</button>
-            <i type="button" class="fa fa-close" onclick="closeForm()" style="position: relative; top: -390px; left: 750px; border-radius: 24px; cursor: pointer; background: rgba(0, 0, 0, 0.5); color: #f2f2f2; padding: 10px 12px;"></i>
+            <i type="button" class="fa fa-close" onclick="closeForm()" style="position: fixed; top: 15px; right: 15px; border-radius: 24px; cursor: pointer; background: rgba(0, 0, 0, 0.5); color: #f2f2f2; padding: 10px 12px;"></i>
         </form>
     </div>
     

@@ -53,25 +53,61 @@
     </div>
 
     <div style="position: fixed;">
-        <div class="timecon" style="width: 425px">
+
+        <!-- <div class="timecon" style="width: 330px; height:220px">
             <div style="float: right;">
                 <div style="float:right; font-family: consolas; padding-right: 15px; padding-top:25px; font-weight: bold; font-size:20px;">Bengaluru<br><small>India</small>
                 </div>
                 <span><i class="fa fa-cloud" style="display: inline-block; padding-right: 10px; font-size: 20px; color:#2e2e2e"></i><h1 id="degcel" style="display: inline-block;font-family: consolas ;padding-right: 10px;">N/A</h1></span>
             </div>
-        </div>
-        <div style="width:570px; display:inline-block; position: fixed; ">
+        </div> -->
 
-            <div style="position: fixed; background-color: #b380ff;width: 205px; height: 250px; border-radius: 12px 12px 12px 12px; margin-left: 10px; display: inline-block;">
-                <h2 style="color:white;border-radius: 12px 12px 0 0 ;margin-top: 0px;text-align: center; padding-top:0px; font-family:consolas; font-size: 20px; background: rgba(0, 0, 0, 0.2); line-height: 50px;">Pending Requests</h2>
+            <div style="position: fixed; display:inline-block; ">
+                <div style="background-color: #ff9999;width: 425px; height: 210px; border-radius: 12px 12px 12px 12px; margin-left: 10px; display: inline-block;">
+              
+                <h2 style="color: white;border-radius: 12px 12px 0 0 ;margin-top: 0px;text-align: center; padding-top:0px; font-family:consolas; font-size: 20px; background: rgba(0, 0, 0, 0.2); line-height: 50px;">Meeting Set-Up</h2>
+                
                 <hr size=3 color="#d9d9d9" style="margin-top:-20px">
-                <span style="background: rgba(0, 0, 0, 0.1) ;position: absolute; padding: 10px 42px; margin-top: 30px;margin-left: 50px; border-radius: 50%; box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3);"><h1 style="text-align: center; font-family: consolas; color: #fcfcfc">{{data[0]}}</h1></span>
-            </div>
+                
+                {% if data[6] == 'notset' %}
+                  
+                  {% if data[5]|length >0 %}
+                    <form action="{{url_for('gmeet')}}" method="post" style="margin: 8px; background: rgba(255, 255, 255, 0.5); border-radius: 2px 2px 12px 12px;padding: 14px; position: fixed; width: 380px" class="form-container">
 
-            <div style="position: fixed; left: 920px;background-color: #80aaff; width: 205px; height: 250px; border-radius: 12px 12px 12px 12px; margin-left: 10px; display: inline-block;">
+                        <label for="evename"><b>For Event:</b></label>
+                        <select name="evename" style="margin-left: 5px;">
+                          {% for event in data[5] %}
+                            <option value="{{event[0]}}">{{event[0]}}</option>
+                          {% endfor %}
+                        </select>
+                        <br>
+                        <label for="meetlink" style="position: relative;top:10px"><b>Meet link:</b></label>
+                        <input type="text" name="meetlink" required style="width: 260px; margin-left: 5px; position: relative;top:10px">
+
+                        <a style="position: relative; top: -135px; left:325px;"><input type="submit" value="Set" style="font-size: 14px; font-family: consolas; font-weight: bolder; cursor: pointer; padding-left:5px; padding-right: 25px; padding-top: 3px; padding-bottom: 3px; border: 1 px solid seagreen; background-color: rgba(255, 255, 255, 0.7); border-radius: 6px 6px 6px 6px;"><i class="fa fa-thumbs-o-up" style="position: relative; left: -15px; top: 0px; z-index: 0; font-size: 12px"></i>
+                        </a>
+                    </form>
+                  {% else %}
+                    <h3 style="text-align:center; font-family: gothic; color: #fcfcfc; margin-top:15px">No events in the Calendar</h3>                
+                    <h4 style="text-align:center; font-family: gothic; color: #fcfcfc; margin-top: -10px;">You might want to <a href="{{url_for('calendar')}}">set an ATL event</a> first?</h4>
+                  {% endif %}
+
+                {% elif data[6] == 'set' %}
+                      <h3 style="text-align:center; font-family: gothic; color: #fcfcfc; margin-top:15px">A meeting link has already been set</h3>
+
+                      <h4 style="text-align:center; font-family: gothic; color: #fcfcfc; margin-top: -10px;">Remove current meeting?</h4>
+
+                      <form action="{{url_for('remove_gmeet')}}" method="post" >
+                        <a style="position: relative; top:-10px; left:270px;"><input type="submit" value="Remove" style="font-size: 15px; font-family: consolas; font-weight: bolder; cursor: pointer; padding-left:5px; padding-right: 25px; padding-top: 2px; padding-bottom: 2px; border: 1 px solid seagreen; background-color: rgba(255, 255, 255, 0.7); border-radius: 6px 6px 6px 6px"><i class="fa fa-remove" style="position: relative; left:-20px"></i></a>
+                      </form>
+                {% endif %}
+            </div>
+                
+
+            <div style="position: fixed; background-color: #80aaff; width: 205px; height: 210px; border-radius: 12px 12px 12px 12px; margin-left: 10px; display: inline-block;">
                 <h2 style="color: white;border-radius: 12px 12px 0 0 ;margin-top: 0px;text-align: center; padding-top:0px; font-family:consolas; font-size: 20px; background: rgba(0, 0, 0, 0.2); line-height: 50px;">ATL Events</h2>
                 <hr size=3 color="#d9d9d9" style="margin-top:-20px">
-                <div style="height:175px; width:92%; background: rgba(255, 255, 255, 0.5); margin-left: 7px; border-radius: 0px 0px 10px 10px;">
+                <div style="height:140px; width:92%; background: rgba(255, 255, 255, 0.5); margin-left: 7px; border-radius: 0px 0px 10px 10px;">
                     <table style="margin:5px; font-family: consolas; font-size: 16px">
                       <tr><td style="padding:5px"><u>Today</u></td><td style="padding:5px">: {{data[1]}}</td></tr>
                       <tr><td style="padding:5px"><u>This week</u></td><td style="padding:5px">: {{data[3]}}</td></tr>
@@ -80,84 +116,54 @@
                 </div>
             </div>
 
-          <div style="position: fixed;left: 1135px; background-color: #ffcc99;width: 300px; height: 250px; border-radius: 12px 12px 12px 12px; margin-left: 10px; ">
-              <h2 style="color: white; border-radius: 12px 12px 0 0 ;margin-top: 0px;text-align: center; padding-top:0px; font-family:consolas; font-size: 20px; background: rgba(0, 0, 0, 0.2); line-height: 50px;">Equipments low on Q(N)</h2>
-              <hr size=3 color="#d9d9d9" style="margin-top:-20px">
-              <div style="overflow-y: auto; height:175px; width:100%;">
-                  {% if data[4]|length > 0 %}
-                    <table style="margin:5px; /*background: rgba(255, 255, 255, 0.7);*/ font-family:consolas;">
-                      <tr>
-                          <th  style="margin: 2px; background: rgba(255, 255, 255, 0.5); padding-left: 4px; padding-right: 4px;">Code</th>
-                          <th  style="margin: 2px; background: rgba(255, 255, 255, 0.5); padding-left: 4px; padding-right: 4px;">Name</th>
-                          <th  style="margin: 2px; background: rgba(255, 255, 255, 0.5); padding-left: 4px; padding-right: 4px;">Active Q(N)</th>
-                      </tr>
-                      {% for stuff in data[4] %}
-                          <tr style="font-size: 14px;">
-                              <td style="margin: 2px; background: rgba(255, 255, 255, 0.4); padding-left: 4px; padding-right: 4px;">{{stuff[0]}}</td>
-                              <td style="margin: 2px; background: rgba(255, 255, 255, 0.5); padding-left: 4px; padding-right: 4px;">{{stuff[1]}}</td>
-                              <td style="text-align: center; margin: 2px; background: rgba(255, 255, 255, 0.5); padding-left: 4px; padding-right: 4px;">{{stuff[2]}}</td>
-                          </tr>
-                      {% endfor %}
-                    </table>
-                  {% else %}
-                      <img src="{{'static/'+ 'nothing2.gif'}}" width="60%" style="transform: translate(30%, 0%);">
-                      <h4 style="font-family: consolas; text-align: center; margin-top: 0px;">Everything in stock!</h4>
-                  {% endif %}
-                </div>
-            </div>
+            <div style="position: fixed; background-color: #ffcc99; width: 300px; height: 450px; border-radius: 12px 12px 12px 12px; margin-left: 225px; display: inline-block; ">
+                <h2 style="color: white; border-radius: 12px 12px 0 0 ;margin-top: 0px;text-align: center; padding-top:0px; font-family:consolas; font-size: 20px; background: rgba(0, 0, 0, 0.2); line-height: 50px;">Equipments low on Q(N)</h2>
+                <hr size=3 color="#d9d9d9" style="margin-top:-20px">
+                <div style="overflow-y: auto; height:380px; width:100%;">
+                    {% if data[4]|length > 0 %}
+                      <table style="margin:5px; /*background: rgba(255, 255, 255, 0.7);*/ font-family:consolas;">
+                        <tr>
+                            <th  style="margin: 2px; background: rgba(255, 255, 255, 0.5); padding-left: 4px; padding-right: 4px;">Code</th>
+                            <th  style="margin: 2px; background: rgba(255, 255, 255, 0.5); padding-left: 4px; padding-right: 4px;">Name</th>
+                            <th  style="margin: 2px; background: rgba(255, 255, 255, 0.5); padding-left: 4px; padding-right: 4px;">Active Q(N)</th>
+                        </tr>
+                        {% for stuff in data[4] %}
+                            <tr style="font-size: 14px;">
+                                <td style="margin: 2px; background: rgba(255, 255, 255, 0.4); padding-left: 4px; padding-right: 4px;">{{stuff[0]}}</td>
+                                <td style="margin: 2px; background: rgba(255, 255, 255, 0.5); padding-left: 4px; padding-right: 4px;">{{stuff[1]}}</td>
+                                <td style="text-align: center; margin: 2px; background: rgba(255, 255, 255, 0.5); padding-left: 4px; padding-right: 4px;">{{stuff[2]}}</td>
+                            </tr>
+                        {% endfor %}
+                      </table>
+                    {% else %}
+                        <img src="{{'static/'+ 'nothing2.gif'}}" width="60%" style="transform: translate(30%, 0%);">
+                        <h4 style="font-family: consolas; text-align: center; margin-top: 0px;">Everything in stock!</h4>
+                    {% endif %}
+                  </div>
+              </div>
       </div>
-      <hr size=3 color="#aeaeae" style="margin-top:20px; padding-right: 20px;">
+      <hr size=3 color="#aeaeae" style="padding-right: 20px; position: fixed; top: 380px; width: 625px">
 
     </div>
 
-    <div style="background-color: #f2f2f2; position: fixed; top: 460px">
-        <div style="position: absolute; top: 0px; left: 0px ;background-color: #ff9999;width: 425px; height: 200px; border-radius: 12px 12px 12px 12px; margin-left: 10px; margin-top: 10px;">
-          
-            <h2 style="color: white;border-radius: 12px 12px 0 0 ;margin-top: 0px;text-align: center; padding-top:0px; font-family:consolas; font-size: 20px; background: rgba(0, 0, 0, 0.2); line-height: 50px;">Meeting Set-Up</h2>
-            
-            <hr size=3 color="#d9d9d9" style="margin-top:-20px">
-            
-            {% if data[6] == 'notset' %}
-              
-              {% if data[5]|length >0 %}
-                <form action="{{url_for('gmeet')}}" method="post" style="margin: 8px; background: rgba(255, 255, 255, 0.5); border-radius: 2px 2px 12px 12px;padding: 14px; position: fixed; width: 380px" class="form-container">
 
-                    <label for="evename"><b>For Event:</b></label>
-                    <select name="evename" style="margin-left: 5px;">
-                      {% for event in data[5] %}
-                        <option value="{{event[0]}}">{{event[0]}}</option>
-                      {% endfor %}
-                    </select>
-                    <br>
-                    <label for="meetlink" style="position: relative;top:10px"><b>Meet link:</b></label>
-                    <input type="text" name="meetlink" required style="width: 260px; margin-left: 5px; position: relative;top:10px">
+    <div style="background-color: #f2f2f2; position: fixed; top: 405px; ">
 
-                    <a style="position: relative; top: -135px; left:325px;"><input type="submit" value="Set" style="font-size: 14px; font-family: consolas; font-weight: bolder; cursor: pointer; padding-left:5px; padding-right: 25px; padding-top: 3px; padding-bottom: 3px; border: 1 px solid seagreen; background-color: rgba(255, 255, 255, 0.7); border-radius: 6px 6px 6px 6px;"><i class="fa fa-thumbs-o-up" style="position: relative; left: -15px; top: 0px; z-index: 0; font-size: 12px"></i>
-                    </a>
-                </form>
-              {% else %}
-                <h3 style="text-align:center; font-family: gothic; color: #fcfcfc; margin-top:15px">No events in the Calendar</h3>                
-                <h4 style="text-align:center; font-family: gothic; color: #fcfcfc; margin-top: -10px;">You might want to <a href="{{url_for('calendar')}}">set an ATL event</a> first?</h4>
-              {% endif %}
+        <div style="position: fixed; background-color: #b380ff;width:205px; height: 210px; border-radius: 12px 12px 12px 12px; margin-left: 10px; display: inline-block;">
+                <h2 style="color:white;border-radius: 12px 12px 0 0 ;margin-top: 0px;text-align: center; padding-top:0px; font-family:consolas; font-size: 20px; background: rgba(0, 0, 0, 0.2); line-height: 50px;">Pending Requests</h2>
+                <hr size=3 color="#d9d9d9" style="margin-top:-20px">
+                <span style="background: rgba(0, 0, 0, 0.1) ;position: absolute; padding: 10px 42px; margin-top: 15px;margin-left: 50px; border-radius: 50%; box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3);"><h1 style="text-align: center; font-family: consolas; color: #fcfcfc">{{data[0]}}</h1></span>
+            </div>
 
-            {% elif data[6] == 'set' %}
-                  <h3 style="text-align:center; font-family: gothic; color: #fcfcfc; margin-top:15px">A meeting link has already been set</h3>
-
-                  <h4 style="text-align:center; font-family: gothic; color: #fcfcfc; margin-top: -10px;">Remove current meeting?</h4>
-
-                  <form action="{{url_for('remove_gmeet')}}" method="post" >
-                    <a style="position: relative; top:-10px; left:270px;"><input type="submit" value="Remove" style="font-size: 15px; font-family: consolas; font-weight: bolder; cursor: pointer; padding-left:5px; padding-right: 25px; padding-top: 2px; padding-bottom: 2px; border: 1 px solid seagreen; background-color: rgba(255, 255, 255, 0.7); border-radius: 6px 6px 6px 6px"><i class="fa fa-remove" style="position: relative; left:-20px"></i></a>
-                  </form>
-            {% endif %}
-        </div>
-        <div style="position: absolute; top: 0px; left: 435px;background-color: #11faa5; width: 425px; height: 200px; border-radius: 12px 12px 12px 12px; margin-left: 10px; margin-top: 10px;">
+        
+        <div style="position: fixed; background-color: #11faa5; width: 425px; height: 210px; border-radius: 12px 12px 12px 12px; margin-left: 225px;">
           
             <h2 style="color: white;border-radius: 12px 12px 0 0 ;margin-top: 0px;text-align: center; padding-top:0px; font-family:consolas; font-size: 20px; background: rgba(0, 0, 0, 0.2); line-height: 50px;">Report Download Section</h2>
             
             <hr size=3 color="#d9d9d9" style="margin-top:-20px">
             
             
-              <form action="{{url_for('report')}}" method="post" style="margin: 7px; background: rgba(255, 255, 255, 0.5); border-radius: 2px 2px 12px 12px;padding: 7px; position: fixed; width: 395px" class="form-container">
+              <form action="{{url_for('report')}}" method="post" style="margin: 8px; background: rgba(255, 255, 255, 0.5); border-radius: 2px 2px 12px 12px; padding-top: 2px; padding-bottom: 30px" class="form-container">
 
                   <h2 style="border-radius: 12px 12px 0 0; text-align: center; font-family:consolas; font-size: 17px;">Choose from the available reports: -</h2>
 
