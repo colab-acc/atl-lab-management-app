@@ -16,7 +16,7 @@ app = Flask('Lab Manangement System')
 app.config['SECRET_KEY'] = "bahahahahah"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-ENV = 'dev'
+ENV = 'deploy'
 if ENV == 'dev':
     app.debug = True
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:anuragrai123@localhost/test_database'
@@ -652,5 +652,5 @@ def report():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=8000)
+    app.run()
 
