@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="{{url_for('static', filename='./css/evo-calendar.min.css')}}">
+	<link rel="stylesheet" href="{{url_for('static', filename='./css/evo-calendar.orange-coral.min.css')}}">
+	<link rel="stylesheet" href="{{url_for('static', filename='./css/evo-calendar.midnight-blue.min.css')}}">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<title>ATL AFSH</title>
+
+<style>
+	body{
+		background: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url("https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/rm222-mind-22_1_2.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=3d5d85909cafb6e0f0de9905cf40ec01");
+		
+		background-size: cover;
+  		align-items: center;
+
+	}	
+	.tooltiptext {
+		  visibility: hidden;
+		  width: 80px;
+		  background-color: rgba(0, 0, 0, 0.5);
+		  color: #f2f2f2;
+		  text-align: center;
+		  border-radius: 6px;
+		  padding: 5px 0;
+		  position: absolute;
+		  z-index: 10;
+		  top: 16%;
+		  left: 18%;
+		  margin-left: -60px;
+		}
+
+		.tooltiptext::after {
+		  content: "";
+		  position: absolute;
+		  bottom: 100%;
+		  right: 40%;
+		  margin-left: 20px;
+		  border-width: 5px;
+		  border-style: solid;
+		  border-color: transparent transparent black transparent;
+		}
+
+		#home:hover .tooltiptext {
+		  visibility: visible;
+		}
+
+</style>
+</head>
+
+<body>
+	<div style="width: 860px; margin-left: 23%; padding: 0px; background-color: rgba(255, 255, 255, 0.6); box-shadow: 0 10px 20px 0px rgba(0,0,0,0.4); border-radius: 7px; margin-bottom: 0.4%; margin-top: 1.5%">
+		<a id="home" href="{{url_for('home_page')}}" style="text-decoration: none; color: #f2f2f2; text-shadow: 2px 2px 4px #000000;"><i class="fa fa-home" style="position: absolute; left: 260px; font-size: 35px; padding: 16px; background: rgba(255, 255, 255, 0.6); box-shadow: 0 10px 20px 0px rgba(0,0,0,0.4); border-radius: 7px; cursor: pointer;"></i><span class="tooltiptext">Home</span></a>
+        <h1 style="margin-bottom: 5px; text-align:center; font-family: times, serif; font-size: 40px; padding-top: 10px; padding-bottom: 10px; color: #f2f2f2; text-shadow: 2px 2px 4px #000000;"><b>ATL Calendar</b></h1>
+    </div>
+	<div style="font-family:consolas /*'Roboto', sans-serif*/; ">
+        <div id="calendar" style="width: 85%; height: 81vh; margin-top: 20px;"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+	<script src="{{url_for('static', filename='./js/evo-calendar.min.js')}}"></script>
+	<script type="text/javascript">
+	    $(document).ready(function() {
+	        arr = [];
+	        let list_data = {{ output | tojson }};
+	        for (let i = 0; i < list_data.length; i++) {
+	            const dict = new Object();
+	            dict.id = list_data[i]['id'];
+	            dict.name = list_data[i]['name'];
+	            dict.badge = list_data[i]['badge'];
+	            dict.date = list_data[i]['date'];
+	            dict.description = list_data[i]['description'];
+	            dict.type = list_data[i]['type'];
+	            arr.push(dict)
+	}
+	        // var person={"first_name":"Tony","last_name":"Hawk","age":31};
+	        // var personJSONString=JSON.stringify(person); 
+	        // document.write(JSON.parse(personJSONString[0]));
+	        $('#calendar').evoCalendar({     
+	            theme: "Orange Coral",
+	            todayHighlight: "true",
+
+	            calendarEvents: arr
+	        });
+	    })
+
+	       
+	 
+	</script>
+
+</body>
+</html>

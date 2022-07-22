@@ -1,0 +1,492 @@
+{% extends 'base.html' %}
+
+{% block style %}
+
+<style>
+.menu5{
+	background: rgba(255, 255, 255, 0.2);
+}
+
+#myInput{
+  border: 2px solid transparent;
+  outline: none;
+  width:  80%;
+  border-radius: 12px 12px 12px 12px;
+  background: rgba(255, 255, 255, 0.5);
+  /*background: #ffe6e6;*/
+  box-sizing: border-box;
+  background-position: 14px 12px;
+  background-repeat: no-repeat;
+  font-size: 16px;
+  padding: 8px 20px 8px 45px;
+}
+
+#myInput:focus{
+    border: 2px solid #8080ff;
+  }
+
+#table tr td, #table1 tr td{
+ 	/*border-top: 2px solid #f2f2f2;*/
+ 	text-align: center;
+ 	padding: 8px;
+ 	font-family: arial;
+ 	background-color: rgba(255, 255, 255, 0.7);
+
+ }
+
+ #table tr th, #table1 tr th{
+ 	padding: 12px;
+ 	font-size: 17px;
+ 	font-family: consolas;
+ 	background-color: rgba(255, 255, 255, 0.7);
+ }
+
+ /*#table tr:nth-child(even) {background-color: #cce6ff;}*/
+ /*#table tr:nth-child(even) {background-color: rgba(255, 255, 255, 0.7);}*/
+
+ #table i, #table1 i{
+ 	padding: 5px 7px;
+ 	border-radius: 4px 4px 4px 4px;
+ 	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+ 	font-size: 18px;
+ 	background: #8080ff;
+ 	color: white;
+ 	cursor: pointer;
+ }
+
+ #table i small, #table1 i small{
+ 	font-family: consolas;
+ 	font-weight: bolder;
+ }
+
+.tab {
+  overflow: hidden;
+  /*border: 2px solid #ccc;*/
+  background-color: #f1f1f1;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.tab button {
+  background-color: inherit;
+  float: right;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+.tab button:hover {
+  background-color: #ddd;
+}
+
+.tab button.active {
+  background-color: #8080ff;
+  color:  #fcfcfc;
+}
+
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+
+select{
+	font-family: arial;
+	padding: 1px;
+	background-color: rgba(255, 255, 255, 0.7);
+	margin: 0;
+	font-size: 14px;
+	border: none;
+}
+
+p{
+	margin-left: 40px;
+}
+
+
+.button {
+    position: absolute;
+    left: 600px;
+    top: 320px;
+    margin-top: 100px;
+    border-radius: 5px 5px 5px 5px;
+    background-color: #8080ff;
+    box-shadow: 0 5px 5px 0 #4d4dff;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 18px;
+    font-family: times new roman;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 20%;
+    min-width: 140px;
+    transition: all 0.5s;
+    cursor: pointer;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+  }
+
+.button2{
+    position: absolute;
+    left: 550px;
+    top: 330px;
+    margin-top: 40px;
+    border-radius: 5px 5px 5px 5px;
+    background-color: #8080ff;
+    box-shadow: 0 5px 5px 0 #4d4dff;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 18px;
+    font-family: times new roman;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 15%;
+    min-width: 100px;
+    transition: all 0.5s;
+    cursor: pointer;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+  }
+
+  /* Add styles to the form container */
+.form-container {
+  	height: 63vh;
+		max-width: 750px;
+    padding: 30px;
+ 	  background: rgba(255, 255, 255, 0.8);
+    transform: translate(24%, 8%);
+
+}
+
+.form-container label{
+    font-family: arial;
+    padding-right: 10px;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=date], .form-container input[type=time]{
+  font-family: consolas;
+  padding: 5px;
+  margin: 5px 0px 10px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=date], .form-container input[type=time] {
+  background-color: #fcfcfc;
+  outline: none;
+}
+
+.form-container input[readonly=readonly]{
+	background: transparent;
+}
+
+.form-container input[readonly=readonly]:focus{
+	outline: none;
+}
+
+textarea{
+	border: none;
+}
+textarea:focus{
+	outline: none;
+	border: none;
+}
+
+
+/*needs updating*/
+.form-container2 {
+		  height: 60vh;
+		  max-width: 750px;
+		  padding: 30px;
+		  background: rgba(255, 255, 255, 0.8);
+		  transform: translate(13%, 8%);
+
+}		
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+
+<div style="background: #8080ff; margin-top:20px">
+
+		<div class="tab">
+		  <button class="tablinks" onclick="openTab(event, 'Denied')">Requests-Denied</button>
+		  <button class="tablinks" onclick="openTab(event, 'Approved')">Requests-Approved</button>
+		  <button class="tablinks" onclick="openTab(event, 'Pending')" id="defaultOpen">Pending Requests</button>
+		</div>
+		<div id="Pending" class="tabcontent">
+
+				<div style="position: relative; margin-top: 10px; margin-left: 10px;"><i class="fa fa-search" style="position: absolute; left:15px; top:10px;"></i><input type="text" placeholder="Search.." id="myInput" onkeyup="filterList()" >
+				</div>
+
+
+				<div style="height: 68.2vh; overflow-y: auto; margin-top: 15px;overscroll-behavior: contain;">
+					
+						<table width="99%" style="margin-top: 0px; /*border-collapse: collapse;*/ border-radius: 12px 12px 12px 12px;" id="table">
+								<thead>
+										<tr style="border-radius: 12px 12px 0px 0px; background: transparent;">
+												<th style="width: 110px; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Request Id</th>
+												<th style="width: 80px; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Item Code</th>
+												<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Item Name</th>
+												<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Email Id</th>
+												<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Request Date</th>
+												<th style="width: 120px; background: transparent; color: #fcfcfc;">Action</th>
+										</tr>
+								</thead>
+
+								<tbody >
+										{% for row in data %} 
+											{% if row[5]|lower =='pending' %}
+												<tr>
+														<td style="text-align: left;">{{row[0] |capitalize}}</td>
+														<td>{{row[1] |capitalize}}</td>
+														<td style="text-align: left;">{{row[2] |capitalize}}</td>
+														<td style="text-align: left;">{{row[3] |lower}}</td>
+														<td style="text-align: left;">{{row[4] |capitalize}}</td>
+														<td style="background: transparent"><form action="{{url_for('update_req', id=row[0], email=row[4], sr='denyf')}}" method="post"><select name="status" id="mySelect" onchange="changfun()">
+																	<option value="choose" selected>Choose</option>
+															    <option value="Approved">Approve</option>
+															    <option value="Denied">Deny</option>
+															  </select></form>
+											      </td>      
+												</tr>
+											{% endif %}
+										{% endfor %}
+								</tbody>
+						</table>
+						{% if pen == [] %}
+									<img src="{{'static/'+ 'nothing.gif'}}" width="20%" style="transform: translate(195%, 0%);">
+									<h4 style="font-family: gothic; text-align: center; margin-top: 0px;">We verified! No new requests</h4>
+						{% endif %}
+						
+				</div>
+		</div>
+
+		<div id="Approved" class="tabcontent">
+
+				<div style="height: 75vh; overflow-y: auto; /*background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));*/ margin-top: 15px;overscroll-behavior: contain;">
+
+						<table width="99%" style="margin-top: 0px; /*border-collapse: collapse;*/ border-radius: 12px 12px 12px 12px;" id="table1">
+								<thead>
+										<tr style="border-radius: 12px 12px 0px 0px; background: transparent;">
+											<th style="width: 110px; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Request Id</th>
+											<th style="width: 80px; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Item Code</th>
+											<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Item Name</th>
+											<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Email Id</th>
+											<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Request Date</th>
+										</tr>
+									</thead>
+								<tbody >
+										{% for row in data %} 
+											{% if row[5]|lower =='approved' %}
+													<tr>
+														<td style="text-align: left;">{{row[0] |capitalize}}</td>
+														<td>{{row[1] |capitalize}}</td>
+														<td style="text-align: left;">{{row[2] |capitalize}}</td>
+														<td style="text-align: left;">{{row[3] |lower}}</td>
+														<td style="text-align: left;">{{row[4] |capitalize}}</td>
+													</tr>
+											{% endif %}
+										{% endfor %}
+								</tbody>
+						</table>
+						{% if apr == [] %}
+									<img src="https://angry.ventures/assets/404-v3/nothing-here6.gif" width="30%" style="transform: translate(115%, 0%);">
+									<h4 style="font-family: gothic; text-align: center; margin-top: -30px;">We searched everywhere! No records found</h4>
+						{% endif %}
+				</div>
+		</div>
+
+		<div id="Denied" class="tabcontent">
+		 
+				 <div style="height: 75vh; overflow-y: auto; /*background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));*/ margin-top: 15px;overscroll-behavior: contain;">
+							<table width="99%" style="margin-top: 0px; /*border-collapse: collapse;*/ border-radius: 12px 12px 12px 12px;" id="table1">
+									<thead>
+											<tr style="border-radius: 12px 12px 0px 0px; background: transparent;">
+												<th style="width: 110px; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Request Id</th>
+												<th style="width: 80px; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Item Code</th>
+												<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Item Name</th>
+												<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Email Id</th>
+												<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Request Date</th>
+											</tr>
+									</thead>
+									<tbody >
+											{% for row in data %} 
+												{% if row[5]|lower =='denied' %}
+														<tr>
+															<td style="text-align: left;">{{row[0] |capitalize}}</td>
+															<td>{{row[1] |capitalize}}</td>
+															<td style="text-align: left;">{{row[2] |capitalize}}</td>
+															<td style="text-align: left;">{{row[3] |lower}}</td>
+															<td style="text-align: left;">{{row[4] |capitalize}}</td>
+														</tr>
+												{% endif %}
+											{% endfor %}
+
+									</tbody>
+							</table>
+							{% if den == [] %}
+									<img src="https://angry.ventures/assets/404-v3/nothing-here6.gif" width="30%" style="transform: translate(115%, 0%);">
+									<h4 style="font-family: gothic; text-align: center; margin-top: -30px;">We searched everywhere! No records found</h4>
+							{% endif %}
+											
+					</div>
+			</div>
+
+		<div style="position: absolute; top: 11.5%; left: 17%;border: 1;height: 87%; width: 82%; background: red; display: none; background: rgba(0, 0, 0, 0.7); box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px; z-index: 10000000000000;" id="division">
+	    
+		    <div class="form-popup" id="myForm">
+		        <form action="{{url_for('update_req', id='buzz', email='suzz', sr='appf')}}" method="post" class="form-container" id="theform">
+		            <h2 style="text-align:center; margin-top: 0px; color:#2E2E2E; font-family: times new roman; font-size: 24px"><u>Approve Request</u></h2>
+
+		            <label for="request_id"><b>Request-Id:</b></label>
+		            <input type="text" value='' name="request_id" required style="width: 10%; margin-left: 5px;" readonly="readonly">
+
+		            <label for="item_code"><b>Item Code:</b></label>
+		            <input type="text" value='' name="item_code" required style="width: 21%; margin-left: 5px;" readonly="readonly">
+
+		            <label for="issue_date"><b>Issue Date:</b></label>
+		            <input type="date" name="issue_date" required style="width: 20%; margin-left: 5px;" readonly="readonly">
+
+		            <label for="email_id"><b>Requested by:</b></label>
+		            <input type="text" name="email_id" required style="width: 72%; margin-left: 45px;" readonly="readonly">
+
+		            <label for="issuer_name"><b>Issuer Name:</b></label>
+		            <input type="text" name="issuer_name" required style="width: 75%; margin-left: 45px;">
+
+		            <hr size="3">
+
+		            <h2 style="text-align:center; margin-top: 0px; color:#2E2E2E; font-family: times new roman; font-size: 24px"><u>Particulars of Item Collection [EMAIL]</u></h2>
+
+		            <label for="time" style="display: inline-block;"><b>Preferred Time:</b></label>
+		            <label for="startt" style="margin-left: 52px;">Start:</label>
+		            <input type="time" value='' name="startt" required style="width: 25%;">
+
+		            <label for="endt" style="margin-left:50px">End:</label>
+		            <input type="time" value='' name="endt" required style="width: 25%">
+
+		            <label for="loc"><b>Location for pickup:</b></label>
+		            <input type="text" autocomplete="off" name="loc" list="exampleList" style="margin-left:15px; width: 31%;" required>
+		                <datalist id="exampleList">
+		                  <option value="ATL Lab">  
+		                  <option value="Computer Lab">
+		                </datalist>
+
+		            <br>
+		            <h2 style="text-align:left; margin-top: 10px; color:black; font-size: 18px;">Additional Comments(if any):-</h2>
+		            <textarea rows = "4" cols = "60" name = "additional" placeholder="Additional Comments here..." style="margin-top: -0px"></textarea>
+
+		    
+		            <input type="submit" class="button" value="Confirm" style="font-size: 18px; font-family: consolas">
+		            <i type="button" class="fa fa-close" onclick="closeForm()" style="position: relative; top: -440px; left: 380px; border-radius: 24px; cursor: pointer; background: rgba(0, 0, 0, 0.5); color: #f2f2f2; padding: 10px 12px;"></i>
+		        </form>
+
+		    </div>
+	    
+	  </div>
+</div>
+
+
+<script type="text/javascript">
+
+		function check_code(){
+			// Get the element with id="defaultOpen" and click on it
+			document.getElementById("defaultOpen").click();
+
+			var message = '{{mess}}';
+			if (message){
+			alert("{{mess}}");
+			}
+		}
+
+		window.onload=check_code();
+
+
+	function openTab(evt, cityName) {
+	  var i, tabcontent, tablinks;
+	  tabcontent = document.getElementsByClassName("tabcontent");
+	  for (i = 0; i < tabcontent.length; i++) {
+	    tabcontent[i].style.display = "none";
+	  }
+	  tablinks = document.getElementsByClassName("tablinks");
+	  for (i = 0; i < tablinks.length; i++) {
+	    tablinks[i].className = tablinks[i].className.replace(" active", "");
+	  }
+	  document.getElementById(cityName).style.display = "block";
+	  evt.currentTarget.className += " active";
+	}
+
+	
+
+
+	document.getElementById('myInput').addEventListener('onkeyup', filterList);
+		function filterList() {
+		    var srch = document.getElementById('myInput');
+		    var val = srch.value.toLowerCase();
+		    var valArr = val.split(' ');
+		    var tbl = document.getElementById('table');
+		    var tblLength = tbl.rows.length;
+		    if (tblLength != 0) {
+		        for (var i = 1; i < tblLength; i++) {
+		            tbl.rows[i].style.display = 'table-row';
+		            for (var j = 0; j < valArr.length; j++) {
+		                if (tbl.rows[i].textContent.toLowerCase().indexOf(valArr[j]) === -1) {
+		                    tbl.rows[i].style.display = 'none';
+		                }
+		            }
+		        }
+		    }
+		}
+
+		function openForm(varn) {
+      document.getElementById("myForm").style.display = "block";
+      document.getElementById("division").style.display = "block";
+      document.getElementById("theform").elements['request_id'].value = varn[0].innerHTML;
+      document.getElementById("theform").elements['item_code'].value = varn[1].innerHTML;
+      document.getElementById("theform").elements['email_id'].value = varn[3].innerHTML;
+      var today = new Date();
+			var dd = String(today.getDate()).padStart(2, '0');
+			var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+			var yyyy = today.getFullYear();
+			today = yyyy + '-' + mm + '-' + dd;
+			document.getElementById("theform").elements['issue_date'].value = today;
+      
+
+    }
+
+		function closeForm() {
+      // document.getElementById("myForm").style.display = "none";
+      // document.getElementById("division").style.display = "none";
+      window.location.href = '{{url_for('requests')}}';
+     }
+
+</script>
+<script type="text/javascript">
+        $(document).ready(function () {
+        	var elemen = document.getElementsByTagName('select');
+        	for (let i = 0; i < elemen.length ; i++) {
+        		elemen[i].setAttribute( "onchange", "yourFunction(this)" );
+		        };
+			  
+			});
+
+        function yourFunction(argu) {
+        	if (argu.value != "choose") {
+        		if (argu.value != "Approved"){
+        			argu.parentElement.submit();
+        		} else{
+        			openForm(argu.parentElement.parentElement.parentElement.cells);
+        		}
+        		
+					}
+        }
+</script>
+
+{% endblock %}

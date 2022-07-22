@@ -1,0 +1,323 @@
+{% extends 'base.html' %}
+
+{% block style %}
+
+<style>
+.menu4{
+	background: rgba(255, 255, 255, 0.2);
+}
+
+#myInput{
+  border: 2px solid transparent;
+  outline: none;
+  width:  80%;
+  border-radius: 12px 12px 12px 12px;
+  background: rgba(255, 255, 255, 0.5);
+  /*background: #ffe6e6;*/
+  box-sizing: border-box;
+  background-position: 14px 12px;
+  background-repeat: no-repeat;
+  font-size: 16px;
+  padding: 8px 20px 8px 45px;
+}
+
+#myInput:focus{
+    border: 2px solid #8080ff;
+  }
+
+#table tr td, #table1 tr td{
+ 	/*border-top: 2px solid #f2f2f2;*/
+ 	text-align: center;
+ 	padding: 8px;
+ 	font-family: arial;
+ 	background-color: rgba(255, 255, 255, 0.7);
+
+ }
+
+ #table tr th, #table1 tr th{
+ 	padding: 12px;
+ 	font-size: 17px;
+ 	font-family: consolas;
+ 	background-color: rgba(255, 255, 255, 0.7);
+ }
+
+ /*#table tr:nth-child(even) {background-color: #cce6ff;}*/
+ /*#table tr:nth-child(even) {background-color: rgba(255, 255, 255, 0.7);}*/
+
+ #table i, #table1 i{
+ 	padding: 5px 7px;
+ 	border-radius: 4px 4px 4px 4px;
+ 	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+ 	font-size: 18px;
+ 	background: #8080ff;
+ 	color: white;
+ 	cursor: pointer;
+ }
+
+ #table i small, #table1 i small{
+ 	font-family: consolas;
+ 	font-weight: bolder;
+ }
+
+.tab {
+  overflow: hidden;
+  /*border: 2px solid #ccc;*/
+  background-color: #f1f1f1;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.tab button {
+  background-color: inherit;
+  float: right;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #8080ff;
+  color:  #fcfcfc;
+}
+
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+
+select{
+	font-family: arial;
+	padding: 1px;
+	background-color: rgba(255, 255, 255, 0.7);
+	margin: 0;
+	font-size: 14px;
+	border: none;
+}
+
+
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+<div style="background: #8080ff; margin-top: 20px;">
+	<div class="tab">
+	  <button class="tablinks" onclick="openTab(event, 'Consumed')">Allotments-consumed</button>
+	  <button class="tablinks" onclick="openTab(event, 'Active')">Allotments-active</button>
+	  <button class="tablinks" onclick="openTab(event, 'All')" id="defaultOpen">All Allotments</button>
+	</div>
+
+	<div id="All" class="tabcontent">
+
+			<div style="position: relative; margin-top: 10px; margin-left: 10px;"><i class="fa fa-search" style="position: absolute; left:15px; top:10px;"></i><input type="text" placeholder="Search.." id="myInput" onkeyup="filterList()" ></div>
+
+
+			<div style="height: 68.2vh; overflow-y: auto; /*background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));*/ margin-top: 15px;overscroll-behavior: contain;">
+				<table width="99%" style="margin-top: 0px; /*border-collapse: collapse;*/ border-radius: 12px 12px 12px 12px;" id="table">
+					<thead>
+						<tr style="border-radius: 12px 12px 0px 0px; background: transparent;">
+							<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Request Id</th>
+							<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Item Code</th>
+							<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Item Name</th>
+							<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Receiver Id</th>
+							<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Issuer</th>
+							<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Issue Date</th>
+							<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Renew Date</th>
+							<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Renewed by</th>
+							<th style="width: 80px; background: transparent; color: #fcfcfc;">Status</th>
+						</tr>
+					</thead>
+					<tbody >
+						{% for row in data %} 
+						<tr>
+							<td style="text-align: left;">{{row[0] |capitalize}}</td>
+							<td>{{row[1] |capitalize}}</td>
+							<td style="text-align: left;">{{row[8] |capitalize}}</td>
+							<td style="text-align: left;">{{row[2] |lower}}</td>
+							<td>{{row[3] |capitalize}}</td>
+							<td style="text-align: left;">{{row[4] |capitalize}}</td>
+							<td style="text-align: left;">{{row[6]}}</td>
+							<td style="text-align: left;">{{row[7] |capitalize}}</td>
+							{% if row[5]|lower =='pending' %}
+							<td style="background: transparent"><form action="{{url_for('update_status', id=row[0], code=row[1], dat=row[5])}}" method="post"><select name="status" id="mySelect" onchange="changfun()">
+										<option value="choose" selected>Choose</option>
+								    <option value="Consumed">Consumed</option>
+								    <option value="Active">Active</option>
+								  </select></form>
+				            </td>
+				            {% elif row[5]|lower =='active' %}
+				            <td style="background: transparent;"><form action="{{url_for('update_status', id=row[0], code=row[1], dat=row[5])}}" method="post"><select name="status" id="mySelect" onchange="changfun()">
+								    <option value="Consumed">Consumed</option>
+								    <option value="Active" selected>Active</option>
+								  </select></form>
+				            </td>
+				            {% elif row[5]|lower =='consumed' %}
+				            <td style="background: transparent;"><form action="{{url_for('update_status', id=row[0], code=row[1], dat=row[5])}}" method="post"><select name="status" id="mySelect" onchange="changfun()">
+								    <option value="Consumed" selected>Consumed</option>
+								    <option value="Active">Active</option>
+								  </select></form>
+				            </td>
+				            {% endif %}
+							
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				{% if pen == [] and act == [] and con == [] %}
+									<img src="{{'static/'+ 'nothing.gif'}}" width="20%" style="transform: translate(195%, 0%);">
+									<h4 style="font-family: gothic; text-align: center; margin-top: 0px;">No allotments yet</h4>
+				{% endif %}
+			</div>
+	</div>
+
+	<div id="Active" class="tabcontent">
+
+			<div style="height: 75vh; overflow-y: auto; /*background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));*/ margin-top: 15px;overscroll-behavior: contain;">
+				<table width="99%" style="margin-top: 0px; /*border-collapse: collapse;*/ border-radius: 12px 12px 12px 12px;" id="table1">
+					<thead>
+						<tr style="border-radius: 12px 12px 0px 0px; background: transparent;">
+							<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Request Id</th>
+							<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Item Code</th>
+							<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Item Name</th>
+							<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Receiver Id</th>
+							<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Issuer</th>
+							<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Issue Date</th>
+							<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Renew Date</th>
+							<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Renewed by</th>
+						</tr>
+					</thead>
+					<tbody >
+						{% for row in data %} 
+						{% if row[5]|lower == 'active' %}
+						<tr>
+							<td style="text-align: left;">{{row[0] |capitalize}}</td>
+							<td>{{row[1] |capitalize}}</td>
+							<td style="text-align: left;">{{row[8] |capitalize}}</td>
+							<td style="text-align: left;">{{row[2] |lower}}</td>
+							<td>{{row[3] |capitalize}}</td>
+							<td style="text-align: left;">{{row[4] |capitalize}}</td>
+							<td style="text-align: left;">{{row[6]}}</td>
+							<td style="text-align: left;">{{row[7] |capitalize}}</td>
+						</tr>
+						{% endif %}
+						{% endfor %}
+					</tbody>
+				</table>
+				{% if act == [] %}
+						<img src="https://angry.ventures/assets/404-v3/nothing-here6.gif" width="30%" style="transform: translate(115%, 0%);">
+						<h4 style="font-family: gothic; text-align: center; margin-top: -30px;">We searched everywhere! No records found</h4>
+				{% endif %}
+			</div>
+	</div>
+
+<div id="Consumed" class="tabcontent">
+	 <div style="height: 75vh; overflow-y: auto; /*background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));*/ margin-top: 15px;overscroll-behavior: contain;">
+			<table width="99%" style="margin-top: 0px; /*border-collapse: collapse;*/ border-radius: 12px 12px 12px 12px;" id="table1">
+				<thead>
+					<tr style="border-radius: 12px 12px 0px 0px; background: transparent;">
+						<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Request Id</th>
+						<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Item Code</th>
+						<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Item Name</th>
+						<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Receiver Id</th>
+						<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Issuer</th>
+						<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Issue Date</th>
+						<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Renew Date</th>
+						<th style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">Renewed by</th>
+					</tr>
+				</thead>
+				<tbody >
+					{% for row in data %} 
+					{% if row[5]|lower == 'consumed' %}
+					<tr>
+						<td style="text-align: left;">{{row[0] |capitalize}}</td>
+						<td>{{row[1] |capitalize}}</td>
+						<td style="text-align: left;">{{row[8] |capitalize}}</td>
+						<td style="text-align: left;">{{row[2] |lower}}</td>
+						<td>{{row[3] |capitalize}}</td>
+						<td style="text-align: left;">{{row[4] |capitalize}}</td>
+						<td style="text-align: left;">{{row[6]}}</td>
+						<td style="text-align: left;">{{row[7] |capitalize}}</td>
+					</tr>
+					{% endif %}
+					{% endfor %}
+				</tbody>
+			</table>
+			{% if con == [] %}
+						<img src="https://angry.ventures/assets/404-v3/nothing-here6.gif" width="30%" style="transform: translate(115%, 0%);">
+						<h4 style="font-family: gothic; text-align: center; margin-top: -30px;">We searched everywhere! No records found</h4>
+			{% endif %}
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+
+
+	function openTab(evt, cityName) {
+	  var i, tabcontent, tablinks;
+	  tabcontent = document.getElementsByClassName("tabcontent");
+	  for (i = 0; i < tabcontent.length; i++) {
+	    tabcontent[i].style.display = "none";
+	  }
+	  tablinks = document.getElementsByClassName("tablinks");
+	  for (i = 0; i < tablinks.length; i++) {
+	    tablinks[i].className = tablinks[i].className.replace(" active", "");
+	  }
+	  document.getElementById(cityName).style.display = "block";
+	  evt.currentTarget.className += " active";
+	}
+
+	// Get the element with id="defaultOpen" and click on it
+	document.getElementById("defaultOpen").click();
+
+
+	document.getElementById('myInput').addEventListener('onkeyup', filterList);
+		function filterList() {
+		    var srch = document.getElementById('myInput');
+		    var val = srch.value.toLowerCase();
+		    var valArr = val.split(' ');
+		    var tbl = document.getElementById('table');
+		    var tblLength = tbl.rows.length;
+		    if (tblLength != 0) {
+		        for (var i = 1; i < tblLength; i++) {
+		            tbl.rows[i].style.display = 'table-row';
+		            for (var j = 0; j < valArr.length; j++) {
+		                if (tbl.rows[i].textContent.toLowerCase().indexOf(valArr[j]) === -1) {
+		                    tbl.rows[i].style.display = 'none';
+		                }
+		            }
+		        }
+		    }
+		}
+
+
+
+</script>
+<script type="text/javascript">
+        $(document).ready(function () {
+        	var elemen = document.getElementsByTagName('select');
+        	for (let i = 0; i < elemen.length ; i++) {
+        		elemen[i].setAttribute( "onchange", "yourFunction(this)" );
+		        };
+			  
+			});
+
+        function yourFunction(argu) {
+        	if (argu.value != 'choose'){
+        	argu.parentElement.submit();
+        }
+        }
+</script>
+
+{% endblock %}
