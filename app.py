@@ -1,40 +1,143 @@
 from flask import Flask, render_template, request, session, redirect, url_for, Response
-from flask_mysqldb import MySQL
-import pymysql
+from flask_sqlalchemy import SQLAlchemy
+import psycopg2
 import yaml
+import random
+import string
 from fpdf import FPDF
 import datetime
 import pendulum
 import smtplib, ssl
+from sqlalchemy import and_, or_, func, update
 from email.message import EmailMessage
 
 # app = Flask(__name__)
 app = Flask('Lab Manangement System')
+app.config['SECRET_KEY'] = "bahahahahah"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+ENV = 'dev'
+if ENV == 'dev':
+    app.debug = True
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:anuragrai123@localhost/test_database'
+else:
+    app.debug = False
+    app.config['SQLALCHEMY_DATABASE_URI'] = ''
 
 
 # Configuring database
-db = yaml.load(open('db.yaml'))
-app.config["MYSQL_HOST"] = db['mysql_host']
-app.config['MYSQL_USER'] = db['mysql_user']
-app.config['MYSQL_PASSWORD'] = db['mysql_password']
-app.config['MYSQL_DB'] = db['mysql_db']
-app.config['SECRET_KEY'] = db['my_secret_key']
+db = SQLAlchemy(app)
 
+# Creating db Model
+class Allotment(db.Model):
+    __tablename__ = 'allotment'
+    request_id = db.Column(db.String(5), primary_key =True)
+    item_code = db.Column(db.String(5))
+    issued_to = db.Column(db.String(100))
+    issued_by = db.Column(db.String(100))
+    original_DOI = db.Column(db.Date)
+    status = db.Column(db.String(10))
+    renewed_on = db.Column(db.Date)
+    renewed_by = db.Column(db.String(100))
 
-mysql = MySQL(app)
+    def __init__(self, request_id, item_code, issued_to, issued_by, date_of_issue, status, renewed_on, renewed_by):
+        self.request_id = request_id
+        self.item_code = item_code
+        self.issued_to = issued_to
+        self.issued_by = issued_by
+        self.date_of_issue = date_of_issue
+        self.status = status
+        self.renewed_on = renewed_on
+        self.renewed_by = renewed_by
 
+class Calendar(db.Model):
+    __tablename__ = 'calendar'
+    event_name = db.Column(db.String(50), primary_key=True)
+    start_time = db.Column(db.Time)
+    end_time = db.Column(db.Time)
+    incharge = db.Column(db.String(100))
+    mode = db.Column(db.String(20))
+    venue = db.Column(db.String(100))
+    guest = db.Column(db.String(100))
+    start_date = db.Column(db.String(50))
+    end_date = db.Column(db.String(50))
+    description = db.Column(db.String(100))
+
+    def __init__(self, event_name, start_time, end_time, incharge, mode, venue, guest, start_date, end_date, description):
+        self.event_name = event_name
+        self.start_time = start_time
+        self.end_time = end_time
+        self.incharge = incharge
+        self.mode = mode
+        self.venue = venue
+        self.guest = guest
+        self.start_date = start_date
+        self.end_date = end_date
+        self.description = description
+
+class Equipments(db.Model):
+    __tablename__ = 'equipments'
+    item_code = db.Column(db.String(5), primary_key=True)
+    name = db.Column(db.String(100))
+    quantity = db.Column(db.Integer)
+    location = db.Column(db.String(500))
+    paddress = db.Column(db.String(1000))
+    specifications = db.Column(db.String(100))
+    extras = db.Column(db.String(50))
+
+    def __init__(self, item_code, name, quantity, location, paddress, specifications, extras):
+        self.item_code = item_code
+        self.name = name
+        self.quantity = quantity
+        self.location = location
+        self.paddress = paddress
+        self.specifications = specifications
+        self.extras = extras
+
+class Gmeet(db.Model):
+    __tablename__ = 'gmeet'
+    event_name = db.Column(db.String(50), primary_key=True)
+    meet_link = db.Column(db.String(500))
+
+    def __init__(self, event_name, meet_link):
+        self.event_name = event_name
+        self.meet_link = meet_link
+
+class Requests(db.Model):
+    __tablename__ = 'requests'
+    request_id = db.Column(db.String(5), primary_key = True)
+    item_code = db.Column(db.String(5))
+    item_name = db.Column(db.String(100))
+    email_id = db.Column(db.String(100))
+    date_of_request = db.Column(db.Date)
+    status = db.Column(db.String(10))
+
+    def __init__(self, request_id, item_code, item_name, email_id, date_of_request, status):
+        self.request_id = request_id
+        self.item_code = item_code
+        self.item_name = item_name
+        self.email_id = email_id
+        self.date_of_request = date_of_request
+        self.status = status
+
+class Users(db.Model):
+    __tablename__ = 'users'
+    password = db.Column(db.String(50))
+    username = db.Column(db.String(50), primary_key=True)
+
+    def __init__(self, password, username):
+        self.password = password
+        self.username = username
 
 @app.route("/dashboard")
 def dashboard():
-    cur = mysql.connection.cursor()
-
     # for events of today
     today = datetime.datetime.now().day
 
     # for events of this week
-    today = pendulum.now()
-    start = today.start_of('week').to_datetime_string()[8:10]
-    end = today.end_of('week').to_datetime_string()[8:10]
+    todayutc = pendulum.now()
+    start = todayutc.start_of('week').to_datetime_string()[8:10]
+    end = todayutc.end_of('week').to_datetime_string()[8:10]
     year = str(datetime.datetime.now().year)
     # _______________________________
 
@@ -47,38 +150,28 @@ def dashboard():
     mon = dicto[mon]
     # __________________________
 
-    cur.execute("select count(*) from requests where status='pending'")
-    pen = cur.fetchone()
-    cur.execute(f"select count(*) from calendar where start_date like '%/{today}/%'")
-    teve = cur.fetchone()
-    cur.execute(f"select count(*) from calendar where start_date >= '{mon}/{start}/{year}' and start_date <= '{mon}/{end}/{year}'")
-    weve = cur.fetchone()
-    cur.execute(f"select count(*) from calendar where start_date like '{mon}%'")
-    meve = cur.fetchone()
+    pen = db.session.query(Requests).filter(Requests.status=='pending').count()
+    teve = db.session.query(Calendar).filter(Calendar.start_date.like(f'%/{today}/%')).count()
+    weve = db.session.query(Calendar).filter(and_(Calendar.start_date >= f'{mon}/{start}/{year}' , Calendar.start_date <= f'{mon}/{end}/{year}')).count()
+    meve = db.session.query(Calendar).filter(Calendar.start_date.like(f'{mon}%')).count()
 
-    cur.execute("select * from equipments where quantity < 5")
-    varx = cur.fetchall()
-    # To subtract the number of active and consumed equipments from allotments table
-    var = [[varx[i][j] for j in range(len(varx[i]))] for i in range(len(varx))]
-    cur.execute(
-        "Select item_code, count(*) from allotment where status='Active' or status='Consumed' group by item_code")
-    var2 = cur.fetchall()
+    var = db.session.query(Equipments).filter(Equipments.quantity <= 5).all()
+    var = [[i.item_code, i.name, i.quantity] for i in var]
+
+    # To subtract the number of active and consumed equipments FROM allotments table
+    var2 = db.session.query(Allotment.item_code, func.count(Allotment.status).label("count")).filter(or_(Allotment.status == 'Active', Allotment.status == 'Consumed')).group_by(Allotment.item_code).all()
+
     for i in range(len(var)):
         for j in range(len(var2)):
             if var[i][0] == var2[j][0]:
                 var[i][2] -= var2[j][1]
 
+    ceves = db.session.query(Calendar.event_name).all()
 
-    cur.execute("select event_name from calendar")
-    ceves = cur.fetchall()
+    # List of tables available for download
+    tab = ['allotment','equipments','calendar','requests']
 
-    cur.execute("show tables;")
-    tab = cur.fetchall()
-    tab = [i[0] for i in tab if i[0] not in ['gmeet', 'users']]
-
-    cur.execute("select * from gmeet")
-    valr = cur.fetchall()
-    if len(valr)>0:
+    if db.session.query(Gmeet).count() > 0:
         valp = 'set'
     else:
         valp = 'notset'
@@ -87,27 +180,26 @@ def dashboard():
 
 @app.route("/home")
 def home_page():
-    cur = mysql.connection.cursor()
-    cur.execute("select gmeet.event_name, meet_link, incharge, guest, start_date, end_date from gmeet, calendar where calendar.event_name = gmeet.event_name")
-    links = cur.fetchone()
+    links = []
+    for c, i in db.session.query(Gmeet, Calendar).filter(Gmeet.event_name == Calendar.event_name).all():
+        links.append([c.event_name, c.meet_link, i.incharge, i.guest, i.start_date, i.end_date])
 
-    return render_template("home.html", data = [links])
+    if links == []:
+        links = None
+    return render_template("home.html", data = links)
 
 @app.route("/atlcalendar")
 def atlcalendar():
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM calendar order by start_time")
-    data = cur.fetchall()
-    cur.close()
+    data = db.session.query(Calendar).order_by(Calendar.start_time).all()
     output = []
     for record in data:
         dic = {}
-        dic['id'] = record[0]
-        dic['name'] = record[0].title()
-        dic['badge'] = f"{record[1]} - {record[2]}"
-        dic['date'] = [f"{record[7]}", f"{record[8]}"]
+        dic['id'] = record.event_name
+        dic['name'] = record.event_name
+        dic['badge'] = f"{record.start_time} - {record.end_time}"
+        dic['date'] = [f"{record.start_date}", f"{record.end_date}"]
         dic[
-            'description'] = f"{record[9]}<br><br><b>Incharge:</b> {record[3].title()}<br><b>Mentor:</b> {record[6].title()}<br><b>Mode:</b> {record[4]}<br><b>Venue:</b> {record[5]}"
+            'description'] = f"{record.description}<br><br><b>Incharge:</b> {record.incharge.title()}<br><b>Mentor:</b> {record.guest.title()}<br><b>Mode:</b> {record.mode}<br><b>Venue:</b> {record.venue}"
         dic['type'] = 'event'
 
         output.append(dic)
@@ -116,18 +208,18 @@ def atlcalendar():
 
 @app.route("/equipments")
 def equipments():
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM equipments order by name")
-    varx = cur.fetchall()
+    var = db.session.query(Equipments).all()
+    var = [[i.item_code, i.name, i.quantity, i.location, i.paddress, i.specifications, i.extras] for i in var]
 
-    # To subtract the number of active and consumed equipments from allotments table
-    var = [[varx[i][j] for j in range(len(varx[i]))] for i in range(len(varx))]
-    cur.execute("Select item_code, count(*) from allotment where status='Active' or status='Consumed' group by item_code")
-    var2 = cur.fetchall()
+    # To subtract the number of active and consumed equipments FROM allotments table
+    var2 = db.session.query(Allotment.item_code, func.count(Allotment.status).label("count")).filter(
+        or_(Allotment.status == 'Active', Allotment.status == 'Consumed')).group_by(Allotment.item_code).all()
+
     for i in range(len(var)):
         for j in range(len(var2)):
             if var[i][0] == var2[j][0]:
                 var[i][2] -= var2[j][1]
+
 
     return render_template("equipments.html", data=var)
 
@@ -142,12 +234,9 @@ def login():
         username = userDetails['username']
         password = userDetails['password']
 
-        cur = mysql.connection.cursor()
-        cur.execute("SELECT * FROM users WHERE username=%s AND password=%s", (username, password))
-        record = cur.fetchone()
-        if record:
+        if db.session.query(Users).filter(and_(Users.username==username, Users.password==password)).count() >0:
             session['loggedin'] = True
-            session['username'] = record[1]
+            session['username'] = username
             return redirect(url_for('dashboard'))
 
         else:
@@ -164,36 +253,29 @@ def logout():
 
 @app.route('/inventory')
 def inventory():
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM equipments order by quantity desc")
-    data = cur.fetchall()
-
+    data = db.session.query(Equipments.item_code, Equipments.name, Equipments.quantity, Equipments.location, Equipments.paddress, Equipments.specifications, Equipments.extras).order_by(Equipments.item_code.asc()).all()
     return render_template("inventory.html", data=data)
 
 @app.route('/allotment')
 def allotment():
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT allotment.item_code, issued_to, issued_by, date_of_issue, status, renewed_on, renewed_by, name FROM allotment, equipments where allotment.item_code = equipments.item_code order by date_of_issue")
+    data = []
+    for c in db.session.query(Allotment).all():
+        data.append([c.request_id, c.item_code, c.issued_to, c.issued_by, c.original_DOI, c.status, c.renewed_on, c.renewed_by])
 
-    data = cur.fetchall()
-
-    con = [x for x in data if x[4].lower() == 'consumed']
-    act = [y for y in data if y[4].lower() == 'active']
-    pen = [y for y in data if y[4].lower() == 'pending']
+    con = [x for x in data if x[5].lower() == 'consumed']
+    act = [y for y in data if y[5].lower() == 'active']
+    pen = [y for y in data if y[5].lower() == 'pending']
 
     return render_template("allotment.html", data=data, con=con, pen=pen, act=act)
 
 @app.route('/requests')
 def requests():
     message = ''
-    cur = mysql.connection.cursor()
-    cur.execute("select * from requests order by date_of_request desc")
+    data = db.session.query(Requests.request_id, Requests.item_code, Requests.item_name, Requests.email_id, Requests.date_of_request, Requests.status).order_by(Requests.date_of_request).all()
 
-    data = cur.fetchall()
-
-    den = [x for x in data if x[4].lower() == 'denied']
-    apr = [y for y in data if y[4].lower() == 'approved']
-    pen = [y for y in data if y[4].lower() == 'pending']
+    den = [x for x in data if x.status.lower() == 'denied']
+    apr = [y for y in data if y.status.lower() == 'approved']
+    pen = [y for y in data if y.status.lower() == 'pending']
 
     return render_template("requests.html", data=data, mess=message, apr = apr, den = den, pen = pen)
 
@@ -205,20 +287,20 @@ def update_inv():
         item_name = Details['item_name']
         location = Details['location']
         quantity = Details['quantity']
-        specification = Details['specification']
+        specifications = Details['specification']
         extras = Details['extras']
 
-        cur = mysql.connection.cursor()
-        cur.execute("UPDATE equipments set name=%s, location=%s, quantity=%s, specifications=%s, extras=%s where item_code=%s;",(item_name, location, quantity, specification, extras, code))
-        mysql.connection.commit()
+        db.session.query(Equipments).filter(Equipments.item_code == code).update({Equipments.name:item_name, Equipments.location:location, Equipments.quantity:quantity, Equipments.specifications:specifications, Equipments.extras:extras}, synchronize_session = False)
+        db.session.commit()
 
         return redirect(url_for('inventory'))
 
 
 @app.route('/update_event', methods=['POST', 'GET'])
 def update_event():
-    cur = mysql.connection.cursor()
     if request.method=='POST':
+
+        print('Came to update')
         Details = request.form
         event_name = Details['event_name']
         startt = Details['startt']
@@ -247,15 +329,14 @@ def update_event():
         startd = li[0]
         endd = li[1]
 
-        cur.execute("update calendar set start_date=%s, end_date=%s, mode=%s, venue=%s, incharge=%s, start_time=%s, end_time=%s, description=%s, guest=%s where event_name=%s",
-                (startd, endd, mode, venue, incharge, startt, endt, description, guest, event_name))
-        mysql.connection.commit()
+        db.session.query(Calendar).filter(Calendar.event_name == event_name).update({Calendar.start_date: startd, Calendar.end_date : endd, Calendar.mode : mode, Calendar.venue : venue, Calendar.incharge : incharge, Calendar.start_time : startt, Calendar.end_time : endt, Calendar.description : description, Calendar.guest : guest }, synchronize_session = False)
+        db.session.commit()
+
         return redirect(url_for('calendar'))
 
 
 @app.route('/add_inv', methods=['POST', 'GET'])
 def add_inv():
-    cur = mysql.connection.cursor()
     if request.method=='POST':
         Details = request.form
         code = Details['code']
@@ -267,23 +348,21 @@ def add_inv():
         paddress = Details['paddress']
 
 
-        cur.execute("SELECT * FROM EQUIPMENTS WHERE ITEM_CODE=%s",(code,))
-        check = cur.fetchall()
-        if len(check) > 0:
+        if db.session.query(Equipments).filter(Equipments.item_code == code).count() > 0:
             show = f'Item with code {code} already present!'
         else:
-            cur.execute("INSERT INTO EQUIPMENTS VALUES(%s, %s, %s, %s, %s, %s, %s)",(code, item_name, quantity,  location, paddress, specification, extras, ))
-            mysql.connection.commit()
+            row = Equipments(code, item_name, quantity, location, paddress, specification, extras)
+            db.session.add(row)
+            db.session.commit()
+
             return redirect(url_for('inventory'))
 
-    cur.execute("SELECT * FROM equipments order by name")
-    data = cur.fetchall()
+    data = db.session.query(Equipments.item_code, Equipments.name, Equipments.quantity, Equipments.location, Equipments.paddress, Equipments.specifications, Equipments.extras).order_by( Equipments.item_code.asc()).all()
     return render_template("inventory.html", msg = show, data = data)
 
 
 @app.route('/add_event', methods=['POST', 'GET'])
 def add_event():
-    cur = mysql.connection.cursor()
     if request.method == 'POST':
         Details = request.form
         event_name = Details['event_name']
@@ -312,31 +391,29 @@ def add_event():
         startd = li[0]
         endd = li[1]
 
-        cur.execute("SELECT * FROM CALENDAR WHERE EVENT_NAME=%s AND START_DATE=%s", (event_name, startd))
-        check = cur.fetchall()
-        if len(check) > 0:
+
+        if db.session.query(Calendar).filter(and_(Calendar.event_name==event_name, Calendar.start_date==startd)).count() > 0:
             show = f'Event already exists!'  #confirm it`s implementation
         else:
-            cur.execute("INSERT INTO CALENDAR VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-                        (event_name, startt, endt, incharge, mode, venue, guest, startd, endd, description))
-            mysql.connection.commit()
+            row = Calendar(event_name, startt, endt, incharge, mode, venue, guest, startd, endd, description)
+            db.session.add(row)
+            db.session.commit()
+
             return redirect(url_for('calendar'))
 
 
 
 @app.route('/calendar')
 def calendar(mg=''):
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM calendar order by start_time")
-    data = cur.fetchall()
+    data = db.session.query(Calendar).order_by(Calendar.start_time).all()
     output = []
     for record in data:
         dic = {}
-        dic['id'] = record[0]
-        dic['name'] = record[0].title()
-        dic['badge'] = f"{record[1]} - {record[2]}"
-        dic['date'] = [f"{record[7]}",f"{record[8]}"]
-        dic['description'] = f"{record[9]}<br><br><b>Incharge:</b> {record[3].title()}<br><b>Mentor:</b> {record[6].title()}<br><b>Mode:</b> {record[4]}<br><b>Venue:</b> {record[5]}"
+        dic['id'] = record.event_name
+        dic['name'] = record.event_name
+        dic['badge'] = f"{record.start_time} - {record.end_time}"
+        dic['date'] = [f"{record.start_date}",f"{record.end_date}"]
+        dic['description'] = f"{record.description}<br><br><b>Incharge:</b> {record.incharge.title()}<br><b>Mentor:</b> {record.guest.title()}<br><b>Mode:</b> {record.mode}<br><b>Venue:</b> {record.venue}"
         dic['type'] = 'event'
 
         # ------------- For edit section
@@ -344,8 +421,10 @@ def calendar(mg=''):
         dicto = {"January": '01', "February": '02', "March": '03', "April": '04', "May": '05', "June": '06',
                  "July": '07', "August": '08', "September": '09', "October": '10', "November": '11', "December": '12'}
         li = []
-        for j in [record[7], record[8]]:
+        for j in [record.start_date, record.end_date]:
             for i in dicto:
+                if i is None:
+                    continue
                 if i.lower() in j.lower():
                     js = str(j)
                     js = js.replace(i, dicto[i])
@@ -357,14 +436,13 @@ def calendar(mg=''):
 
         dic['startd'] = li[0]
         dic['endd'] = li[1]
-        dic['startt'] = str(record[1])
-        dic['endt'] = str(record[2])
-        dic['descr'] = record[9]
-        dic['incharge'] = record[3]
-        dic['mentor'] = record[6]
-        dic['mode'] = record[4]
-        dic['venue'] = record[5]
-        dic['descr'] = record[9]
+        dic['startt'] = str(record.start_time)
+        dic['endt'] = str(record.end_time)
+        dic['descr'] = record.description
+        dic['incharge'] = record.incharge
+        dic['mentor'] = record.guest
+        dic['mode'] = record.mode
+        dic['venue'] = record.venue
         output.append(dic)
 
 
@@ -372,49 +450,53 @@ def calendar(mg=''):
 
 @app.route('/delete_item/<string:id>', methods=['GET', 'POST'])
 def delete_item(id):
-    cur = mysql.connection.cursor()
-    cur.execute("DELETE FROM equipments where item_code = %s",[id])
-    mysql.connection.commit()
+
+    db.session.query(Equipments).filter(Equipments.item_code == id).delete()
+    db.session.commit()
 
     return redirect(url_for('inventory'))
 
 @app.route('/delete_event', methods=['GET', 'POST'])
 def delete_event():
-    cur = mysql.connection.cursor()
-    cur.execute("DELETE FROM calendar where event_name=%s", (request.args.get('event_name_e'),))
-    mysql.connection.commit()
 
+    db.session.query(Calendar).filter(Calendar.event_name == request.args.get('event_name_e')).delete()
+    db.session.commit()
 
-@app.route('/update_status/<string:id>,<string:per>,<string:dat>', methods=['GET','POST'])
-def update_status(id, per, dat):
-    cur = mysql.connection.cursor()
+@app.route('/update_status/<string:id>,<string:code>,<string:dat>', methods=['GET','POST'])
+def update_status(id, code, dat):
     data = request.form
     status = data['status']
 
     if status == 'Consumed':
-        cur.execute("update allotment set status=%s where item_code=%s and issued_to=%s and date_of_issue=%s",(status, id, per, dat))
-        cur.execute("update equipments set quantity = (quantity-1) where item_code=%s",(id,))
-        mysql.connection.commit()
+        # cur.execute("update allotment set status=%s where item_code=%s and issued_to=%s and date_of_issue=%s",(status, id, per, dat))
+        # cur.execute("update equipments set quantity = (quantity-1) where item_code=%s",(id,))
+        db.session.query(Allotment).get(id).status = status
+        db.session.commit()
+        db.session.query(Equipments).filter(Equipments.item_code == code).update({Equipments.quantity: Equipments.quantity-1})
+        db.session.commit()
+
     else:
-        cur.execute("update allotment set status=%s where item_code=%s and issued_to=%s and date_of_issue=%s",(status, id, per, dat))
-        mysql.connection.commit()
+        db.session.query(Allotment).get(id).status = status
+        db.session.commit()
 
     return redirect(url_for('allotment'))
 
 @app.route('/update_req/<string:id>,<string:email>,<string:sr>', methods=['GET','POST'])
 def update_req(id, email, sr):
-    cur = mysql.connection.cursor()
     if sr == 'denyf':
         data = request.form
         status = data['status']
 
-        cur.execute("update requests set status=%s where item_code=%s and email_id=%s",(status, id, email))
-        mysql.connection.commit()
+        # cur.execute("update requests set status=%s where item_code=%s and email_id=%s",(status, id, email))
+
+        db.session.query(Requests).get(id).status = status
+        db.session.commit()
+
         return redirect(url_for('requests'))
     elif sr == 'appf':
         data = request.form
+        pkey = data['request_id']
         item_code = data['item_code']
-        item_name = data['item_name']
         email_id = data['email_id']
         issue_date = data['issue_date']
         issuer_name = data['issuer_name']
@@ -424,35 +506,38 @@ def update_req(id, email, sr):
         additional = data['additional']
         if len(additional) < 0:
             additional = 'none'
-        
+
         #database update
-        cur.execute("update requests set status='Approved' where item_code=%s and email_id=%s",(item_code, email_id))
-        cur.execute("insert into allotment(item_code, issued_to, issued_by, date_of_issue, status ) values(%s,%s,%s,%s,'pending')",(item_code, email_id, issuer_name, issue_date))
-        mysql.connection.commit()
-        
+        # cur.execute("update requests set status='Approved' where item_code=%s and email_id=%s",(pkey, email_id))
+        # cur.execute("INSERT INTO allotment(item_code, issued_to, issued_by, date_of_issue, status ) VALUES(%s,%s,%s,%s,'pending')",(item_code, email_id, issuer_name, issue_date))
+        # conn.commit()
+
+        db.session.query(Requests).filter(Requests.request_id==pkey).update({Requests.status:"Approved"})
+        db.session.commit()
+        row = Allotment(pkey, item_code, email_id, issuer_name, issue_date, 'pending', None, None)
+        db.session.add(row)
+        db.session.commit()
+
         #mail
         try:
-            msg = EmailMessage()
-            msg.set_content(f'Hey!\nYour Request for item: "{item_name}" has been approved by incharge: "{issuer_name}"\nYou are informed to collect the item anytime between {startt}hrs and {endt}hrs, during school days.\nVenue: "{loc}"\nAdditional Comments by the incharge-\n{additional}\n\n\n<This is a one way communication. Do not repond back!')
-            msg["Subject"] = "ATL Request Update"
-            msg["From"] = "testmailflaskapp@gmail.com"
-            msg["To"] = email_id
-
-            context = ssl.create_default_context()
-
-            with smtplib.SMTP("smtp.gmail.com", port=587) as smtp:
-                smtp.starttls(context=context)
-                smtp.login(msg["From"], "testmailflaskapp@123")
-                smtp.send_message(msg)
+            # msg = EmailMessage()
+            # msg.set_content(f'Hey!\nYour Request for item: "{item_code}" has been approved by incharge: "{issuer_name}"\nYou are informed to collect the item anytime between {startt}hrs and {endt}hrs, during school days.\nVenue: "{loc}"\nAdditional Comments by the incharge-\n{additional}\n\n\n<This is a one way communication. Do not repond back!')
+            # msg["Subject"] = "ATL Request Update"
+            # msg["FROM"] = "testmailflaskapp@gmail.com"
+            # msg["To"] = email_id
+            #
+            # context = ssl.create_default_context()
+            #
+            # with smtplib.SMTP("smtp.gmail.com", port=587) as smtp:
+            #     smtp.starttls(context=context)
+            #     smtp.login(msg["FROM"], "testmailflaskapp@123")
+            #     smtp.send_message(msg)
             return redirect(url_for('requests'))
         except Exception as e:
             print(e)
             message = "Email Could not be send. Make sure you have an active internet connection"
-            cur.execute("select * from requests order by date_of_request desc")
-            data = cur.fetchall()
-
             return render_template("requests.html", data=data, mess=message)
-        
+
 
     return redirect(url_for('requests'))
 
@@ -463,40 +548,39 @@ def place_request():
     item_name = data['item_name']
     email = data['email_id']
     date = data['today_date']
-    datech = date[-2:] + '-' + date[5:7] + '-' + date[:4]
+    # datech = date[-2:] + '-' + date[5:7] + '-' + date[:4]
 
-    cur = mysql.connection.cursor()
-    cur.execute("select * from requests")
-    ch = cur.fetchall()
-    for i in ch:
-        if i[0] == item_code and i[2] == email and i[3] == datech:
-            break
+    random_id = ''.join(random.choices(string.ascii_uppercase+string.digits, k=5)).upper()
+    while db.session.query(Requests).filter(Requests.request_id == random_id).count() > 0:
+        random_id = ''.join(random.choices(string.ascii_uppercase+string.digits, k=5)).upper()
     else:
-        cur.execute("insert into requests values(%s, %s, %s, %s, 'pending')",(item_code, item_name, email, date))
-        mysql.connection.commit()
+        row = Requests(random_id, item_code, item_name, email, date, 'pending')
+        db.session.add(row)
+        db.session.commit()
+
 
     return redirect(url_for('equipments'))
 
 
 @app.route('/gmeet', methods=['get','post'])
 def gmeet():
-    cur = mysql.connection.cursor()
     data = request.form
     event_name = data['evename']
     meet_link = data['meetlink']
 
-    cur.execute("delete from gmeet")
-    mysql.connection.commit()
-    cur.execute("insert into gmeet values(%s, %s)",(event_name, meet_link))
-    mysql.connection.commit()
+    db.session.query(Gmeet).delete()
+    db.session.commit()
+
+    row = Gmeet(event_name, meet_link)
+    db.session.add(row)
+    db.session.commit()
 
     return redirect(url_for('dashboard'))
 
 @app.route('/remove_gmeet', methods=['get','post'])
 def remove_gmeet():
-    cur = mysql.connection.cursor()
-    cur.execute("delete from gmeet")
-    mysql.connection.commit()
+    db.session.query(Gmeet).delete()
+    db.session.commit()
 
     return redirect(url_for('dashboard'))
 
@@ -505,15 +589,14 @@ def remove_gmeet():
 @app.route('/report',  methods=['get','post'])
 def report():
     data = request.form
-    table_name = data['tabname']
+    table_name = data['tabname'].title()
     try:
-        cur = mysql.connection.cursor()
-        cur.execute(f"SELECT * from {table_name}")
-        result = cur.fetchall()
+        res = globals()[table_name].__table__.columns
+        res = [i.name for i in res]
 
-        cur.execute(f'desc {table_name}')
-        res = cur.fetchall()
-        res = [i[0] for i in res]
+        result = db.session.query(globals()[table_name]).all()
+        result = [[getattr(row,colname) for colname in res] for row in result]
+        print(result)
 
         pdf = FPDF()
         pdf.add_page()
