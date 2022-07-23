@@ -101,28 +101,26 @@
     }
 
     .Centre_box{
+      transform: translate(40vh, 11vh);
       background-color: rgba(0, 0, 0, 0.4);
       position: fixed;
-      height: 440px;
-      width: 860px;
-      margin-left: 20%;
-      margin-top: 0.6%;
+      height: 70vh;
+      width: 800px;
       box-shadow: 5px 10px 20px 5px rgba(0,0,0,0.3);
       transition: 0.s3s;
       border-radius: 10px;
     }
 
   .image{
-    margin-left: 7px;
-    margin-top: 40px;
+    margin-top: 10vh;
     padding-right: 1px;
-    width: 350px;
-    height: 280px;
+    width: 47vh;
+    height: 40vh;
    }
 
    .imbox{
-     width: 40%;
-     height: 40%;
+     width: 20vh;
+     height: 20vh;
      align-items: center;
      /* border: 3px solid #d8bfd8; */
      border-radius: 6px;
@@ -146,12 +144,13 @@
   /* } */
 
   .cont{
-    margin-top: 2.5%;
-    width: 40%;
+    margin-top:0px;
+    width: 55vh;
     max-width: 100%;
-    height: 90%;
+    height: 69vh;
     align-items: center;
     float: left;
+    border: 2px solid brown;
 }
   .login-snip .login,
   .login-snip .sign-up-form {
@@ -385,9 +384,9 @@
 
 
   .button {
-    position: absolute;
-    left: 310px;
-    top: 340px;
+    position: fixed;
+    right: 8vh;
+    bottom: -6vh;
     margin-top: 30px;
     border-radius: 5px 5px 5px 5px;
     background-color: #8080ff;
@@ -456,7 +455,7 @@
 </head>
 
 <body>
-    <div style="width: 860px; margin-left: 20.3%; padding: 5px; background-color: rgba(255, 255, 255, 0.6); box-shadow: 0 10px 20px 0px rgba(0,0,0,0.4); border-radius: 7px; margin-bottom: 0.4%; margin-top: 4%">
+    <div style="width: 800px; padding: 5px; background-color: rgba(255, 255, 255, 0.6); box-shadow: 0 10px 20px 0px rgba(0,0,0,0.4); border-radius: 7px; transform: translate(40vh, 10vh);">
         <h1 style="margin-bottom: 5px; text-align:center; font-family: times, serif; font-size: 40px;  color: #2e2e2e"><b>Atal Tinkering Lab, AFSH</b></h1>
     </div>
     <div class = "Centre_box">
@@ -469,7 +468,7 @@
                 <div class = "cont2">
                     <h5 style="text-align:center; margin-top: 20px; font-size: 25px ;color:#2E2E2E;">Choose Login Type</h5>
                     
-                    <h5 style="padding-left: 3%; font-size: 16px ; text-align: left; margin-top: 10px; font-family: arial; color:#2E2E2E;">Help us navigate you to the right page by identifying yourself.</h5>
+                    <h5 style="padding-left: 3%; font-size: 16px ; text-align: left; margin-top: 10px; font-family: arial; color:#2E2E2E; border: 2px solid black;">Help us navigate you to the right page by identifying yourself.</h5>
                     <div style="margin-left: 15%; margin-right: 15%; text-align:center; ">
                         <div class="imbox" style="float: left">
                             <img src="{{ url_for('static', filename = 'student.png')}} " id="student_im" alt="student"  class="im2" onclick="select(this)" role="button" tabIndex="0">
