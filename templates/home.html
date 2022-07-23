@@ -22,14 +22,14 @@
       #firstdiv{
         animation: appear 6s infinite;
         color: #006600;
-        font-size: 34px;
+        font-size: 5vh;
         overflow: hidden;
       }
       #seconddiv{
         animation: reveal 6s infinite;
       }
       #seconddiv span{
-        font-size: 33px;
+        font-size: 4.5vh;
         color: #808000;
         animation: slide 6s infinite;
       }
@@ -63,19 +63,17 @@
 		  margin: 20px 10px;
 		  transition-duration: 0.4s;
 		  cursor: pointer;
-		  width: 170px;
-		  height: 170px;
+		  width: 22vh;
+		  height: 22vh;
 		  color: #666666;
 		  font-family: lucida handwriting;
 		  font-weight: bolder;
 		  border-radius: 5px 5px 5px 5px;
+		  background-color: white; 
+		  border: 4px solid rgba(102, 0, 204, 0.3);
+		  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 		}
 
-			button {
-			  background-color: white; 
-			  border: 4px solid rgba(102, 0, 204, 0.3);
-			  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-			}
 
 			button:hover {
 			  border: 4px solid transparent;
@@ -137,10 +135,10 @@
 			<img src="{{'static/'+ 'banner.png'}}" width="100%" style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; padding: 0;">
 	</div>
 
-	<div style="position: absolute; top: 35.5%; background: rgba(255, 255, 255, 0.7); width: 100%; padding: 4px 0px;">
+	<div style="position: absolute; top: 33vh; background: rgba(255, 255, 255, 0.7); width: 100%; padding: 4px 0px;">
 			<div style="display: inline-block; 
 		        overflow: hidden;
-		        margin-left: 13%;
+		        margin-left: 22vh;
 		        white-space: nowrap;" id="firstdiv">AIRFORCE SCHOOL HEBBAL :
 		  </div>
 		  <div style="display: inline-block; 
@@ -154,11 +152,11 @@
 	<script SameSite="None; Secure" src="https://static.landbot.io/landbot-3/landbot-3.0.0.js"></script>
 
 
-	<div style="width: 400px; float: right; /*border-left: 2px solid #a0a0a0;*/ margin-top: 20px; padding-left: 10px; margin-bottom: 20px" id="section3">
+	<div style="width: 60vh; float: right; /*border-left: 2px solid #a0a0a0;*/ margin-top: 20px; padding-left: 10px; margin-bottom: 20px" id="section3">
 			<h5 style="text-align:center; margin-top: 10px; margin-bottom: 10px; font-size: 25px ;color:#2E2E2E; font-family: gothic; "><u>Have something to say?</u>
 			</h5>
 		                    
-			<div id="myLandbot" style="height: 500px;"></div>
+			<div id="myLandbot" style="height: 80vh;"></div>
 
 			<script>
 			  var myLandbot = new Landbot.Container({
@@ -167,18 +165,24 @@
 			  });
 			</script>
 	</div>
-	<div style="width: 350px; float: left; margin-top: 20px; padding: 10px; /*background: #ffe6e6;*/ height: 300px;" id="section1">
+	<div style="width: 55vh; float: left; margin-top: 20px; padding: 10px; /*background: #ffe6e6;*/ height: 45vh;" id="section1">
 			<h2 style="font-family: gothic; text-align: center;"><u>What`s new?</u></h2>
 			<br>
 			<h4 style="font-family: gothic; text-align: center;">FEATURE TO BE ADDED IN NEXT VERSION</h4>
 			<img src="https://media.giphy.com/media/Lr4HRF6DEEJo90SQXF/giphy.gif" width="50%" style="transform: translate(35%, 15%);">
 	</div>
-	<div style="width: 600px; margin-left: 450px; margin-top: 8%;">
-			<a href="{{url_for('equipments')}}"><button ><i class="fas fa-dolly"></i><br><br>Equipments</button></a>
-			<a href="{{url_for('atlcalendar')}}"><button><i class="fas fa-calendar" style="margin-top: 0%;"></i><br><br>ATL Calendar</button></a>
-			<a href="https://sites.google.com/view/atl-store/home?authuser=1" target="_blank"><button><i class="fas fa-store-alt"></i><br><br>ATL Store</button></a>
+	<div style="width: 80vh; margin-left: 62vh; margin-top: 3vh; border: 2px solid black; height: 85vh;">
+			<a href="{{url_for('equipments')}}"><button ><i class="fas fa-dolly"></i><br><br><br>Equipments</button></a>
+			<a href="{{url_for('atlcalendar')}}"><button><i class="fas fa-calendar"></i><br><br>ATL Calendar</button></a>
+			<a href="https://sites.google.com/view/atl-store/home?authuser=1" target="_blank"><button><i class="fas fa-store-alt"></i><br><br><br>ATL Store</button></a>
+			<a href="#"><button ><i class="fas fa-dolly"></i><br><br>Some Link</button></a>
+			<a><button style="background: transparent; border: none;"><br><br></button></a>
+			<a href="#"><button ><i class="fas fa-dolly"></i><br><br>Some Link</button></a>
+			<a href="#"><button ><i class="fas fa-dolly"></i><br><br>Some Link</button></a>
+			<a href="#"><button ><i class="fas fa-dolly"></i><br><br>Some Link</button></a>
+			<a href="#"><button ><i class="fas fa-dolly"></i><br><br>Some Link</button></a>
 	</div>
-	<div style="position: absolute; left: 0; bottom: -185px; margin-top: 20px; padding: 10px; /*background: #ffe6e6;*/ height: 190px; width: 350px;" id="section2">
+	<div style="position: absolute; left: 0; top: 97vh; margin-top: 20px; padding: 10px; /*background: #ffe6e6;*/ height: 31.5vh; width: 55vh;" id="section2">
 			<h2 style="font-family: gothic; text-align: center;"><u>Scheduled Meeting</u></h2>
 			{% if data != None %}
 					<img src="{{'static/'+ 'video.png'}}" width="30%" style="background: transparent; transform: translate(0%, 30%);">
@@ -203,7 +207,7 @@
 			{% endif %}
 	</div>
 	
-	<img src="https://media.giphy.com/media/Ffkmz2jWBfMtbnmFCd/giphy.gif"  width="250" style="margin-left: 15%; margin-top: 3%" />
+	<img src="https://media.giphy.com/media/Ffkmz2jWBfMtbnmFCd/giphy.gif"  width="400vh" style="position: fixed; top: 15vh; left: 70vh; z-index:-5" />
 
 
 </body>
