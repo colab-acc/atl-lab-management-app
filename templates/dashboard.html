@@ -52,7 +52,7 @@
         <h5 style=" margin-top: -40px;padding-left: 10px ;font-size: 16px ;color:#2E2E2E; font-family: courier;">All systems are running smoothly.</h5>      
     </div>
 
-    <div style="position: fixed;">
+    <div style="position: fixed; top: 26vh">
 
         <!-- <div class="timecon" style="width: 330px; height:220px">
             <div style="float: right;">
@@ -84,7 +84,7 @@
                         <label for="meetlink" style="position: relative;top:10px"><b>Meet link:</b></label>
                         <input type="text" name="meetlink" required style="width: 260px; margin-left: 5px; position: relative;top:10px">
 
-                        <a style="position: relative; top: -135px; left:325px;"><input type="submit" value="Set" style="font-size: 14px; font-family: consolas; font-weight: bolder; cursor: pointer; padding-left:5px; padding-right: 25px; padding-top: 3px; padding-bottom: 3px; border: 1 px solid seagreen; background-color: rgba(255, 255, 255, 0.7); border-radius: 6px 6px 6px 6px;"><i class="fa fa-thumbs-o-up" style="position: relative; left: -15px; top: 0px; z-index: 0; font-size: 12px"></i>
+                        <a style="position: relative; top: -22vh; left:53vh;"><input type="submit" value="Set" style="font-size: 14px; font-family: consolas; font-weight: bolder; cursor: pointer; padding-left:5px; padding-right: 25px; padding-top: 3px; padding-bottom: 3px; border: 1 px solid seagreen; background-color: rgba(255, 255, 255, 0.7); border-radius: 6px 6px 6px 6px;"><i class="fa fa-thumbs-o-up" style="position: relative; left: -3vh; top: 0vh; z-index: 0; font-size: 12px"></i>
                         </a>
                     </form>
                   {% else %}
@@ -98,7 +98,7 @@
                       <h4 style="text-align:center; font-family: gothic; color: #fcfcfc; margin-top: -10px;">Remove current meeting?</h4>
 
                       <form action="{{url_for('remove_gmeet')}}" method="post" >
-                        <a style="position: relative; top:-10px; left:270px;"><input type="submit" value="Remove" style="font-size: 15px; font-family: consolas; font-weight: bolder; cursor: pointer; padding-left:5px; padding-right: 25px; padding-top: 2px; padding-bottom: 2px; border: 1 px solid seagreen; background-color: rgba(255, 255, 255, 0.7); border-radius: 6px 6px 6px 6px"><i class="fa fa-remove" style="position: relative; left:-20px"></i></a>
+                        <a style="position: relative; top:-10px; left:29vh;"><input type="submit" value="Remove" style="font-size: 15px; font-family: consolas; font-weight: bolder; cursor: pointer; padding-left:5px; padding-right: 25px; padding-top: 2px; padding-bottom: 2px; border: 1 px solid seagreen; background-color: rgba(255, 255, 255, 0.7); border-radius: 6px 6px 6px 6px"><i class="fa fa-remove" style="position: relative; left: -3vh"></i></a>
                       </form>
                 {% endif %}
             </div>
@@ -107,7 +107,7 @@
             <div style="position: fixed; background-color: #80aaff; width: 32vh; height: 33vh; border-radius: 12px 12px 12px 12px; margin-left: 10px; display: inline-block;">
                 <h2 style="color: white;border-radius: 12px 12px 0 0 ;margin-top: 0px;text-align: center; padding-top:0px; font-family:consolas; font-size: 20px; background: rgba(0, 0, 0, 0.2); line-height: 50px;">ATL Events</h2>
                 <hr size=3 color="#d9d9d9" style="margin-top:-20px">
-                <div style="height:140px; width:92%; background: rgba(255, 255, 255, 0.5); margin-left: 7px; border-radius: 0px 0px 10px 10px;">
+                <div style="height:22vh; width:92%; background: rgba(255, 255, 255, 0.5); margin-left: 7px; border-radius: 0px 0px 10px 10px;">
                     <table style="margin:5px; font-family: consolas; font-size: 16px">
                       <tr><td style="padding:5px"><u>Today</u></td><td style="padding:5px">: {{data[1]}}</td></tr>
                       <tr><td style="padding:5px"><u>This week</u></td><td style="padding:5px">: {{data[3]}}</td></tr>
@@ -116,10 +116,10 @@
                 </div>
             </div>
 
-            <div style="position: fixed; background-color: #ffcc99; width: 50vh; height: 72vh; border-radius: 12px 12px 12px 12px; margin-left: 40vh; display: inline-block; ">
+            <div style="position: fixed; background-color: #ffcc99; width: 50vh; height: 71vh; border-radius: 12px 12px 12px 12px; margin-left: 40vh; display: inline-block; ">
                 <h2 style="color: white; border-radius: 12px 12px 0 0 ;margin-top: 0px;text-align: center; padding-top:0px; font-family:consolas; font-size: 20px; background: rgba(0, 0, 0, 0.2); line-height: 50px;">Equipments low on Q(N)</h2>
                 <hr size=3 color="#d9d9d9" style="margin-top:-20px">
-                <div style="overflow-y: auto; height:380px; width:100%;">
+                <div style="overflow-y: auto; height:60vh; width:100%;">
                     {% if data[4]|length > 0 %}
                       <table style="margin:5px; /*background: rgba(255, 255, 255, 0.7);*/ font-family:consolas;">
                         <tr>
@@ -163,7 +163,7 @@
             <hr size=3 color="#d9d9d9" style="margin-top:-20px">
             
             
-              <form action="{{url_for('report')}}" method="post" style="margin: 8px; background: rgba(255, 255, 255, 0.5); border-radius: 2px 2px 12px 12px; padding-top: 2px; padding-bottom: 30px" class="form-container">
+              <form action="{{url_for('report')}}" method="post" style="margin: 8px; background: rgba(255, 255, 255, 0.5); border-radius: 2px 2px 12px 12px; padding-top: 2px; padding-bottom: 4.5vh" class="form-container">
 
                   <h2 style="border-radius: 12px 12px 0 0; text-align: center; font-family:consolas; font-size: 17px;">Choose from the available reports: -</h2>
 
@@ -175,7 +175,7 @@
                   </select>
                   <br>
 
-                  <a style="position: relative; top:-25px; left:270px;"><input type="submit" value="Download" style="font-size: 14px; font-family: consolas; font-weight: bolder; cursor: pointer; padding-left:5px; padding-right: 25px; padding-bottom: 2px; border: 1 px solid seagreen; background-color: rgba(255, 255, 255, 0.7); border-radius: 6px 6px 6px 6px"><i class="fa fa-download" style="position: relative; left:-20px"></i></a>
+                  <a style="position: relative; top:-4vh; left:43vh;"><input type="submit" value="Download" style="font-size: 14px; font-family: consolas; font-weight: bolder; cursor: pointer; padding-left:5px; padding-right: 25px; padding-bottom: 2px; border: 1 px solid seagreen; background-color: rgba(255, 255, 255, 0.7); border-radius: 6px 6px 6px 6px"><i class="fa fa-download" style="position: relative; left:-20px"></i></a>
 
               </form>
               
