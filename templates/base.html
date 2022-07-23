@@ -76,7 +76,7 @@
   .sidebar {
     position: fixed;
     height: 100%;
-    width: 250px;
+    width: 40vh;
     z-index: 1;
     top: 0;
     left: 0;
@@ -235,19 +235,19 @@
   window.onload = function settingpage() {
     // document.write('this executes');
     nav = document.getElementById("sidebar");
-    nav.style.width = "250px";
+    nav.style.width = "40vh";
   }
 
   function openNav(){ 
     nav = document.getElementById("sidebar");
-    if(nav.style.width=="250px"){
-        nav.style.width = "0";
+    if(nav.style.width=="40vh"){
+        nav.style.width = "0vh";
         document.getElementById("main").style.marginLeft = "0";
         document.getElementById("expand").className = "fa fa-chevron-right";
 
   } else{
-    nav.style.width = "250px";
-    document.getElementById("main").style.marginLeft= "250px";
+    nav.style.width = "40vh";
+    document.getElementById("main").style.marginLeft= "40vh";
     document.getElementById("expand").className = "fa fa-chevron-left";
   }
   }
