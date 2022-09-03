@@ -18,7 +18,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
 # Setting database types: Local/Remote
-ENV = 'prod'
+ENV = 'dev'
 if ENV == 'dev':
     app.debug = True
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:anuragrai123@localhost/test_database'
@@ -403,6 +403,9 @@ def add_event():
             return redirect(url_for('calendar'))
 
 
+@app.route('/minutesofmeeting')
+def minutesofmeeting():
+    return render_template("mom.html")
 
 @app.route('/calendar')
 def calendar(mg=''):
