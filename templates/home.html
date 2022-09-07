@@ -165,10 +165,20 @@
 			  });
 			</script>
 	</div>
-	<div style="width: 55vh; float: left; margin-top: 20px; padding: 10px; /*background: #ffe6e6;*/ height: 45vh;" id="section1">
+	<div style="width: 55vh; float: left; margin-top: 20px; padding: 10px; font-family: consolas; font-size: 18px; height: 45vh;" id="section1">
 			<h2 style="font-family: gothic; text-align: center;"><u>What`s new?</u></h2>
 			<br>
-			<h4 style="font-family: gothic; text-align: center;">Nothing new here</h4>
+			<ul>
+			{% for each in notif %}
+				
+				{% if each[0] == "link" %}
+					<marquee direction="left" height="20" width="340" bgcolor="white" scrollamount="2"><li><a href="{{each[2]}}" target="_blank">{{each[1]}}</a></li></marquee>
+				{% else %}
+					<marquee direction="left" height="20" width="340" bgcolor="white" scrollamount="2"><li>{{each[1]}}</li></marquee>
+				{% endif %}
+
+			{% endfor %}
+			<ul>
 	</div>
 	<div style="width: 80vh; margin-left: 62vh; margin-top: 3vh; height: 85vh;">
 			<a href="{{url_for('equipments')}}"><button ><i class="fas fa-dolly"></i><br><br><br>Equipments</button></a>
