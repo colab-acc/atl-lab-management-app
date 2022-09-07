@@ -18,7 +18,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
 # Setting database types: Local/Remote
-ENV = 'prod'
+ENV = 'dev'
 if ENV == 'dev':
     app.debug = True
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:anuragrai123@localhost/test_database'
@@ -50,6 +50,22 @@ class Allotment(db.Model):
         self.status = status
         self.renewed_on = renewed_on
         self.renewed_by = renewed_by
+
+class Whatnew(db.Model):
+    __tablename__ = 'Whatnew'
+    id = db.Column(db.String(5), primary_key =True)
+    type = db.Column(db.String(10))
+    text = db.Column(db.String(500))
+    link = db.Column(db.String(500))
+
+    def __init__(self, id, type, text, link):
+        self.id = id
+        self.type = type
+        self.text = text
+        self.link = link
+
+
+
 
 class Calendar(db.Model):
     __tablename__ = 'calendar'
@@ -177,17 +193,22 @@ def dashboard():
     else:
         valp = 'notset'
 
-    return render_template("dashboard.html", data=[pen, teve, meve, weve, var, ceves, valp, tab])
+    # For what`s new section
+    lis = db.session.query(Whatnew.id, Whatnew.text).all()
+
+    return render_template("dashboard.html", data=[pen, teve, meve, weve, var, ceves, valp, tab, lis])
 
 @app.route("/home")
 def home_page():
     links = []
     for c, i in db.session.query(Gmeet, Calendar).filter(Gmeet.event_name == Calendar.event_name).all():
         links.append([c.event_name, c.meet_link, i.incharge, i.guest, i.start_date, i.end_date])
-
     if links == []:
         links = None
-    return render_template("home.html", data = links)
+
+    notif = db.session.query(Whatnew.type, Whatnew.text, Whatnew.link).all()
+
+    return render_template("home.html", data = links, notif = notif)
 
 @app.route("/atlcalendar")
 def atlcalendar():
@@ -585,6 +606,30 @@ def gmeet():
 def remove_gmeet():
     db.session.query(Gmeet).delete()
     db.session.commit()
+
+    return redirect(url_for('dashboard'))
+
+@app.route('/delete_notif', methods=['get','post'])
+def delete_notif():
+    db.session.query(Whatnew).filter(Whatnew.id == request.args.get('id')).delete()
+    db.session.commit()
+
+    return redirect(url_for('dashboard'))
+
+@app.route('/add_notif', methods=['get','post'])
+def add_notif():
+    data = request.form
+    type = data['type']
+    notification = data['notification']
+    thelink = data['thelink']
+    out = db.session.query(Whatnew.id).all()
+    no = random.randint(10000,99000)
+    while str(no) in out:
+        no = random.randint(10000, 99000)
+    else:
+        row = Whatnew(no, type, notification, thelink)
+        db.session.add(row)
+        db.session.commit()
 
     return redirect(url_for('dashboard'))
 
