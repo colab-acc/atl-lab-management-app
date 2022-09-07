@@ -18,7 +18,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
 # Setting database types: Local/Remote
-ENV = 'dev'
+ENV = 'prod'
 if ENV == 'dev':
     app.debug = True
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:anuragrai123@localhost/test_database'
