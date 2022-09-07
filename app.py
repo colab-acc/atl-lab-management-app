@@ -52,7 +52,7 @@ class Allotment(db.Model):
         self.renewed_by = renewed_by
 
 class Whatnew(db.Model):
-    __tablename__ = 'Whatnew'
+    __tablename__ = 'whatnew'
     id = db.Column(db.String(5), primary_key =True)
     type = db.Column(db.String(10))
     text = db.Column(db.String(500))
@@ -63,8 +63,6 @@ class Whatnew(db.Model):
         self.type = type
         self.text = text
         self.link = link
-
-
 
 
 class Calendar(db.Model):
