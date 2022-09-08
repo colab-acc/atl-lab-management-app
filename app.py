@@ -1,5 +1,10 @@
+import csv
+import os
+import tempfile
+import shutil
 from flask import Flask, render_template, request, session, redirect, url_for, Response
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.utils import secure_filename
 import psycopg2
 import yaml
 import random
@@ -18,8 +23,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
 # Setting database types: Local/Remote
-ENV = 'prod'
-if ENV == 'dev':
+ENV = 'dev'
+if ENV == 'prod':
     app.debug = True
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:anuragrai123@localhost/test_database'
 else:
@@ -144,6 +149,13 @@ class Users(db.Model):
         self.password = password
         self.username = username
 
+
+# This is for the csv file import into inventory
+ALLOWED_EXTENSIONS = set(['csv', 'xlsx', 'xlx'])
+def allowed_file(filename):
+    return '.' in filename and \
+        filename.rsplit('.',1)[1].lower() in ALLOWED_EXTENSIONS
+
 @app.route("/dashboard")
 def dashboard():
     # for events of today
@@ -192,7 +204,7 @@ def dashboard():
         valp = 'notset'
 
     # For what`s new section
-    lis = db.session.query(Whatnew.id, Whatnew.text).all()
+    lis = db.session.query(Whatnew.id, Whatnew.link, Whatnew.text).all()
 
     return render_template("dashboard.html", data=[pen, teve, meve, weve, var, ceves, valp, tab, lis])
 
@@ -632,70 +644,134 @@ def add_notif():
     return redirect(url_for('dashboard'))
 
 
+@app.route('/import_file', methods=['GET','POST'])
+def import_file():
+    if request.method == 'POST':
+        file = request.files['myfile']
+        if file.filename == '':
+            return redirect(request.url)
+            print('didnt get file')
+
+        # Setting up the download folder
+        dirpath = tempfile.mkdtemp()
+        app.config['UPLOAD_FOLDER'] = dirpath
+
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(filepath)
+
+        # Deleting old records from the inventory
+        db.session.query(Equipments).delete()
+
+        with open(filepath, 'r', newline="") as f:
+            csv_reader = csv.DictReader(f)
+
+            list_of_input_rows = []
+            headers = csv_reader.fieldnames
+
+            for row in csv_reader:
+                input_list = [row[i] for i in headers]
+                database_row = Equipments(*input_list)
+                db.session.add(database_row)
+
+        db.session.commit()
+        shutil.rmtree(dirpath)
+
+
+
+
+
+    return redirect(url_for('inventory'))
+
+
+
+
 # Downloading report section-
 @app.route('/report',  methods=['get','post'])
 def report():
     data = request.form
     table_name = data['tabname'].title()
-    try:
-        res = globals()[table_name].__table__.columns
-        res = [i.name for i in res]
+    format = data['format']
+
+    if format == 'fancy':
+        try:
+            res = globals()[table_name].__table__.columns
+            res = [i.name for i in res]
+
+            result = db.session.query(globals()[table_name]).all()
+            result = [[getattr(row,colname) for colname in res] for row in result]
+
+            pdf = FPDF()
+            pdf.add_page()
+            page_width = pdf.w - 2 * pdf.l_margin
+            pdf.l_margin = pdf.l_margin*2.8
+            pdf.r_margin = pdf.r_margin*2.8
+
+
+            pdf.set_font('Times', 'B', 20.0)
+            # pdf.image('.//static//background2.jpg', 0, 0, pdf.w, pdf.h, 'JPG')
+            pdf.image(
+                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQw0PGEgmhWcshuU9JhjfwzeBZSug995UzAGjdIKh3WKgEOL6aFxhpAUxmlKux5SZYHat4&usqp=CAU',
+                page_width / 5, 5, 10, 10, 'PNG')
+
+            pdf.cell(page_width, 0.0, 'LAB MANAGEMENT SYSTEM', align='C')
+            pdf.ln(15)
+            page_width = pdf.w - 2 * pdf.l_margin
+            pdf.set_font('Courier', 'B', 18.0)
+            pdf.cell(page_width, 0.0, f'{table_name}'.upper()+' REPORT', align='C')
+            pdf.ln(15)
+
+            pdf.set_font('Courier', '', 12)
+            col_width = page_width/0.9
+            pdf.ln(1)
+            th = pdf.font_size
+
+            page_lis = [1]
+            i = 1
+            for row in result:
+                pdf.cell(page_width, 0.0, 'Record ' + str(i), align='C')
+                pdf.ln(th)
+                for column in range(len(row)):
+                    if pdf.page_no() not in page_lis:
+                        # pdf.image('.//static//background2.jpg', 0, 0, pdf.w, pdf.h, 'JPG')
+                        page_lis.append(pdf.page_no())
+                        pdf.ln(15)
+                    pdf.set_font('Courier', 'B', 12)
+                    pdf.cell(col_width/4, th, '  '+str(res[column]).title() + ' : ', border=1) #align='C'
+                    pdf.set_font('Courier', '', 12)
+                    pdf.multi_cell(col_width/1.5, th, '  '+str(row[column]), border=1)
+                    # pdf.ln(th)
+                pdf.ln(15)
+                i += 1
+
+
+            pdf.set_font('Times', '', 14.0)
+            pdf.cell(page_width, 0.0, '-: End Of Report :-', align='C')
+
+            return Response(pdf.output(dest='S').encode('latin-1'), mimetype='application/pdf',
+                            headers={'Content-Disposition': f'attachment;filename={table_name+"_fancy_report"}.pdf'})
+        except Exception as e:
+            print(e)
+    elif format == 'csv':
+
+        col_names = globals()[table_name].__table__.columns
+        col_names = [i.name for i in col_names]
+
 
         result = db.session.query(globals()[table_name]).all()
-        result = [[getattr(row,colname) for colname in res] for row in result]
-        print(result)
+        result = [[getattr(row, colname) for colname in col_names] for row in result]
+        result = [[str(item) for item in lis] for lis in result]
+        result = '\n'.join([ ','.join(list) for list in result])
 
-        pdf = FPDF()
-        pdf.add_page()
-        page_width = pdf.w - 2 * pdf.l_margin
-        pdf.l_margin = pdf.l_margin*2.8
-        pdf.r_margin = pdf.r_margin*2.8
+        result = ','.join(col_names).title() +'\n' + result
 
+        return Response(
+            str(result),
+            mimetype="text/csv",
+            headers={"Content-disposition":
+                         f"attachment; filename={table_name}_csv_report.csv"})
 
-        pdf.set_font('Times', 'B', 20.0)
-        # pdf.image('.//static//background2.jpg', 0, 0, pdf.w, pdf.h, 'JPG')
-        pdf.image(
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQw0PGEgmhWcshuU9JhjfwzeBZSug995UzAGjdIKh3WKgEOL6aFxhpAUxmlKux5SZYHat4&usqp=CAU',
-            page_width / 5, 5, 10, 10, 'PNG')
-
-        pdf.cell(page_width, 0.0, 'LAB MANAGEMENT SYSTEM', align='C')
-        pdf.ln(15)
-        page_width = pdf.w - 2 * pdf.l_margin
-        pdf.set_font('Courier', 'B', 18.0)
-        pdf.cell(page_width, 0.0, f'{table_name}'.upper()+' REPORT', align='C')
-        pdf.ln(15)
-
-        pdf.set_font('Courier', '', 12)
-        col_width = page_width/0.9
-        pdf.ln(1)
-        th = pdf.font_size
-
-        page_lis = [1]
-        i = 1
-        for row in result:
-            pdf.cell(page_width, 0.0, 'Record ' + str(i), align='C')
-            pdf.ln(th)
-            for column in range(len(row)):
-                if pdf.page_no() not in page_lis:
-                    # pdf.image('.//static//background2.jpg', 0, 0, pdf.w, pdf.h, 'JPG')
-                    page_lis.append(pdf.page_no())
-                    pdf.ln(15)
-                pdf.set_font('Courier', 'B', 12)
-                pdf.cell(col_width/4, th, '  '+str(res[column]).title() + ' : ', border=1) #align='C'
-                pdf.set_font('Courier', '', 12)
-                pdf.multi_cell(col_width/1.5, th, '  '+str(row[column]), border=1)
-                # pdf.ln(th)
-            pdf.ln(15)
-            i += 1
-
-
-        pdf.set_font('Times', '', 14.0)
-        pdf.cell(page_width, 0.0, '-: End Of Report :-', align='C')
-
-        return Response(pdf.output(dest='S').encode('latin-1'), mimetype='application/pdf',
-                        headers={'Content-Disposition': f'attachment;filename={table_name+"_report"}.pdf'})
-    except Exception as e:
-        print(e)
 
 
 if __name__ == "__main__":
