@@ -263,6 +263,8 @@
 		    <img src="{{'static/'+ 'excel.png'}}" width="80%" style="background: transparent; transform: translate(3%, 0%);">
 		    <p style="font-size:14px; background: #e0e0eb;">Note: If the local file doesnot have contain all shown columns, create empty ones with the same name. Item_code can not be empty 
 		    </p>
+		    <p style="color:red;"><i class="fa fa-exclamation" style="color:black; padding: 3px 6px; background: yellow; "></i> This will remove all pre-existing records </p>
+
 		    <br><br>
 		    <form action="{{url_for('import_file')}}" method="POST" enctype="multipart/form-data">
 				  <label for="myfile" style="color: #4C2ED5; font-size: 18px;">Select file:</label>
