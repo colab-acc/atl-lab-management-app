@@ -5,7 +5,7 @@
 #myInput{
   border: 2px solid transparent;
   outline: none;
-  width:  80%;
+  width:  78%;
   border-radius: 12px 12px 12px 12px;
   background: rgba(255, 255, 255, 0.5);
   /*background: #ffe6e6;*/
@@ -153,9 +153,11 @@
 	
 	<div style="position: relative; margin-top: -20px;"><i class="fa fa-search" style="position: absolute; left:15px; top:10px;"></i><input type="text" placeholder="Search.." id="myInput" onkeyup="filterList()" ></div>
 	
-	<button style="position: absolute; right: 2.5%; top: 22%; padding: 10px 15px; font-family: consolas; font-size: 18px; font-weight: bolder; border: 2px solid #8080ff; border-radius: 6px; cursor: pointer;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;" onclick="openForm2()"><i class="fa fa-plus" style="padding-right: 5px;" ></i>Add Item</button>
+	<button style="position: relative; left: 79% ; top: -40px; padding: 8px 12px; font-family: consolas; font-size: 16px; font-weight: bolder; border: 2px solid #8080ff; border-radius: 6px; cursor: pointer;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;" onclick="openForm2()"><i class="fa fa-plus" style="padding-right: 5px;" ></i>Add</button>
 
-	<div style="height: 67vh; overflow-y: auto; /*background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));*/ margin-top: 15px;overscroll-behavior: contain;">
+	<button style="position: relative; left: 81% ; top: -40px; padding: 8px 12px; font-family: consolas; font-size: 16px; font-weight: bolder; border: 2px solid #8080ff; border-radius: 6px; cursor: pointer;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;" onclick="openForm3()"><i class="fas fa-file-import" style="padding-right: 5px;" ></i>Import</button>
+
+	<div style="height: 67vh; overflow-y: scroll; /*background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));*/ margin-top: -20px;overscroll-behavior: contain;">
 		<table width="99%" style="margin-top: 0px; /*border-collapse: collapse;*/ border-radius: 12px 12px 12px 12px;" id="table">
 			<thead>
 				<tr style="border-radius: 12px 12px 0px 0px; background: transparent;">
@@ -248,6 +250,32 @@
 		</form>
 	</div>
 	</div>
+
+	<div style="position: absolute; top: 14%; border: 1;height: 83%; width: 78%; display: none; background: rgba(0, 0, 0, 0.5); box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;" id="division3">
+	<div class="form-popup" id="myForm3">
+			<div class="form-container">
+		    <h2 style="text-align:center; margin-top: 10px; color:#2E2E2E;">Import local table</h2>
+
+		    <h3 style="font-family: arial; font-weight: 200; font-size: 16px">
+		    	<li>The local file needs to be an excel file or a .csv text file</li>
+		    	<li>The file ought to have all the columns(image below) and in the right sequence</li>
+		    </h3>
+		    <img src="{{'static/'+ 'excel.png'}}" width="80%" style="background: transparent; transform: translate(3%, 0%);">
+		    <p style="font-size:14px; background: #e0e0eb;">Note: If the local file doesnot have contain all shown columns, create empty ones with the same name. Item_code can not be empty 
+		    </p>
+		    <br><br>
+		    <form action="{{url_for('import_file')}}" method="POST" enctype="multipart/form-data">
+				  <label for="myfile" style="color: #4C2ED5; font-size: 18px;">Select file:</label>
+				  <input type="file" name="myfile"><br><br>
+				  <input type="submit" class="button" value="Import" style="font-size: 18px; font-family: consolas">
+				</form>
+
+		    
+		  </div> 
+	</div>
+	</div>
+
+
 </div>
 
 <script>
@@ -295,11 +323,18 @@ function closeForm() {
   document.getElementById("division").style.display = "none";
   document.getElementById("myForm2").style.display = "none";
   document.getElementById("division2").style.display = "none";
+  document.getElementById("myForm3").style.display = "none";
+  document.getElementById("division3").style.display = "none";
 }
 
 function openForm2(){
   document.getElementById("myForm2").style.display = "block";
   document.getElementById("division2").style.display = "block";
+}
+
+function openForm3(){
+  document.getElementById("myForm3").style.display = "block";
+  document.getElementById("division3").style.display = "block";
 }
 
 </script>

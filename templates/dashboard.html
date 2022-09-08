@@ -224,9 +224,9 @@
             <hr size=3 color="#d9d9d9" style="margin-top:-20px">
             
             
-              <form action="{{url_for('report')}}" method="post" style="margin: 8px; background: rgba(255, 255, 255, 0.5); border-radius: 2px 2px 12px 12px; padding-top: 2px; padding-bottom: 4.5vh;">
+              <form action="{{url_for('report')}}" method="post" style="margin: 8px; margin-top: -6px; background: rgba(255, 255, 255, 0.5); border-radius: 2px 2px 12px 12px;">
 
-                  <h2 style="border-radius: 12px 12px 0 0; text-align: center; font-family:consolas; font-size: 17px;">Choose from the available reports: -</h2>
+                  <h2 style="border-radius: 12px 12px 0 0; text-align: center; font-family:consolas; font-size: 17px; padding-top:5px">Choose from the available reports: -</h2>
 
                   <label for="tabname" style="margin-left: 20px"><b>Report of:</b></label>
                   <select name="tabname" style="margin-left: 0px;">
@@ -234,6 +234,15 @@
                       <option value="{{event}}">{{event}}</option>
                     {% endfor %}
                   </select>
+
+                  <br>
+
+                  <label for="format" style="margin-left: 20px"><b>Format as:</b></label>
+                  <select name="format" style="margin-left: 0px;">
+                      <option value="csv">csv</option>
+                      <option value="fancy">fancy</option>
+                  </select>
+
                   <br>
 
                   <a style="position: relative; top:-4vh; left:43vh;"><input type="submit" value="Download" style="font-size: 14px; font-family: consolas; font-weight: bolder; cursor: pointer; padding-left:5px; padding-right: 25px; padding-bottom: 2px; border: 1 px solid seagreen; background-color: rgba(255, 255, 255, 0.7); border-radius: 6px 6px 6px 6px"><i class="fa fa-download" style="position: relative; left:-20px"></i></a>
@@ -260,24 +269,29 @@
                 <h3 style="text-align:left; color:#4C2ED5;">Existing notifications</h3>
                   
                         <tbody>
-                            <td>
+                            <!-- <td> -->
                                 <div style="overflow-y: scroll; overflow-x: hidden; height: 16vh; width:100vh">
                                     <table>
                                         {% for stuff in data[8] %}
-                                            <tr style="font-size: 16px;">
-                                                <td style="margin: 2px; background: rgba(255, 255, 255, 0.4); padding-left: 4px; padding-right: 4px; width: 80vh">{{stuff[1]}}
-                                                </td>
-                                                <td style="margin: 2px; background: rgba(255, 255, 255, 0.4); padding-left: 4px; padding-right: 4px;">
-                                                    <form action="{{url_for('delete_notif', id=stuff[0]  )}}" method="post">
-                                                        <input type="submit" value="Delete" style="font-size: 14px; font-family: consolas; font-weight: bolder; cursor: pointer; padding-left:5px; padding-right: 25px; padding-top: 3px; padding-bottom: 3px; border: 1 px solid seagreen; background-color: rgba(255, 255, 255, 0.7); border-radius: 6px 6px 6px 6px;">
-                                                    </form> 
-                                                </td>
+                                                <tr style="font-size: 16px;">
+                                                    {% if stuff[1] != None %}
+                                                        <td style="margin: 2px; background: rgba(255, 255, 255, 0.4); padding-left: 4px; padding-right: 4px; width: 80vh"><li><a href="{{stuff[1]}}" target="_blank">{{stuff[2]}}</a></li> 
+                                                        </td>
+                                                    {% else %}
+                                                        <td style="margin: 2px; background: rgba(255, 255, 255, 0.4); padding-left: 4px; padding-right: 4px; width: 80vh"><li><a>{{stuff[2]}}</a></li> 
+                                                        </td>
+                                                    {% endif %}
 
-                                            </tr>
+                                                    <td style="margin: 2px; background: rgba(255, 255, 255, 0.4); padding-left: 4px; padding-right: 4px;">
+                                                        <form action="{{url_for('delete_notif', id=stuff[0]  )}}" method="post">
+                                                            <input type="submit" value="Delete" style="font-size: 14px; font-family: consolas; font-weight: bolder; cursor: pointer; padding-left:5px; padding-right: 25px; padding-top: 3px; padding-bottom: 3px; border: 1 px solid seagreen; background-color: rgba(255, 255, 255, 0.7); border-radius: 6px 6px 6px 6px;">
+                                                        </form> 
+                                                    </td>
+                                                </tr>
                                         {% endfor %}
                                     </table>
                                 </div>
-                            </td>
+                            <!-- </td> -->
                         </tbody>
 
             
