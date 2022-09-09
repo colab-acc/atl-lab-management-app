@@ -23,7 +23,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
 # Setting database types: Local/Remote
-ENV = 'prod'
+ENV = 'dev'
 if ENV == 'dev':
     app.debug = True
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:anuragrai123@localhost/test_database'
@@ -317,12 +317,13 @@ def update_inv():
         Details = request.form
         code = Details['code']
         item_name = Details['item_name']
-        location = Details['location']
         quantity = Details['quantity']
+        location = Details['location']
+        paddress = Details['paddress']
         specifications = Details['specification']
         extras = Details['extras']
 
-        db.session.query(Equipments).filter(Equipments.item_code == code).update({Equipments.name:item_name, Equipments.location:location, Equipments.quantity:quantity, Equipments.specifications:specifications, Equipments.extras:extras}, synchronize_session = False)
+        db.session.query(Equipments).filter(Equipments.item_code == code).update({Equipments.name:item_name, Equipments.location:location, Equipments.quantity:quantity, Equipments.paddress:paddress, Equipments.specifications:specifications, Equipments.extras:extras}, synchronize_session = False)
         db.session.commit()
 
         return redirect(url_for('inventory'))
