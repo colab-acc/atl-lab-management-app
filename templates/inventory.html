@@ -262,7 +262,7 @@
 		    <h2 style="text-align:center; color:#2E2E2E;">Import local table</h2>
 
 		    <h3 style="font-family: arial; font-weight: 200; font-size: 16px">
-		    	<li>The local file needs to be an excel file or a .csv text file</li>
+		    	<li>The local file needs to be a .csv text file</li>
 		    	<li>The file ought to have all the columns(image below) and in the right sequence</li>
 		    </h3>
 		    <img src="{{'static/'+ 'excel.png'}}" width="80%" style="background: transparent; transform: translate(3%, 0%);">
@@ -316,7 +316,7 @@ function openForm(id) {
   document.getElementById("myForm").style.display = "block";
   document.getElementById("division").style.display = "block";
 
-  
+
   document.getElementsByName("code")[0].value = id.closest('tr').cells[0].innerHTML;
   document.getElementsByName("item_name")[0].value = id.closest('tr').cells[1].innerHTML;
   document.getElementsByName("quantity")[0].value = id.closest('tr').cells[2].innerHTML;
