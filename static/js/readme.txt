@@ -1,0 +1,1 @@
+min is the important file where the changes made are reflected in the app
