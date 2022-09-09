@@ -151,7 +151,7 @@ class Users(db.Model):
 
 
 # This is for the csv file import into inventory
-ALLOWED_EXTENSIONS = set(['csv', 'xlsx', 'xlx'])
+ALLOWED_EXTENSIONS = set(['csv'])
 def allowed_file(filename):
     return '.' in filename and \
         filename.rsplit('.',1)[1].lower() in ALLOWED_EXTENSIONS
