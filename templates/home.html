@@ -165,16 +165,16 @@
 			  });
 			</script>
 	</div>
-	<div style="width: 55vh; float: left; margin-top: 20px; padding: 10px; font-family: consolas; font-size: 18px; height: 45vh;" id="section1">
-			<h2 style="font-family: gothic; text-align: center;"><u>What`s new?</u></h2>
+	<div style="width: 55vh; float: left; margin-top: 20px; padding: 10px; font-family: sans; font-size: 18px; height: 45vh;" id="section1">
+			<h2 style="font-family: gothic; text-align: center;"><u>What`s new?</u><img src="{{'static/'+ 'new.jpg'}}" width="15%" style="background: transparent; transform: translate(10%, 25%);"></h2>
 			<br>
 			<ul>
 			{% for each in notif %}
 				
 				{% if each[0] == "link" %}
-					<marquee direction="left" height="20" width="340" bgcolor="white" scrollamount="2"><li><a href="{{each[2]}}" target="_blank">{{each[1]}}</a></li></marquee>
+					<marquee direction="left" height="20" width="320" bgcolor="white" scrollamount="2"><li><a href="{{each[2]}}" target="_blank">{{each[1]}}</a></li></marquee>
 				{% else %}
-					<marquee direction="left" height="20" width="340" bgcolor="white" scrollamount="2"><li>{{each[1]}}</li></marquee>
+					<marquee direction="left" height="20" width="320" bgcolor="white" scrollamount="2"><li>{{each[1]}}</li></marquee>
 				{% endif %}
 
 			{% endfor %}
