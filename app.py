@@ -149,6 +149,7 @@ class Users(db.Model):
         self.password = password
         self.username = username
 
+db.create_all()
 
 # This is for the csv file import into inventory
 ALLOWED_EXTENSIONS = set(['csv'])
